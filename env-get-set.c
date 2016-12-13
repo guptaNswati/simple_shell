@@ -49,12 +49,13 @@ int _setenv(const char *name, const char *value, int overwrite)
 	i = checkEnv(name);
 	if (i == 0)
 		return (-1);
-	new = malloc(sizeof(char) * (i + _strlen(value) + 2));
+	new = _strcat(name, value, '=');
+/*	new = malloc(sizeof(char) * (i + _strlen(value) + 2)); */
 	if (new == NULL)
 		return (-1);
 	/* copy the strings */
 
-	for (i = 0; name[i] != '\0'; i++)
+/*	for (i = 0; name[i] != '\0'; i++)
 		new[i] = name[i];
 
 	new[i] = '=';
@@ -63,7 +64,7 @@ int _setenv(const char *name, const char *value, int overwrite)
 	for (j = 0; value[j] != '\0'; j++, i++)
 		new[i] = value[j];
 
-	new[i] = '\0';
+		new[i] = '\0'; */
 
 	while (*environ != NULL)
 	{
