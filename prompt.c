@@ -18,15 +18,20 @@ char **split_input(char *input)
 	char **tokens, *tokn;
 
 	tokens = malloc(1024 * sizeof(char *));
-	if (tokens = NULL)
+	if (tokens == NULL)
 	{
 		dprintf(STDERR_FILENO, "allocation error\n");
 		exit (0);
 	}
 	tokn = strtok(input, " ");
-	for (i = 0; tokn != NULL; i++)
+	i = 0;
+	while (tokn != NULL)
+	{
 		tokens[i] = tokn;
-	tokens[i] = '\0';
+		i++;
+		tokn = strtok(NULL, " ");
+	}
+	tokens[i] = NULL;
 	return (tokens);
 }
 
@@ -64,16 +69,27 @@ void prompt(void)
 	char *input, **tokens;
 	int status;
 
+	printf("$ ");
 	do
 	{
-		printf("$ ");
 		input = read_input();
+		if (input != NULL)
+		{
+			printf("%s", input);
+			printf("$ ");
+		}
 		tokens = split_input(input);
-		status = excute(tokens);
+		status = 0;
+		while (tokens[status] != NULL)
+		{
+			printf("%s\n", tokens[status]);
+			status++;
+		}
+	       	/*status = excute(tokens);
 		free(input);
-		free(tokens);
+		free(tokens); */
 	}
-	while (status);
+	while (input != NULL);
 }
 int main(int argc, char **argv)
 {
