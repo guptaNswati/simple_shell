@@ -50,7 +50,7 @@ char *_strcat(const char *str1, const char *str2, char formatter)
 	new[i] = formatter;
 	i++;
 
-	for (j = 0; str2[j] != '\0'; j++)
+	for (j = 0; str2[j] != '\0'; j++, i++)
 		new[i] = str2[j];
 
 	new[i] = '\0';
@@ -80,13 +80,13 @@ void excute(char **tokens)
 				concat = _strcat(tokn, tokens[0], '/');
 				if (concat)
 				{
-					if (execve(concat, tokens, NULL) == -1)
-						dprintf(STDERR_FILENO, "No such file or directory");
+					if (execve(concat, tokens, NULL) != -1)
+						break;
+					tokn = strtok(NULL, ":");
 				}
-				tokn = strtok(NULL, ":");
 			}
 		}
-		if (tokens[0][0] == '/')
+		else
 		{
 			if (execve(tokens[0], tokens, NULL) == -1)
 				dprintf(STDERR_FILENO, "No such file or directory\n");
@@ -112,9 +112,4 @@ void prompt(void)
 		free(tokens);
 	}
 	while (input != NULL);
-}
-int main(int argc, char **argv)
-{
-	prompt();
-	return (0);
 }

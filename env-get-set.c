@@ -50,22 +50,8 @@ int _setenv(const char *name, const char *value, int overwrite)
 	if (i == 0)
 		return (-1);
 	new = _strcat(name, value, '=');
-/*	new = malloc(sizeof(char) * (i + _strlen(value) + 2)); */
 	if (new == NULL)
 		return (-1);
-	/* copy the strings */
-
-/*	for (i = 0; name[i] != '\0'; i++)
-		new[i] = name[i];
-
-	new[i] = '=';
-
-	i++;
-	for (j = 0; value[j] != '\0'; j++, i++)
-		new[i] = value[j];
-
-		new[i] = '\0'; */
-
 	while (*environ != NULL)
 	{
 		token = strtok(*environ, "=");
@@ -109,29 +95,5 @@ int _unsetenv(const char *name)
 	}
 /* name does not exist in the environment, function succeeds */
 	printf("No such environment variable exists\n");
-	return (0);
-}
-int main(void)
-{
-	char *match, *token;
-
-	match = _getenv("PWD");
-	if (match)
-	{
-		printf("PATH=%s\n", match);
-		/* printing all directories of path  */
-		printf("\nPrinting Path Directories:\n");
-		token = strtok(match, ":");
-		while (token)
-		{
-			printf("%s\n", token);
-			token = strtok(NULL, ":");
-		}
-	}
-	else
-		printf("could not find the variable\n");
-
-	_setenv("ZNB", "world", 1);
-	_unsetenv("ZNB");
 	return (0);
 }
