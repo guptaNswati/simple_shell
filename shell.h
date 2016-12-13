@@ -14,4 +14,16 @@
 #include <fcntl.h>
 
 
+int checkEnv(const char *name);
+int _strlen(const char *str);
+char *_getenv(const char *name);
+int _setenv(const char *name, const char *value, int overwrite);
+int _unsetenv(const char *name);
+char *read_input();
+char **split_input(char *input);
+void excute(char **tokens);
+void prompt(void);
+
+
+
 #endif

@@ -23,71 +23,52 @@ char **split_input(char *input)
 		dprintf(STDERR_FILENO, "allocation error\n");
 		exit (0);
 	}
-	tokn = strtok(input, " ");
+	tokn = strtok(input, " \n");
 	i = 0;
 	while (tokn != NULL)
 	{
 		tokens[i] = tokn;
 		i++;
-		tokn = strtok(NULL, " ");
+		tokn = strtok(NULL, " \n");
 	}
 	tokens[i] = NULL;
 	return (tokens);
 }
 
-int excute(char **tokens)
+void excute(char **tokens)
 {
 	pid_t pid, wpid;
-	int status;
-
-	if (tokens == NULL)
-		return (-1);
+	int status, i;
 
 	pid = fork();
+	if (pid == -1)
+	{
+		dprintf(STDERR_FILENO, "Error forking\n");
+		exit(0);
+	}
 	if (pid == 0)
 	{
-		if (execvp(tokens[0], tokens) == -1)
+		if (execve(tokens[0], tokens, NULL) == -1)
 			dprintf(STDERR_FILENO, "child process error\n");
-		exit (0);
 	}
-	else if (pid < 0)
-		dprintf(STDERR_FILENO, "Error forking\n");
-
 	else
-	{
-		do
-		{
-			wpid = waitpid(pid, &status, WUNTRACED);
-		}
-		while (!WIFEXITED(status) && !WIFSIGNALED(status));
-	}
-	return (1);
+		wait(&status);
 }
 
 void prompt(void)
 {
-	char *input, **tokens;
-	int status;
+ 	char *input, **tokens;
 
 	printf("$ ");
 	do
 	{
 		input = read_input();
 		if (input != NULL)
-		{
-			printf("%s", input);
 			printf("$ ");
-		}
 		tokens = split_input(input);
-		status = 0;
-		while (tokens[status] != NULL)
-		{
-			printf("%s\n", tokens[status]);
-			status++;
-		}
-	       	/*status = excute(tokens);
+	       	excute(tokens);
 		free(input);
-		free(tokens); */
+		free(tokens);
 	}
 	while (input != NULL);
 }

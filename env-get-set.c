@@ -101,11 +101,13 @@ int _unsetenv(const char *name)
 		{
 			for (newenv = environ; *newenv != NULL; newenv++)
 				*newenv = *(newenv + 1);
+			*newenv = NULL;
 			return (0);
 		}
 		environ++;
 	}
 /* name does not exist in the environment, function succeeds */
+	printf("No such environment variable exists\n");
 	return (0);
 }
 int main(void)
