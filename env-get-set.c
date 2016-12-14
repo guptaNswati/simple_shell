@@ -23,6 +23,16 @@ int _strlen(const char *str)
 	return (len);
 }
 
+void printEnv(void)
+{
+	extern char **environ;
+
+	while (*environ)
+	{
+		printf("%s\n", *environ);
+		environ++;
+	}
+}
 char *_getenv(const char *name)
 {
 	extern char **environ;

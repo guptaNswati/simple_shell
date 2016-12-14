@@ -61,16 +61,21 @@ void excute(char **tokens)
 	{
 		if (tokens[0][0] != '/')
 		{
-			path = _getenv("PATH");
-			tokn = strtok(path, ":");
-			while (tokn)
+			if (tokens[0] == "env" || tokens[0] == "printenv")
+				printEnv();
+			else
 			{
-				concat = _strcat(tokn, tokens[0], '/');
-				if (concat)
+				path = _getenv("PATH");
+				tokn = strtok(path, ":");
+				while (tokn)
 				{
-					if (execve(concat, tokens, NULL) != -1)
-						break;
-					tokn = strtok(NULL, ":");
+					concat = _strcat(tokn, tokens[0], '/');
+					if (concat)
+					{
+						if (execve(concat, tokens, NULL) != -1)
+							break;
+						tokn = strtok(NULL, ":");
+					}
 				}
 			}
 		}
