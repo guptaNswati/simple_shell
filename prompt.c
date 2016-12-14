@@ -61,7 +61,7 @@ void excute(char **tokens)
 	{
 		if (tokens[0][0] != '/')
 		{
-			if (tokens[0] == "env" || tokens[0] == "printenv")
+		  if (strcmp(tokens[0], "env") == 0 || strcmp(tokens[0], "printenv") == 0)
 				printEnv();
 			else
 			{
@@ -104,7 +104,8 @@ void prompt(void)
 		terminator = getline(&input, &bufr, stdin);
 		tokens = split_input(input);
 	       	excute(tokens);
-		free(input);
+		/*		free(input); */
 		free(tokens);
 	}
+	free(input);
 }
