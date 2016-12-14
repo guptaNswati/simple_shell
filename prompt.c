@@ -1,17 +1,5 @@
 #include "shell.h"
 
-char *read_input()
-{
-	char *line;
-	ssize_t bufr;
-
-	line = NULL;
-	bufr = 0;
-	if (getline(&line, &bufr, stdin) == -1)
-		return NULL;
-	return line;
-}
-
 char **split_input(char *input)
 {
 	int i;
@@ -99,17 +87,19 @@ void excute(char **tokens)
 void prompt(void)
 {
  	char *input, **tokens;
+	int terminator;
+	ssize_t bufr;
 
-	printf("$ ");
-	do
+	input = NULL;
+	bufr = 0;
+	terminator = 1;
+	while (terminator != -1)
 	{
-		input = read_input();
-		if (input != NULL)
-			printf("$ ");
+		printf("$ ");
+		terminator = getline(&input, &bufr, stdin);
 		tokens = split_input(input);
 	       	excute(tokens);
 		free(input);
 		free(tokens);
 	}
-	while (input != NULL);
 }
