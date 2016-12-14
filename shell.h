@@ -17,6 +17,7 @@
 int checkEnv(const char *name);
 int _strlen(const char *str);
 char *_strcat(const char *str1, const char *str2, char formatter);
+int chng_dr(char **str);
 void printEnv(void);
 char *_getenv(const char *name);
 int _setenv(const char *name, const char *value, int overwrite);

@@ -63,6 +63,8 @@ void excute(char **tokens)
 		{
 			if (tokens[0] == "env" || tokens[0] == "printenv")
 				printEnv();
+			else if (tokens[0] == "cd")
+				chng_dr(tokens);
 			else
 			{
 				path = _getenv("PATH");
@@ -104,7 +106,7 @@ void prompt(void)
 		terminator = getline(&input, &bufr, stdin);
 		tokens = split_input(input);
 	       	excute(tokens);
-		free(input);
 		free(tokens);
 	}
+	free(input);
 }
