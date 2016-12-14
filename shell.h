@@ -13,6 +13,11 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+typedef struct strLL
+{
+	char *str;
+	struct strLL *next;
+} strLL;
 
 int checkEnv(const char *name);
 int _strlen(const char *str);
