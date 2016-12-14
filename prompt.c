@@ -19,7 +19,6 @@ char **split_input(char *input)
 		i++;
 		tokn = strtok(NULL, " \n");
 	}
-	tokens[i] = NULL;
 	return (tokens);
 }
 
@@ -61,8 +60,11 @@ void excute(char **tokens)
 	{
 		if (tokens[0][0] != '/')
 		{
-		  if (strcmp(tokens[0], "env") == 0 || strcmp(tokens[0], "printenv") == 0)
+			if (strcmp(tokens[0], "env") == 0 || strcmp(tokens[0], "printenv") == 0)
+			{
+				printf("Whyyyyyy\n");
 				printEnv();
+			}
 			else
 			{
 				path = _getenv("PATH");

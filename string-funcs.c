@@ -21,7 +21,7 @@ char *_strcpy(char *strng, int i)
 		strng++;
 	}
 	res[j] = '\0';
-	printf("%s\n", res);
+
 	return (res);
 }
 
@@ -55,4 +55,30 @@ char *_strtok(char *str, const char *delim)
 		i++;
 	}
 	return (NULL);
+}
+
+char **deepDupe(char **args)
+{
+	char **storage;
+	int i, j, total;
+
+	printf("Deep Duping...\n");
+
+	for (i = 0, total = 0; args[i] != NULL; i++)
+	{
+		for (j = 0; args[i][j]; j++)
+			;
+		total += j;
+	}
+
+	storage = malloc(total * i);
+
+	for (i = 0; args[i] != NULL; i++)
+	{
+		for (j = 0; args[i][j]; j++)
+			;
+		storage[i] = _strcpy(args[i], j);
+	}
+
+	return (storage);
 }
