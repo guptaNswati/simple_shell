@@ -17,10 +17,11 @@
 int checkEnv(const char *name);
 int _strlen(const char *str);
 char *_strcpy(char *strng, int i);
+int _strcmp(char *s1, char *s2);
 char **deepDupe(char **args);
 char *_strcat(const char *str1, const char *str2, char formatter);
 void printEnv(void);
-char *_getenv(const char *name);
+char *_getenv(char *name);
 int _setenv(const char *name, const char *value, int overwrite);
 int _unsetenv(const char *name);
 char *read_input();

@@ -25,6 +25,17 @@ char *_strcpy(char *strng, int i)
 	return (res);
 }
 
+int _strcmp(char *s1, char *s2)
+{
+	int i;
+
+	for (i = 0; s1[i] != '\0' || s2[i] != '\0'; i++)
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+	}
+	return (0);
+}
 
 char *_strtok(char *str, const char *delim)
 {
@@ -61,8 +72,6 @@ char **deepDupe(char **args)
 {
 	char **storage;
 	int i, j, total;
-
-	printf("Deep Duping...\n");
 
 	for (i = 0, total = 0; args[i] != NULL; i++)
 	{

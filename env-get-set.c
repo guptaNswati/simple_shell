@@ -36,7 +36,7 @@ void printEnv(void)
 	}
 }
 
-char *_getenv(const char *name)
+char *_getenv(char *name)
 {
 	extern char **environ;
 	char **dupeenv;
@@ -47,7 +47,7 @@ char *_getenv(const char *name)
 	while (*dupeenv != NULL)
 	{
 		token = strtok(*dupeenv, "=");
-		if (strcmp(token, name) == 0)
+		if (_strcmp(token, name) == 0)
 			return (strtok(NULL, "="));
  		dupeenv++;
 	}
