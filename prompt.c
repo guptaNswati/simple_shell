@@ -104,7 +104,8 @@ void prompt(void)
 		terminator = getline(&input, &bufr, stdin);
 		tokens = split_input(input);
 	       	excute(tokens);
+/*		free(input); */
 		free(tokens);
 	}
-	free(input);
+	free(input); 
 }

@@ -56,14 +56,14 @@ strLL *parsePath(char *path, char *delim)
 			}
 		}
 		newnode = malloc(sizeof(strLL));
-		newnode.str = str;
-		newnode.next = NULL;
+		newnode->str = str;
+		newnode->next = NULL;
 		if (tmp == NULL)
 			tmp = newnode;
 		else
 		{
-			tmp.next = newnode;
-			tmp = tmp.next;
+			tmp->next = newnode;
+			tmp = tmp->next;
 		}
 	}
 
