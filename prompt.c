@@ -39,8 +39,8 @@ void excute(char **tokens)
 	{
 		if (tokens[0][0] != '/')
 		{
-			find_builtins(tokens);
-			check_path(tokens);
+			if (find_builtins(tokens) == -1)
+				check_path(tokens);
 		}
 		else
 		{

@@ -19,6 +19,12 @@ typedef struct strLL
 	struct strLL *next;
 } strLL;
 
+typedef struct in_built
+{
+	char *s;
+	void (*func) (char **);
+} in_built;
+
 int checkEnv(char *name);
 int _strlen(char *str);
 char *_strcpy(char *strng, int i);
@@ -26,12 +32,16 @@ int _strcmp(char *s1, char *s2);
 char **deepDupe(char **args);
 char *_strcat(char *str1, char *str2, char formatter);
 void chng_dr(char **str);
-void printEnv(void);
+void ext(char **str);
+void hlp(char **str);
+void hstry(char **str);
+void printEnv(char **str);
 char *_getenv(char *name);
-int _setenv(char *name, char *value, int overwrite);
-int _unsetenv(char *name);
-char *read_input();
+int _setenv(char **str);
+int _unsetenv(char **str);
 char **split_input(char *input);
+int find_builtins(char **tokens);
+void check_path(char **tokens);
 void excute(char **tokens);
 void prompt(void);
 

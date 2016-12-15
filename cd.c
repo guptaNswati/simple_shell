@@ -2,7 +2,7 @@
 
 void chng_dr(char **str)
 {
-	char *curnt_dir, *newcd;
+	char *curnt_dir, *newcd, **setPwd, **setOwd;
 
 	curnt_dir = getcwd(curnt_dir, 102);
 
@@ -20,7 +20,24 @@ void chng_dr(char **str)
 		free(curnt_dir);
 		return;
 	}
-	_setenv("PWD", newcd, 1);
-	_setenv("OLDPWD", curnt_dir, 1);
+	setPwd[0] = "PWD", setPwd[1] = newcd;
+	_setenv(setPwd);
+	setOwd[0] = "OLDPWD", setOwd[1] = curnt_dir;
+	_setenv(setOwd);
 	free(curnt_dir);
+}
+
+void ext(char **str)
+{
+	printf("In exit\n");
+}
+
+void hlp(char **str)
+{
+	printf("In help\n");
+}
+
+void hstry(char **str)
+{
+	printf("In history\n");
 }

@@ -1,18 +1,30 @@
 #include "shell.h"
 
-void find_builtins(char **tokens)
+int find_builtins(char **tokens)
 {
-	if (_strcmp(tokens[0], "cd") == 0)
+	int i;
+	in_built list[] = {{"alias", },
+			     {"cd", chng_dr},
+			     {"env", printEnv},
+			     {"exit", ext},
+			     {"help", hlp},
+			     {"history", hstry},
+			     {"printenv", printEnv},
+			     {"setenv", _setenv},
+			     {"unsetenv", _unsetenv},
+	};
+
+	for (i = 0; i < 9; i++)
 	{
-		chng_dr(tokens);
-		return;
+		if (_strcmp(tokens[0], list[i].s) == 0)
+		{
+			if (_strcmp(list[i].s, "setenv") == 0)
+				tokens++;
+			list[i].func(tokens);
+			return (0);
+		}
 	}
-	if (_strcmp(tokens[0], "env") == 0 ||
-	    _strcmp(tokens[0], "printenv") == 0)
-	{
-		printEnv();
-		return;
-	}
+	return (-1);
 }
 
 void check_path(char **tokens)
