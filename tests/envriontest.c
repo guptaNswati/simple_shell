@@ -6,7 +6,8 @@ int main(int argc, char **agv, char **env)
 
 	printf("env %s\n", *env);
 	printf("env p %p\n", *env);
-	printf("enviorn %s\n",*environ); 
+	printf("enviorn %s\n",*environ);
 	printf("environ p %p\n", *env);
+	printf("Oh! they are same\n");
 	return (0);
 }
