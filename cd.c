@@ -5,7 +5,6 @@ int chng_dr(char **str)
 	char *home, *curnt_dir, *oldcd;
 
 	curnt_dir = getcwd(curnt_dir, 1024);
-
 	if (str[1] == NULL)
 	{
 		home = _getenv("HOME");
