@@ -15,7 +15,7 @@ int chng_dr(char **str)
 			return (-1);
 		}
 		_setenv("PWD", home, 1);
-		_setenv("OLDPWD", curnt_dir, 1);
+		_setenv("OLDPWD", curnt_dir);
 		free(curnt_dir);
 		return (0);
 	}
@@ -29,8 +29,8 @@ int chng_dr(char **str)
 				printf("%s\n", strerror(errno));
 				return (-1);
 			}
-			_setenv("PWD", oldcd, 1);
-			_setenv("OLDPWD", curnt_dir, 1);
+			_setenv("PWD", oldcd);
+			_setenv("OLDPWD", curnt_dir);
 			free(curnt_dir);
 			return (0);
 		}
@@ -42,7 +42,7 @@ int chng_dr(char **str)
 		return (-1);
 	}
 	_setenv("PWD", str[1], 1);
-	_setenv("OLDPWD", curnt_dir, 1);
+	_setenv("OLDPWD", curnt_dir);
 	free(curnt_dir);
 	return (0);
 }

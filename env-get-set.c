@@ -26,26 +26,30 @@ int _strlen(const char *str)
 void printEnv(void)
 {
 	extern char **environ;
+	int i;
 
-	while (*environ)
+	i = 0;
+	while (environ[i])
 	{
-		printf("%s\n", *environ);
-		environ++;
+		printf("%s\n", environ[i]);
+		i++;
 	}
 }
-char *_getenv(const char *name)
+
+char *_getenv(char *name)
 {
 	extern char **environ;
+	char **dupeenv;
 	char *token;
 
-	while (*environ != NULL)
+	dupeenv = deepDupe(environ);
+
+	while (*dupeenv != NULL)
 	{
-		token = strtok(*environ, "=");
-		if (*token == *name)
-		{
+		token = strtok(*dupeenv, "=");
+		if (_strcmp(token, name) == 0)
 			return (strtok(NULL, "="));
-		}
- 		environ++;
+ 		dupeenv++;
 	}
 	return (NULL);
 }

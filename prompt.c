@@ -61,7 +61,9 @@ void excute(char **tokens)
 	{
 		if (tokens[0][0] != '/')
 		{
-			if (tokens[0] == "env" || tokens[0] == "printenv")
+			if (_strcmp(tokens[0], "cd") == 0)
+				chng_dr(tokens);
+			if (_strcmp(tokens[0], "env") == 0 || _strcmp(tokens[0], "printenv") == 0)
 				printEnv();
 			else if (tokens[0] == "cd")
 				chng_dr(tokens);
