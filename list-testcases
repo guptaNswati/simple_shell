@@ -8,6 +8,7 @@
 /* TO DO's  */
 
 /* high priority */
+write function, instead of using printf -> write()
 1. exit
 2. help
 3. history

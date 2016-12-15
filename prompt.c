@@ -65,6 +65,7 @@ void prompt(void)
 	{
 		printf("$ ");
 		terminator = getline(&input, &bufr, stdin);
+		printf("input: %s\n", input);
 		tokens = split_input(input);
 	       	excute(tokens);
 		free(tokens);
