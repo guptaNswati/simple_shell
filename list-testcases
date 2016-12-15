@@ -1,0 +1,5 @@
+/* list of test cases */
+
+1. when input is null (nothing is entered)
+2. space builtins (e.g " "cd)
+3. check freeing

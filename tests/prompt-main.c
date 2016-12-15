@@ -1,7 +1,7 @@
 #include "shell.h"
 
-int main(void)
+int main(int argc, char **argv, char **env)
 {
-        prompt();
+        prompt(env);
         return (0);
 }
