@@ -23,28 +23,6 @@ char **split_input(char *input)
 	return (tokens);
 }
 
-char *_strcat(const char *str1, const char *str2, char formatter)
-{
-	char *new;
-	int i, j;
-
-	new = malloc(sizeof(char) * (_strlen(str1) + _strlen(str2) + 2));
-	if (new == NULL)
-		return (NULL);
-
-	for (i = 0; str1[i] != '\0'; i++)
-		new[i] = str1[i];
-
-	new[i] = formatter;
-	i++;
-
-	for (j = 0; str2[j] != '\0'; j++, i++)
-		new[i] = str2[j];
-
-	new[i] = '\0';
-	return (new);
-}
-
 void excute(char **tokens)
 {
 	pid_t pid, wpid;

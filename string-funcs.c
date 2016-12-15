@@ -39,45 +39,28 @@ int _strcmp(const char *s1, const char *s2)
 	return (0);
 }
 
-strLL *parsePath(char *path, char *delim)
+char *_strcat(const char *str1, const char *str2, char formatter)
 {
-	strLL *head, *tmp, *newnode;
-	char *str;
-	int i, j, d, x;
+	char *new;
+	int i, j;
 
-	if (path == NULL)
+	new = malloc(sizeof(char) * (_strlen(str1) + _strlen(str2) + 2));
+	if (new == NULL)
 		return (NULL);
 
-	tmp = head;
+	for (i = 0; str1[i] != '\0'; i++)
+		new[i] = str1[i];
 
-	for (i = 0, j = 0; path[i]; i++)
-	{
-		for (d = 0; delim[d]; d++)
-		{
-			if (path[i] == delim[d])
-			{
-				str = malloc(i - j + 1);
-				for (x = 0; x < (i - j); x++)
-				{
-					str[x] = path[j + x];
-				}
-				j = i + 1;
-			}
-		}
-		newnode = malloc(sizeof(strLL));
-		newnode->str = str;
-		newnode->next = NULL;
-		if (tmp == NULL)
-			tmp = newnode;
-		else
-		{
-			tmp->next = newnode;
-			tmp = tmp->next;
-		}
-	}
+	new[i] = formatter;
+	i++;
 
-	return (head);
+	for (j = 0; str2[j] != '\0'; j++, i++)
+		new[i] = str2[j];
+
+	new[i] = '\0';
+	return (new);
 }
+
 
 char *_strtok(char *str, const char *delim)
 {
@@ -108,28 +91,4 @@ char *_strtok(char *str, const char *delim)
 		i++;
 	}
 	return (NULL);
-}
-
-char **deepDupe(char **args)
-{
-	char **storage;
-	int i, j, total;
-
-	for (i = 0, total = 0; args[i] != NULL; i++)
-	{
-		for (j = 0; args[i][j]; j++)
-			;
-		total += j;
-	}
-
-	storage = malloc(total * i);
-
-	for (i = 0; args[i] != NULL; i++)
-	{
-		for (j = 0; args[i][j]; j++)
-			;
-		storage[i] = _strcpy(args[i], j);
-	}
-
-	return (storage);
 }
