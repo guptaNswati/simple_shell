@@ -6,7 +6,7 @@ char **split_input(char *input)
 	char **tokens, *tokn;
 
 	tokens = malloc(1024 * sizeof(char *));
-	if (tokens == NULL)
+ 	if (tokens == NULL)
 	{
 		dprintf(STDERR_FILENO, "Allocation Error\n");
 		exit (0);
@@ -61,14 +61,16 @@ void prompt(void)
 	input = NULL;
 	bufr = 0;
 	terminator = 1;
+	/* ignore cntrl+C */
+	signal(SIGINT, SIG_IGN);
 	while (terminator != -1)
 	{
 		printf("$ ");
 		terminator = getline(&input, &bufr, stdin);
-		printf("input: %s\n", input);
 		tokens = split_input(input);
-	       	excute(tokens);
+		excute(tokens);
 		free(tokens);
 	}
 	free(input);
+	_exit(0);
 }

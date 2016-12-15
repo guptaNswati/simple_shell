@@ -29,6 +29,8 @@ char *_getenv(char *name)
 	char **dupeenv, *token;
 
 	dupeenv = deepDupe(environ);
+	if (dupeenv == NULL)
+		return (NULL);
 	while (*dupeenv)
 	{
 		token = strtok(*dupeenv, "=");
@@ -52,6 +54,8 @@ void _setenv(char **tokens)
 		return;
 	i = 0;
 	dupeenv = deepDupe(environ);
+	if (dupeenv == NULL)
+                return;
 	for (i = 0; dupeenv[i]; i++)
 	{
 		token = strtok(dupeenv[i], "=");
@@ -77,6 +81,8 @@ void _unsetenv(char **tokens)
 		return;
 
         dupeenv = deepDupe(environ);
+	if (dupeenv == NULL)
+                return;
 	for (i = 0; dupeenv[i]; i++)
 	{
 		token = strtok(dupeenv[i], "=");

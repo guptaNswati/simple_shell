@@ -43,4 +43,5 @@ void check_path(char **tokens)
 			tokn = strtok(NULL, ":");
 		}
 	}
+	dprintf(STDERR_FILENO, "No such command found\n");
 }

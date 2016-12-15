@@ -1,9 +1,9 @@
 /* list of test cases */
 
 1. when input is null (nothing is entered) -> should be handled by input reader
-2. space builtins (e.g " "cd) -> should be handled by tokenizer
-3. check freeing
-
+2. space builtins (e.g " "cd) -> should be handled by tokenizer (done)
+3. check freeing -> (everything is getting freed so far)
+(Note: May need to check again for _strcat() and _strcpy())
 
 /* TO DO's  */
 
@@ -27,9 +27,8 @@ write function, instead of using printf -> write()
 
 
 /* Known bugs   */
-1. cntrlD
-2. cntrlC
-3. cd output
-4. Missing betty checks
-5. extra code
-6. refractoring
+1. cntrlD -> fixed
+2. cntrlC -> fixed
+3. cd output -> fixed
+4. betty checks
+5. refractoring

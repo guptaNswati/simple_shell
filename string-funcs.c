@@ -23,7 +23,6 @@ char *_strcpy(char *strng, int i)
 		strng++;
 	}
 	res[j] = '\0';
-
 	return (res);
 }
 

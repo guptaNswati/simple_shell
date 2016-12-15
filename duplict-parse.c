@@ -52,6 +52,8 @@ char **deepDupe(char **args)
 	}
 
 	storage = malloc(total * i);
+	if (storage == NULL)
+		return (NULL);
 
 	for (i = 0; args[i] != NULL; i++)
 	{
