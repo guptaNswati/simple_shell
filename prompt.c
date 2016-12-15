@@ -39,27 +39,8 @@ void excute(char **tokens)
 	{
 		if (tokens[0][0] != '/')
 		{
-			if (_strcmp(tokens[0], "cd") == 0)
-				chng_dr(tokens);
-			if (_strcmp(tokens[0], "env") == 0 || _strcmp(tokens[0], "printenv") == 0)
-				printEnv();
-			else if (tokens[0] == "cd")
-				chng_dr(tokens);
-			else
-			{
-				path = _getenv("PATH");
-				tokn = strtok(path, ":");
-				while (tokn)
-				{
-					concat = _strcat(tokn, tokens[0], '/');
-					if (concat)
-					{
-						if (execve(concat, tokens, NULL) != -1)
-							break;
-						tokn = strtok(NULL, ":");
-					}
-				}
-			}
+			find_builtins(tokens);
+			check_path(tokens);
 		}
 		else
 		{

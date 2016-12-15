@@ -2,7 +2,7 @@
 
 extern char **environ;
 
-int checkEnv(const char *name)
+int checkEnv(char *name)
 {
 	int i;
 
@@ -39,7 +39,7 @@ char *_getenv(char *name)
 	return (NULL);
 }
 
-int _setenv(const char *name, const char *value, int overwrite)
+int _setenv(char *name, char *value, int overwrite)
 {
 	char *token, *new, **dupeenv;
 	int i;
@@ -67,7 +67,7 @@ int _setenv(const char *name, const char *value, int overwrite)
 	return (0);
 }
 
-int _unsetenv(const char *name)
+int _unsetenv(char *name)
 {
 	char **newenv, **dupeenv;
 	int i;

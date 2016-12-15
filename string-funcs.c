@@ -1,6 +1,6 @@
 #include "shell.h"
 
-int _strlen(const char *str)
+int _strlen(char *str)
 {
 	int len;
 
@@ -27,7 +27,7 @@ char *_strcpy(char *strng, int i)
 	return (res);
 }
 
-int _strcmp(const char *s1, const char *s2)
+int _strcmp(char *s1, char *s2)
 {
 	int i;
 
@@ -39,7 +39,7 @@ int _strcmp(const char *s1, const char *s2)
 	return (0);
 }
 
-char *_strcat(const char *str1, const char *str2, char formatter)
+char *_strcat(char *str1, char *str2, char formatter)
 {
 	char *new;
 	int i, j;
@@ -62,7 +62,7 @@ char *_strcat(const char *str1, const char *str2, char formatter)
 }
 
 
-char *_strtok(char *str, const char *delim)
+char *_strtok(char *str, char *delim)
 {
 	strLL *head, *tmp;
 	char *strg;

@@ -9,7 +9,7 @@ void chng_dr(char **str)
 	newcd = str[1];
 	if (newcd == NULL)
 		newcd = _getenv("HOME");
-	else if (newcd[0] == '-')
+	else if (_strcmp(newcd, "-") == 0)
  		newcd = _getenv("OLDPWD");
 	int res = chdir(newcd);
 	printf("res %d\n", res);
