@@ -7,7 +7,8 @@ void chng_dr(char **str)
 	curnt_dir = getcwd(curnt_dir, 102);
 
 	newcd = str[1];
-	if (newcd == NULL)
+	if ((newcd == NULL) || (_strcmp(newcd, "~") == 0) ||
+	    (_strcmp(newcd, "$HOME") == 0))
 		newcd = _getenv("HOME");
 	else if (_strcmp(newcd, "-") == 0)
  		newcd = _getenv("OLDPWD");

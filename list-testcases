@@ -1,5 +1,34 @@
 /* list of test cases */
 
-1. when input is null (nothing is entered)
-2. space builtins (e.g " "cd)
+1. when input is null (nothing is entered) -> should be handled by input reader
+2. space builtins (e.g " "cd) -> should be handled by tokenizer
 3. check freeing
+
+
+/* TO DO's  */
+
+/* high priority */
+1. exit
+2. help
+3. history
+4. alias
+5. man pag
+7. getline
+8. strtok
+9. blog post
+10. file
+
+/* after high priority */
+11. comments
+12. variables
+13. &&, ||
+14. ;
+
+
+/* Known bugs   */
+1. cntrlD
+2. cntrlC
+3. cd output
+4. Missing betty checks
+5. extra code
+6. refractoring

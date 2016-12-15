@@ -47,8 +47,7 @@ char **deepDupe(char **args)
 
 	for (i = 0, total = 0; args[i] != NULL; i++)
 	{
-		for (j = 0; args[i][j]; j++)
-			;
+		j = _strlen(args[i]);
 		total += j;
 	}
 
@@ -56,8 +55,7 @@ char **deepDupe(char **args)
 
 	for (i = 0; args[i] != NULL; i++)
 	{
-		for (j = 0; args[i][j]; j++)
-			;
+		j = _strlen(args[i]);
 		storage[i] = _strcpy(args[i], j);
 	}
 

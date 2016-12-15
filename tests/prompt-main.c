@@ -2,6 +2,6 @@
 
 int main(int argc, char **argv, char **env)
 {
-        prompt(env);
+        prompt();
         return (0);
 }
