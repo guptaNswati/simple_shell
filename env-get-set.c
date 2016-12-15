@@ -68,7 +68,7 @@ void _setenv(char **tokens)
 
 void _unsetenv(char **tokens)
 {
-	char **newenv, **dupeenv;
+	char **dupeenv;
 	int i;
 	char *token;
 
@@ -83,9 +83,9 @@ void _unsetenv(char **tokens)
 		/* delete variable name from environment */
 		if (_strcmp(token, tokens[1]) == 0)
 		{
-			for (newenv = environ; *newenv != NULL; newenv++)
-				*newenv = *(newenv + 1);
-			*newenv = NULL;
+			for (; environ[i] != NULL; i++)
+				environ[i] = environ [i + 1];
+			environ[i] = NULL;
 			return;
 		}
 	}
