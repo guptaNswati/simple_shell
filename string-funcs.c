@@ -1,5 +1,14 @@
 #include "shell.h"
 
+int _strlen(const char *str)
+{
+	int len;
+
+	for (len = 0; str[len] != '\0'; len++)
+		;
+	return (len);
+}
+
 char *_strcpy(char *strng, int i)
 {
 	int j;
@@ -18,7 +27,7 @@ char *_strcpy(char *strng, int i)
 	return (res);
 }
 
-int _strcmp(char *s1, char *s2)
+int _strcmp(const char *s1, const char *s2)
 {
 	int i;
 

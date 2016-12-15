@@ -22,10 +22,10 @@ typedef struct strLL
 int checkEnv(const char *name);
 int _strlen(const char *str);
 char *_strcpy(char *strng, int i);
-int _strcmp(char *s1, char *s2);
+int _strcmp(const char *s1, const char *s2);
 char **deepDupe(char **args);
 char *_strcat(const char *str1, const char *str2, char formatter);
-int chng_dr(char **str);
+void chng_dr(char **str);
 void printEnv(void);
 char *_getenv(char *name);
 int _setenv(const char *name, const char *value, int overwrite);

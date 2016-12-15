@@ -1,5 +1,7 @@
 #include "shell.h"
 
+extern char **environ;
+
 int checkEnv(const char *name)
 {
 	int i;
@@ -14,37 +16,20 @@ int checkEnv(const char *name)
 	return (i);
 }
 
-int _strlen(const char *str)
-{
-	int len;
-
-	for (len = 0; str[len] != '\0'; len++)
-		;
-	return (len);
-}
-
 void printEnv(void)
 {
-	extern char **environ;
 	int i;
 
-	i = 0;
-	while (environ[i])
-	{
+	for (i = 0; environ[i]; i++)
 		printf("%s\n", environ[i]);
-		i++;
-	}
 }
 
 char *_getenv(char *name)
 {
-	extern char **environ;
-	char **dupeenv;
-	char *token;
+	char **dupeenv, *token;
 
 	dupeenv = deepDupe(environ);
-
-	while (*dupeenv != NULL)
+	while (*dupeenv)
 	{
 		token = strtok(*dupeenv, "=");
 		if (_strcmp(token, name) == 0)
@@ -56,9 +41,8 @@ char *_getenv(char *name)
 
 int _setenv(const char *name, const char *value, int overwrite)
 {
-	extern char **environ;
-	char *token, *new;
-	int i, j;
+	char *token, *new, **dupeenv;
+	int i;
 
 	i = checkEnv(name);
 	if (i == 0)
@@ -66,46 +50,45 @@ int _setenv(const char *name, const char *value, int overwrite)
 	new = _strcat(name, value, '=');
 	if (new == NULL)
 		return (-1);
-	while (*environ != NULL)
+	i = 0;
+	dupeenv = deepDupe(environ);
+	for (i = 0; dupeenv[i]; i++)
 	{
-		token = strtok(*environ, "=");
-		if (*token == *name && overwrite != 0)
+		token = strtok(dupeenv[i], "=");
+		if (_strcmp(token, name) == 0 && overwrite != 0)
 		{
-			*environ = new;
+			environ[i] = new;
 			/*change value to given value and return 0 */
 			return (0);
 		}
-		environ++;
 	}
-	*environ = new;
-	printf("new env: %s\n", *environ);
-	environ++;
-	*environ = NULL;
+	environ[i] = new;
+	environ[++i] = NULL;
 	return (0);
 }
 
 int _unsetenv(const char *name)
 {
-	extern char **environ;
-	char **newenv;
+	char **newenv, **dupeenv;
 	int i;
 	char *token;
 
 	i = checkEnv(name);
 	if (i == 0)
 		return (-1);
-	while (*environ)
+
+        dupeenv = deepDupe(environ);
+	for (i = 0; dupeenv[i]; i++)
 	{
-		token = strtok(*environ, "=");
+		token = strtok(dupeenv[i], "=");
 		/* delete variable name from environment */
-		if (*token == *name)
+		if (_strcmp(token, name) == 0)
 		{
 			for (newenv = environ; *newenv != NULL; newenv++)
 				*newenv = *(newenv + 1);
 			*newenv = NULL;
 			return (0);
 		}
-		environ++;
 	}
 /* name does not exist in the environment, function succeeds */
 	printf("No such environment variable exists\n");

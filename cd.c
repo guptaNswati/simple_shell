@@ -1,47 +1,26 @@
 #include "shell.h"
 
-int chng_dr(char **str)
+void chng_dr(char **str)
 {
-	char *home, *curnt_dir, *oldcd;
+	char *curnt_dir, *newcd;
 
-	curnt_dir = getcwd(curnt_dir, 1024);
-	if (str[1] == NULL)
-	{
-		home = _getenv("HOME");
-		if (chdir(home) != 0)
-		{
-			printf("%s\n", strerror(errno));
-			return (-1);
-		}
-		_setenv("PWD", home, 1);
-		_setenv("OLDPWD", curnt_dir, 1);
-		free(curnt_dir);
-		return (0);
-	}
-	if (str[1] == "-")
-	{
-		oldcd = _getenv("OLDPWD");
-		if (oldcd != NULL)
-		{
-			if (chdir(oldcd) != 0)
-			{
-				printf("%s\n", strerror(errno));
-				return (-1);
-			}
-			_setenv("PWD", oldcd, 1);
-			_setenv("OLDPWD", curnt_dir, 1);
-			free(curnt_dir);
-			return (0);
-		}
-		return (-1);
-	}
-	if (chdir(str[1]) != 0)
+	curnt_dir = getcwd(curnt_dir, 102);
+
+	newcd = str[1];
+	if (newcd == NULL)
+		newcd = _getenv("HOME");
+	else if (newcd[0] == '-')
+ 		newcd = _getenv("OLDPWD");
+	int res = chdir(newcd);
+	printf("res %d\n", res);
+	printf("curnt %s\n", getcwd(NULL, 102));
+	if (res == -1)
 	{
 		printf("%s\n", strerror(errno));
-		return (-1);
+		free(curnt_dir);
+		return;
 	}
-	_setenv("PWD", str[1], 1);
+	_setenv("PWD", newcd, 1);
 	_setenv("OLDPWD", curnt_dir, 1);
 	free(curnt_dir);
-	return (0);
 }
