@@ -1,15 +1,16 @@
 #include "shell.h"
 
-hstry *addHistory(hstry *head, char *input)
+hstory *addHistory(hstory **head, char *input)
 {
-	hstry *new, *temp;
+	hstory *new, *temp;
 
-	new = malloc(sizeof(hstry));
+	printf("in add\n");
+	new = malloc(sizeof(hstory));
 	if (new == NULL)
 		return (NULL);
 
-	new->input = strcpy(input, _strlen(input));
-	if (new->str == NULL)
+	new->input = _strcpy(input, _strlen(input));
+	if (new->input == NULL)
 	{
 		free(new);
 		return (NULL);
@@ -28,24 +29,18 @@ hstry *addHistory(hstry *head, char *input)
 			temp = temp->next;
 		temp->next = new;
 	}
-	return (head);
+	return (new);
 }
 
-void printHistory(hstry *head)
+void printHistory(hstory **head)
 {
 	int i;
 
 	i = 0;
-	while (head)
+	while (*head)
 	{
-		printf("[%d] %s \n", i, head->input);
-		head = head->next;
+		printf("[%d] %s \n", i, (*head)->input);
+		*head = (*head)->next;
 		i++;
 	}
-}
-
-void hstry(hstry *head)
-{
-        printf("In history\n");
-        printHistory(head);
 }

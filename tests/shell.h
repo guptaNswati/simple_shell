@@ -25,6 +25,11 @@ typedef struct in_built
 	void (*func) (char **);
 } in_built;
 
+typedef struct hstory{
+        char *input;
+        struct hstory *next;
+} hstory;
+
 int checkEnv(char *name);
 int _strlen(char *str);
 char *_strcpy(char *strng, int i);
@@ -34,11 +39,13 @@ char *_strcat(char *str1, char *str2, char formatter);
 void chng_dr(char **str);
 void ext(char **str);
 void hlp(char **str);
-void hstry(char **str);
 void printEnv(char **str);
 char *_getenv(char *name);
-int _setenv(char **str);
-int _unsetenv(char **str);
+void _setenv(char **str);
+void _unsetenv(char **str);
+hstory *addHistory(hstory **head, char *input);
+void printHistory(hstory **head);
+void hstry(hstory *head);
 char **split_input(char *input);
 int find_builtins(char **tokens);
 void check_path(char **tokens);

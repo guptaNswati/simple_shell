@@ -1,5 +1,7 @@
 #include "shell.h"
 
+static hstory *head = NULL;
+
 char **split_input(char *input)
 {
 	int i;
@@ -40,7 +42,9 @@ void excute(char **tokens)
 		if (tokens[0][0] != '/')
 		{
 			if (find_builtins(tokens) == -1)
-				check_path(tokens);
+/*				check_path(tokens);
+				else */ if (_strcmp(tokens[0], "history") == 0)
+			    printHistory(&head);
 		}
 		else
 		{
@@ -57,7 +61,6 @@ void prompt(void)
  	char *input, **tokens;
 	int terminator;
 	ssize_t bufr;
-	hstry *head;
 
 	input = NULL;
 	bufr = 0;
@@ -68,7 +71,7 @@ void prompt(void)
 	{
 		printf("$ ");
 		terminator = getline(&input, &bufr, stdin);
-		addHistry(&head, input);
+		addHistory(&head, input);
 		tokens = split_input(input);
 		excute(tokens);
 		free(tokens);
