@@ -1,6 +1,6 @@
 #include "shell.h"
 
-int find_builtins(char **tokens)
+int find_builtins(char **tokens, environsLL **head)
 {
 	int i;
 	in_built list[] = {{"alias", },
@@ -20,18 +20,31 @@ int find_builtins(char **tokens)
 		{
 			if (_strcmp(list[i].s, "setenv") == 0)
 				tokens++;
-			list[i].func(tokens);
+			list[i].func(tokens, head);
 			return (0);
 		}
 	}
 	return (-1);
 }
 
-void check_path(char **tokens)
+void check_path(char **tokens, strLL **path)
 {
-	char *path, *tokn, *concat;
+	char *tokn, *concat;
+	strLL *tmp;
 
-	path = _getenv("PATH");
+	tmp = *path;
+	while (tmp->str)
+	{
+		concat = _strcat(tmp->str, tokens[0], '/');
+		if (concat)
+		{
+			if (execve(concat, tokens, NULL) != -1)
+				break;
+			tmp = tmp->next;
+		}
+	}
+
+/*
 	tokn = strtok(path, ":");
 	while (tokn)
 	{
@@ -42,6 +55,6 @@ void check_path(char **tokens)
 				break;
 			tokn = strtok(NULL, ":");
 		}
-	}
+		}*/
 	dprintf(STDERR_FILENO, "No such command found\n");
 }
