@@ -13,6 +13,10 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+#define HSTRYLIMIT 4096
+#define FILE ".simple_shell_history";
+#define BUFRSIZE 1204
+
 typedef struct strLL
 {
 	char *str;

@@ -1,6 +1,6 @@
 /* list of test cases */
 
-1. when input is null (nothing is entered) -> should be handled by input reader
+1. when input is null (nothing is entered) -> should be handled by input reader -> (done)
 2. space builtins (e.g " "cd) -> should be handled by tokenizer (done)
 3. check freeing -> (everything is getting freed so far)
 (Note: May need to check again for _strcat() and _strcpy())
@@ -13,7 +13,7 @@ write function, instead of using printf -> write()
 2. help
 3. history
 4. alias
-5. man pag
+5. man pafe -> underconstruction
 7. getline
 8. strtok
 9. blog post
@@ -32,3 +32,4 @@ write function, instead of using printf -> write()
 3. cd output -> fixed
 4. betty checks
 5. refractoring
+6. fix builtin prototypes

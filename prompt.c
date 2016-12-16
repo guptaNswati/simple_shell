@@ -59,7 +59,7 @@ void excute(char **tokens)
 void prompt(void)
 {
  	char *input, **tokens;
-	int terminator;
+	int terminator, hstryCount;
 	ssize_t bufr;
 
 	input = NULL;
@@ -67,6 +67,7 @@ void prompt(void)
 	terminator = 1;
 	/* ignore cntrl+C */
 	signal(SIGINT, SIG_IGN);
+	hstryCount = 0;
 	while (1)
 	{
 		printf("$ ");
@@ -74,9 +75,13 @@ void prompt(void)
 		if (terminator == -1)
 			exit(0);
 		addHistory(&head, input);
+		hstryCount++;
+		if (hstryCount > HSTRYLIMIT)
+			popHead(&head);
 		tokens = split_input(input);
 		excute(tokens);
 		free(tokens);
 	}
 	free(input);
+	writeHstorytofile(&head);
 }
