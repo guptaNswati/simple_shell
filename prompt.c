@@ -57,6 +57,7 @@ void prompt(void)
  	char *input, **tokens;
 	int terminator;
 	ssize_t bufr;
+	hstry *head;
 
 	input = NULL;
 	bufr = 0;
@@ -67,6 +68,7 @@ void prompt(void)
 	{
 		printf("$ ");
 		terminator = getline(&input, &bufr, stdin);
+		addHistry(&head, input);
 		tokens = split_input(input);
 		excute(tokens);
 		free(tokens);

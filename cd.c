@@ -49,8 +49,3 @@ void hlp(char **str)
 {
 	printf("In help\n");
 }
-
-void hstry(char **str)
-{
-	printf("In history\n");
-}

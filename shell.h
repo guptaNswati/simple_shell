@@ -25,6 +25,11 @@ typedef struct in_built
 	void (*func) (char **);
 } in_built;
 
+typedef struct hstory{
+        char *input;
+        struct hstory *next;
+} hstory;
+
 int checkEnv(char *name);
 int _strlen(char *str);
 char *_strcpy(char *strng, int i);
