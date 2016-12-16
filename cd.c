@@ -43,6 +43,7 @@ void chng_dr(char **str)
 void ext(char **str)
 {
 	printf("In exit\n");
+	_exit(10);
 }
 
 void hlp(char **str)
