@@ -1,6 +1,6 @@
 #include "shell.h"
 
-extern char **environ;
+/*extern char **environ;*/
 
 int checkEnv(char *name)
 {
@@ -16,18 +16,33 @@ int checkEnv(char *name)
 	return (i);
 }
 
-void printEnv(char **tokens)
+void printEnv(char **tokens, environsLL **head)
 {
-	int i;
+	environsLL *tmp;
 
+	for (tmp = *head; tmp; tmp = tmp->next)
+		printf("%s=%s\n", tmp->name, tmp->value);
+/*
 	for (i = 0; environ[i]; i++)
 		printf("%s\n", environ[i]);
+*/
 }
 
-char *_getenv(char *name)
+char *_getenv(char *name, environsLL **head)
 {
-	char **dupeenv, *token;
+/*	char **dupeenv, *token;*/
+	environsLL *tmp;
 
+	tmp = *head;
+	while (tmp->next)
+	{
+		if (_strcmp(name, tmp->name) == 0)
+			return (tmp->value);
+		tmp = tmp->next;
+	}
+	return (NULL);
+
+/*
 	dupeenv = deepDupe(environ);
 	if (dupeenv == NULL)
 		return (NULL);
@@ -38,10 +53,10 @@ char *_getenv(char *name)
 			return (strtok(NULL, "="));
  		dupeenv++;
 	}
-	return (NULL);
+	return (NULL);*/
 }
 
-void _setenv(char **tokens)
+void _setenv(char **tokens, environsLL **head)
 {
 	char *token, *new, **dupeenv;
 	int i;
@@ -53,6 +68,9 @@ void _setenv(char **tokens)
 	if (new == NULL)
 		return;
 	i = 0;
+
+/*
+
 	dupeenv = deepDupe(environ);
 	if (dupeenv == NULL)
                 return;
@@ -62,15 +80,15 @@ void _setenv(char **tokens)
 		if (_strcmp(token, tokens[0]) == 0)
 		{
 			environ[i] = new;
-			/*change value to given value and return 0 */
+
 			return;
 		}
 	}
 	environ[i] = new;
-	environ[++i] = NULL;
+	environ[++i] = NULL;*/
 }
 
-void _unsetenv(char **tokens)
+void _unsetenv(char **tokens, environsLL **head)
 {
 	char **dupeenv;
 	int i;
@@ -80,13 +98,13 @@ void _unsetenv(char **tokens)
 	if (i == 0)
 		return;
 
-        dupeenv = deepDupe(environ);
+/*        dupeenv = deepDupe(environ);
 	if (dupeenv == NULL)
                 return;
 	for (i = 0; dupeenv[i]; i++)
 	{
 		token = strtok(dupeenv[i], "=");
-		/* delete variable name from environment */
+
 		if (_strcmp(token, tokens[1]) == 0)
 		{
 			for (; environ[i] != NULL; i++)
@@ -94,7 +112,7 @@ void _unsetenv(char **tokens)
 			environ[i] = NULL;
 			return;
 		}
-	}
+		}*/
 /* name does not exist in the environment, function succeeds */
-	printf("No such environment variable exists\n");
+/*	printf("No such environment variable exists\n");*/
 }

@@ -23,11 +23,11 @@ char **split_input(char *input)
 	return (tokens);
 }
 
-void excute(char **tokens)
+void excute(char **tokens, environsLL **head, strLL **path)
 {
 	pid_t pid, wpid;
 	int status, i;
-	char *path, *tokn, *concat;
+	char *tokn, *concat;
 
 	pid = fork();
 	if (pid == -1)
@@ -39,8 +39,8 @@ void excute(char **tokens)
 	{
 		if (tokens[0][0] != '/')
 		{
-			if (find_builtins(tokens) == -1)
-				check_path(tokens);
+			if (find_builtins(tokens, head) == -1)
+				check_path(tokens, path);
 		}
 		else
 		{
@@ -57,6 +57,11 @@ void prompt(void)
  	char *input, **tokens;
 	int terminator;
 	ssize_t bufr;
+	environsLL *head;
+	strLL *path;
+
+	/* setup environment vars as LL */
+	path = createEnvLL(&head);
 
 	input = NULL;
 	bufr = 0;
@@ -68,7 +73,7 @@ void prompt(void)
 		printf("$ ");
 		terminator = getline(&input, &bufr, stdin);
 		tokens = split_input(input);
-		excute(tokens);
+		excute(tokens, &head, &path);
 		free(tokens);
 	}
 	free(input);
