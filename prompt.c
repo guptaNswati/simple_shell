@@ -41,10 +41,10 @@ void excute(char **tokens)
 	{
 		if (tokens[0][0] != '/')
 		{
+			if (_strcmp(tokens[0], "history") == 0)
+				printHistory(&head);
 			if (find_builtins(tokens) == -1)
-/*				check_path(tokens);
-				else */ if (_strcmp(tokens[0], "history") == 0)
-			    printHistory(&head);
+				check_path(tokens);
 		}
 		else
 		{
@@ -67,15 +67,16 @@ void prompt(void)
 	terminator = 1;
 	/* ignore cntrl+C */
 	signal(SIGINT, SIG_IGN);
-	while (terminator != -1)
+	while (1)
 	{
 		printf("$ ");
 		terminator = getline(&input, &bufr, stdin);
+		if (terminator == -1)
+			exit(0);
 		addHistory(&head, input);
 		tokens = split_input(input);
 		excute(tokens);
 		free(tokens);
 	}
 	free(input);
-	_exit(0);
 }

@@ -4,7 +4,6 @@ hstory *addHistory(hstory **head, char *input)
 {
 	hstory *new, *temp;
 
-	printf("in add\n");
 	new = malloc(sizeof(hstory));
 	if (new == NULL)
 		return (NULL);
