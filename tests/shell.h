@@ -52,6 +52,7 @@ hstory *popHead(hstory **head);
 void printHistory(hstory **head);
 int writeHstorytofile(const char *file, hstory **head);
 int readFromFile(const char *file, hstory **head);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 ssize_t _getline(char **lineptr, int fd);
 char **split_input(char *input);
 int find_builtins(char **tokens);
