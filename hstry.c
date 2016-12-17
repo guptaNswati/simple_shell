@@ -66,6 +66,7 @@ int writeHstorytofile(const char *file, hstory **head)
 			return (-1);
 	if (*head)
 	{
+		printf("lets see whats up in write history\n");
 		while (*head)
 		{
 			inptLen = _strlen((*head)->input) + 1;
@@ -83,28 +84,39 @@ int writeHstorytofile(const char *file, hstory **head)
 int readFromFile(const char *file, hstory **head)
 {
 	int fd, numNodes;
-	char *input;
-	ssize_t bufr, count;
-	FILE *strm;
+	char *input, *tokn;
+	ssize_t count;
+	struct stat st;
+	off_t filsiz;
 
-	input = NULL;
-	bufr = 0;
 	numNodes = 0;
-	strm = fopen(file, "r");
-	/*  fd = open(strm, O_RDONLY);
-	    if (fd == -1) */
-	if (strm == NULL)
-		return (numNodes);
-	while (1)
+	if (stat(file, &st) == 0)
 	{
-		count = getline(&input, &bufr, strm);
-		if (count == -1)
+		filsiz = st.st_size;
+		input = malloc(sizeof(char) * filsiz);
+		if (input == NULL)
+			return (numNodes);
+		fd = open(file, O_RDONLY);
+	        if (fd == -1)
 		{
-			close(fd);
+			free(input);
 			return (numNodes);
 		}
-		addHistory(head, input);
-		numNodes++;
+		count = read(fd, input, filsiz);
+		if (count == -1 || count != filsiz)
+		{
+			close(fd);
+			free(input);
+			return (numNodes);
+		}
+		tokn = strtok(input, "\n");
+		while (tokn != NULL)
+		{
+			printf("input: %s\n", tokn);
+			addHistory(head, tokn);
+			numNodes++;
+			tokn = strtok(NULL, "\n");
+		}
 	}
         close(fd);
         return (numNodes);
