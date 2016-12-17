@@ -69,19 +69,19 @@ void prompt(void)
 	bufr = 0;
 	/* ignore cntrl+C */
 	signal(SIGINT, SIG_IGN);
-	while (1)
+	printf("$ ");
+	while (_getline(&input, STDIN_FILENO) != -1)
+/*	while (getline(&input, &bufr, stdin) != -1) */
 	{
-		printf("$ ");
-		terminator = getline(&input, &bufr, stdin);
-		if (terminator == -1)
-			exit(0);
-		addHistory(&head, input);
+		printf("[INPUT] %s\n", input);
+ 		addHistory(&head, input);
 		hstryCount++;
 		if (hstryCount > HSTRYLIMIT)
 			popHead(&head);
 		tokens = split_input(input);
 		excute(tokens);
 		free(tokens);
+		printf("$ ");
 	}
 	writeHstorytofile(file, &head);
 	free(input);
