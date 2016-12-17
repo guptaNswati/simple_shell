@@ -30,12 +30,23 @@ typedef struct hstory{
         struct hstory *next;
 } hstory;
 
+typedef struct save_mem
+{
+	void *loc;
+	struct save_mem *next;
+} save_mem;
+
 int checkEnv(char *name);
 int _strlen(char *str);
 char *_strcpy(char *strng, int i);
 int _strcmp(char *s1, char *s2);
 char **deepDupe(char **args);
 char *_strcat(char *str1, char *str2, char formatter);
+void add_mem(void *p);
+void remove_mem(void *p);
+void _ref_mem(void *p, char *action);
+void *_malloc(unsigned int size);
+void _free(void *ptr);
 void chng_dr(char **str);
 void ext(char **str);
 void hlp(char **str);
