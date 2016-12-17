@@ -14,7 +14,6 @@
 #include <fcntl.h>
 
 #define HSTRYLIMIT 4096
-#define FILE ".simple_shell_history";
 #define BUFRSIZE 1204
 
 typedef struct strLL
@@ -39,6 +38,7 @@ int _strlen(char *str);
 char *_strcpy(char *strng, int i);
 int _strcmp(char *s1, char *s2);
 char **deepDupe(char **args);
+char *_strcat2(char *s1, char *s2);
 char *_strcat(char *str1, char *str2, char formatter);
 void chng_dr(char **str);
 void ext(char **str);
@@ -48,8 +48,10 @@ char *_getenv(char *name);
 void _setenv(char **str);
 void _unsetenv(char **str);
 hstory *addHistory(hstory **head, char *input);
+hstory *popHead(hstory **head);
 void printHistory(hstory **head);
-void hstry(hstory *head);
+int writeHstorytofile(const char *file, hstory **head);
+int readFromFile(const char *file, hstory **head);
 char **split_input(char *input);
 int find_builtins(char **tokens);
 void check_path(char **tokens);

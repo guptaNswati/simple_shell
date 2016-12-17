@@ -61,13 +61,14 @@ void prompt(void)
  	char *input, **tokens;
 	int terminator, hstryCount;
 	ssize_t bufr;
+	const char *file = ".simple_shell_history";
 
+/* read from .history file and populate the linkedlist */
+	hstryCount = readFromFile(file, &head);
 	input = NULL;
 	bufr = 0;
-	terminator = 1;
 	/* ignore cntrl+C */
 	signal(SIGINT, SIG_IGN);
-	hstryCount = 0;
 	while (1)
 	{
 		printf("$ ");
@@ -82,6 +83,6 @@ void prompt(void)
 		excute(tokens);
 		free(tokens);
 	}
+	writeHstorytofile(file, &head);
 	free(input);
-	writeHstorytofile(&head);
 }

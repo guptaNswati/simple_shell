@@ -37,7 +37,24 @@ int _strcmp(char *s1, char *s2)
 	}
 	return (0);
 }
+char *_strcat2(char *str1, char *str2)
+{
+	char *new;
+        int i, j;
 
+        new = malloc(sizeof(char) * (_strlen(str1) + _strlen(str2) + 1));
+        if (new == NULL)
+                return (NULL);
+
+        for (i = 0; str1[i] != '\0'; i++)
+                new[i] = str1[i];
+        for (j = 0; str2[j] != '\0'; j++, i++)
+                new[i] = str2[j];
+
+        new[i] = '\0';
+        return (new);
+
+}
 char *_strcat(char *str1, char *str2, char formatter)
 {
 	char *new;

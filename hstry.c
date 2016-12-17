@@ -32,9 +32,9 @@ hstory *addHistory(hstory **head, char *input)
 	return (new);
 }
 
-hstory popHead(hstory **head)
+hstory *popHead(hstory **head)
 {
-	hstory temp;
+	hstory *temp;
 
 	temp = *head;
 	*head = (*head)->next;
@@ -56,19 +56,21 @@ void printHistory(hstory **head)
 	}
 }
 
-int writeHstorytofile(FILE, hstory **head)
+int writeHstorytofile(const char *file, hstory **head)
 {
 	int fd, count, inptLen;
+	char *inpt;
 
-	fd = open(FILE, O_WRONLY | S_IWUSR)
+	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC | S_IRUSR | S_IWUSR);
 		if (fd == -1)
 			return (-1);
 	if (*head)
 	{
 		while (*head)
 		{
-			inptLen = _strlen((*head)->input);
-			count = write(fd, (*head)->input"\n", inptLen + 1);
+			inptLen = _strlen((*head)->input) + 1;
+			inpt = _strcat2(inpt, "\n");
+			count = write(fd, inpt, inptLen);
 			if (count == -1 || count != inptLen)
 				return (-1);
 			*head = (*head)->next;
@@ -78,28 +80,32 @@ int writeHstorytofile(FILE, hstory **head)
 	return (0);
 }
 
-int readFromFile(FILE, hstory **head)
+int readFromFile(const char *file, hstory **head)
 {
-	int fd, count, i;
-	char input;
-	char bufr[BUFRSIZE];
+	int fd, numNodes;
+	char *input;
+	ssize_t bufr, count;
+	FILE *strm;
 
-        fd = open(FILE, O_RDONLY)
-                if (fd == -1)
-                        return (-1);
+	input = NULL;
+	bufr = 0;
+	numNodes = 0;
+	strm = fopen(file, "r");
+	/*  fd = open(strm, O_RDONLY);
+	    if (fd == -1) */
+	if (strm == NULL)
+		return (numNodes);
 	while (1)
 	{
-		i = 0;
-		while (input != '\n')
+		count = getline(&input, &bufr, strm);
+		if (count == -1)
 		{
-			count = read(fd, input, 1);
-			if (count = -1)
-				return (-1);
-			bufr[i++] = input;
+			close(fd);
+			return (numNodes);
 		}
-		bufr[i++] = '\0';
-		addHistory(head, bufr);
+		addHistory(head, input);
+		numNodes++;
 	}
         close(fd);
-        return (0);
+        return (numNodes);
 }
