@@ -1,0 +1,19 @@
+/* for testing EOF input */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+int main()
+{
+	char *input = malloc(100);
+
+	int count = read(STDIN_FILENO, input, 101);
+
+	printf("[input] %s\n", input);
+	printf("[count] %d]\n", count);
+	return (0);
+}
