@@ -26,7 +26,7 @@ void remove_mem(void **p, save_mem **head)
 	save_mem *tmp, *hold;
 
 	tmp = *head;
-	if (p == NULL)
+	if (*p == NULL)
 	{
 		/* remove and free all nodes */
 		while (tmp)
@@ -43,7 +43,7 @@ void remove_mem(void **p, save_mem **head)
 	hold = tmp;
 	while (tmp)
 	{
-		if (tmp->loc == p)
+		if (tmp->loc == *p)
 		{
 			if (hold == tmp)
 				*head = tmp->next;
@@ -75,7 +75,6 @@ void *_malloc(unsigned int size)
 	void *p;
 
 	p = malloc(size);
-	printf("address in _malloc p, &p: %p, %p\n", p, &p);
 	if (p == NULL)
 		return (NULL);
 
@@ -111,34 +110,29 @@ void printLL(save_mem **head)
 /*
 int main(void)
 {
-	static save_mem *head = NULL;
-
-
 	char *a;
 	int i, size;
 
 	size = 2;
 
-	a = _malloc(10, &head);
+	printf("Running main...\n");
+
+
+	a = _malloc(10);
 	a[0] = 'a';
-	a[1] = 'b';
-	printf("address in main: %p\n", a);
-	printf("-------\n%s\n------\n", a);
-	printLL(&head);
-	_free(a, &head);
-	printf("---\n");
-	printLL(&head);
+	printf("%s\n", a);
+	_free(a);
+
 
 	for (i = 0; i < 20; i++)
 	{
-		a = _malloc(size, &head);
+		a = _malloc(size);
 	}
 
-	printf("in main, head: %p\n", head);
-	printLL(&head);
 
-	_free(NULL, &head);
-	printLL(&head);
+	_free(NULL);
+
+	printf("Done running...\n");
 
 	return (0);
 }
