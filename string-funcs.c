@@ -14,7 +14,7 @@ char *_strcpy(char *strng, int i)
 	int j;
 	char *res;
 
-	res = malloc(sizeof(res) * (i + 1));
+	res = _malloc(sizeof(res) * (i + 1));
 	if (res == NULL)
 		return (NULL);
 	for (j = 0; j < i; j++)
@@ -43,7 +43,7 @@ char *_strcat(char *str1, char *str2, char formatter)
 	char *new;
 	int i, j;
 
-	new = malloc(sizeof(char) * (_strlen(str1) + _strlen(str2) + 2));
+	new = _malloc(sizeof(char) * (_strlen(str1) + _strlen(str2) + 2));
 	if (new == NULL)
 		return (NULL);
 

@@ -6,12 +6,14 @@ char **split_input(char *input)
 {
 	int i;
 	char **tokens, *tokn;
+	char *tmp; /* refactor this */
 
-	tokens = malloc(1024 * sizeof(char *));
+	tmp = "test";
+	tokens = _malloc(1024 * sizeof(char *));
  	if (tokens == NULL)
 	{
 		dprintf(STDERR_FILENO, "Allocation Error\n");
-		exit (0);
+		ext(&tmp);
 	}
 	tokn = strtok(input, " \n");
 	i = 0;
@@ -54,6 +56,7 @@ void excute(char **tokens)
 			check_path(tokens);
 		else if (execve(tokens[0], tokens, NULL) == -1)
 			dprintf(STDERR_FILENO, "No such file or directory\n");
+		_free(tokens);
 	}
 	else
 		waitpid(pid, &status, 0);
@@ -64,9 +67,9 @@ void prompt(void)
  	char *input, **tokens;
 	int terminator;
 	ssize_t bufr;
+	char *tmp; /* refactor this */
 
-	input = NULL;
-	bufr = 0;
+	tmp = "test";
 	terminator = 1;
 	/* ignore cntrl+C */
 	signal(SIGINT, SIG_IGN);
@@ -75,12 +78,15 @@ void prompt(void)
 		printf("$ ");
 		terminator = getline(&input, &bufr, stdin);
 		if (terminator == -1)
-			exit(0);
+		{
+			printf("\n");
+			_exit(2);
+		}
 		_ref_mem(&input, "create");
 		addHistory(&head, input);
 		tokens = split_input(input);
 		excute(tokens);
-		free(tokens);
+		_free(tokens);
 	}
-	free(input);
+	_free(input);
 }
