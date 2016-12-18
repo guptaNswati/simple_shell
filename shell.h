@@ -44,7 +44,7 @@ char **deepDupe(char **args);
 char *_strcat(char *str1, char *str2, char formatter);
 void add_mem(void **p, save_mem **head);
 void remove_mem(void **p, save_mem **head);
-void _ref_mem(void **p, char *action);
+void _ref_mem(void *p, char *action);
 void *_malloc(unsigned int size);
 void _free(void *ptr);
 void chng_dr(char **str);

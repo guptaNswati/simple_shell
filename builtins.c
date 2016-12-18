@@ -43,4 +43,5 @@ void check_path(char **tokens)
 		}
 	}
 	dprintf(STDERR_FILENO, "No such command found\n");
+	_exit(1);
 }

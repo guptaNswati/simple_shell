@@ -59,15 +59,15 @@ void remove_mem(void **p, save_mem **head)
 	}
 }
 
-void _ref_mem(void **p, char *action)
+void _ref_mem(void *p, char *action)
 {
 	static save_mem *head = NULL;
 	save_mem *newnode;
 
 	if (_strcmp(action, "create") == 0)
-		add_mem(p, &head);
+		add_mem(&p, &head);
 	else if (_strcmp(action, "remove") == 0)
-		remove_mem(p, &head);
+		remove_mem(&p, &head);
 }
 
 void *_malloc(unsigned int size)
@@ -79,7 +79,7 @@ void *_malloc(unsigned int size)
 	if (p == NULL)
 		return (NULL);
 
-	_ref_mem(&p, "create");
+	_ref_mem(p, "create");
 
 	return (p);
 }
