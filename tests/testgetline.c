@@ -12,6 +12,8 @@ int main()
 	while((i = _getline(&input, STDIN_FILENO)) != -1)
 	{
 		tokens = tokenize(input, ' ');
+		if (tokens == NULL)
+			continue;
 		while (*tokens)
 		{
 			printf("\n[tokens] %s\n", *tokens);  

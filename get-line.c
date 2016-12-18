@@ -13,7 +13,7 @@ char **tokenize(char *lineptr, char dlimtr)
 	tmp = lineptr;
 	i = 0;
 	indx = 0;
-	while (*lineptr)
+	while (*lineptr && indx < BUFRSIZE)
 	{
 		if (*lineptr == dlimtr)
 		{
@@ -24,10 +24,8 @@ char **tokenize(char *lineptr, char dlimtr)
 				line[j] = *tmp;
 			line[j] = '\0';
 			tokens[indx++] = line;
-			printf("[line] %s\n", line);
 			/* set temp to begining of new line */
 			tmp = lineptr + 1;
-			printf("[temp] %s\n", tmp);
 			i = 0;
 		}
 		/*	tokens = split_input(line); */
@@ -38,8 +36,13 @@ char **tokenize(char *lineptr, char dlimtr)
 	if (indx == 0)
 	{
 		tokens[indx] = tmp;
-		printf("[temp outside] %s\n", tmp);
 		return (tokens);
+	}
+	/* theres more to be read, discard it and return null */
+	if (*lineptr != '\0')
+	{
+		dprintf(STDERR_FILENO, "Killed\n");
+		return (NULL);
 	}
 	tokens[indx++] = tmp;
 	tokens[indx] = NULL;
