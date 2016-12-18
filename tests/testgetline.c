@@ -5,11 +5,14 @@ int main()
         char *input;
 	int i;
 
-	while((i = _getline(&input, STDIN_FILENO)) != -1)
+	i = _getline(&input, STDIN_FILENO);
+/*	_line(input); */
+
+/*	while((i = _getline(&input, STDIN_FILENO)) != -1)
 	{
 		printf("\n[input] %s\n", input);
 		printf("[i] %d\n", i);
-	}
+		} */
 	return (0);
 }
 
