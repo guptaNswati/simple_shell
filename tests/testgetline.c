@@ -8,11 +8,11 @@ int main()
 	/*i = _getline(&input, STDIN_FILENO);
 	_line(input); */
 
-	signal(SIGINT, SIG_IGN);
-	while((i = _getline(&input, STDIN_FILENO)) != 0)
+/*	signal(SIGINT, SIG_IGN); */
+	while((i = _getline(&input, STDIN_FILENO)) != -1)
 	{
-		/*	printf("\n[input] %s\n", input);
-			printf("[i] %d\n", i); */
+			printf("\n[input] %s\n", input);
+			printf("[i] %d\n", i);
 	}
 	return (0);
 }
