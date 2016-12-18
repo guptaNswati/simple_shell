@@ -40,22 +40,19 @@ ssize_t _getline(char **lineptr, int fd)
 	*lineptr = malloc(sizeof(char) * bufsz);
 	if (*lineptr == NULL)
 		return (-1);
-	readCount = read(fd, *lineptr + charsRead, bufsz);
-	if (readCount == -1)
-		return (-1);
-	if (readCount < bufsz)
-		return (readCount);
-	*lineptr = _realloc(*lineptr, bufsz, 2 * bufsz);
-	if (*lineptr == NULL)
-		return (-1);
-	charsRead = readCount;
+	charsRead = 0;
 	while ((readCount = read(fd, *lineptr + charsRead, bufsz)) != 0)
 	{
+		if (readCount != bufsz)
+		{
+			charsRead += readCount; /* increment the pointer to what is already read */
+			return (charsRead);
+		}
+                /* else needs more memory */
 		*lineptr = _realloc(*lineptr, bufsz, 2 * bufsz);
 		if (*lineptr == NULL)
 			return (-1);
 		charsRead += readCount; /* increment the pointer to what is already read */
-		/* else needs more memory */
 	}
-	return (charsRead);
+	return (readCount);
 }
