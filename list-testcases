@@ -14,7 +14,7 @@
 4. alias
 5. man page -> underconstruction
 7. getline -> done!
-8. strtok
+8. strtok -> done!
 9. write function, inplace of printf
 10. file
 
@@ -22,7 +22,7 @@
 11. comments
 12. variables
 13. &&, ||
-14. ;
+14. ; -> done (calling before processing space)
 15. blog post
 
 /* Known bugs   */
@@ -33,3 +33,16 @@
 5. refractoring
 6. fix builtin prototypes
 7. change all hard coded values with macros or variables
+
+/* Done */
+1. README
+2. simple_shell
+3. getline
+4. arguements
+5. strtok
+6. Path
+7. CTRLC
+8. env
+9. setenv, unsetenv
+10. cd
+11. command separator
