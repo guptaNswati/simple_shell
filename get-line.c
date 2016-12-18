@@ -40,26 +40,22 @@ ssize_t _getline(char **lineptr, int fd)
 	*lineptr = malloc(sizeof(char) * bufsz);
 	if (*lineptr == NULL)
 		return (-1);
-
-	readCount = read(fd, *lineptr, bufsz);
-	/* error checking */
+	readCount = read(fd, *lineptr + charsRead, bufsz);
 	if (readCount == -1)
 		return (-1);
 	if (readCount < bufsz)
 		return (readCount);
-	/* else needs more memory */
-	charsRead = readCount; /* increment the pointer to what is already read */
-	/* allocate more memory */
 	*lineptr = _realloc(*lineptr, bufsz, 2 * bufsz);
 	if (*lineptr == NULL)
 		return (-1);
- 	while ( (readCount = read(fd, *lineptr + charsRead, bufsz)) != 0)
+	charsRead = readCount;
+	while ((readCount = read(fd, *lineptr + charsRead, bufsz)) != 0)
 	{
 		*lineptr = _realloc(*lineptr, bufsz, 2 * bufsz);
 		if (*lineptr == NULL)
 			return (-1);
-		charsRead += readCount;
+		charsRead += readCount; /* increment the pointer to what is already read */
+		/* else needs more memory */
 	}
-		printf("[input outside] %s\n", *lineptr);
 	return (charsRead);
 }
