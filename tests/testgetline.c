@@ -2,7 +2,7 @@
 
 int main()
 {
-        char *input;
+        char *input, **tokens;
 	int i;
 
 	/*i = _getline(&input, STDIN_FILENO);
@@ -11,8 +11,14 @@ int main()
 /*	signal(SIGINT, SIG_IGN); */
 	while((i = _getline(&input, STDIN_FILENO)) != -1)
 	{
-			printf("\n[input] %s\n", input);
-			printf("[i] %d\n", i);
+		tokens = tokenize(input, ' ');
+		while (*tokens)
+		{
+			printf("\n[tokens] %s\n", *tokens);  
+			tokens++;
+		}
+/*			printf("\n[input] %s\n", input);
+			printf("[i] %d\n", i); */
 	}
 	return (0);
 }

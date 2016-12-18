@@ -54,7 +54,7 @@ int writeHstorytofile(const char *file, hstory **head);
 int readFromFile(const char *file, hstory **head);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 ssize_t _getline(char **lineptr, int fd);
-void _line(char *lineptr);
+char **tokenize(char *lineptr, char dlimtr);
 char **split_input(char *input);
 int find_builtins(char **tokens);
 void check_path(char **tokens);
