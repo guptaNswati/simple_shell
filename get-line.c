@@ -42,25 +42,13 @@ ssize_t _getline(char **lineptr, int fd)
 		return (-1);
 	charsRead = 0;
 	signal(SIGINT, SIG_IGN);
-	while ((readCount = read(fd, *lineptr, 12)) != 0)
+	while ((readCount = read(fd, *lineptr, bufsz)) != 0)
 	{
-		_line(*lineptr);
-		/* if line is less than 1204 chars, null terminate the string and return */
-		/*	if (readCount < bufsz - charsRead)
-		{
-			(*lineptr)[readCount + charsRead] = '\0';
-			printf("[_getline < bufsz] %s\n", *lineptr);
-			return (readCount);
-			} */
-		/* else more memory is needed */
- 		*lineptr = _realloc(*lineptr, bufsz, 2 * bufsz);
+ 	 	*lineptr = _realloc(*lineptr, bufsz, 2 * bufsz);
 		if (*lineptr == NULL)
 			return (-1);
 		charsRead += readCount;
-/*		printf("[_getline > bufsz] %s\n", *lineptr); */
 	}
-/*	if (readCount == 0)
-	return (-1); */
-/*	_line(*lineptr); */
-	return (12);
+	_line(*lineptr);
+	return (charsRead);
 }
