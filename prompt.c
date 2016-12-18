@@ -56,12 +56,7 @@ void excute(char **tokens)
 			dprintf(STDERR_FILENO, "No such file or directory\n");
 	}
 	else
-	{
 		waitpid(pid, &status, 0);
-/*		ext(&tmp);*/
-		/*wait(&status);*/
-	}
-
 }
 
 void prompt(void)
