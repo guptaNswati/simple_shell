@@ -35,20 +35,26 @@ ssize_t _getline(char **lineptr, int fd)
 {
  	/* default line length */
 	static const int bufsz = BUFRSIZE;
-	int readCount, charsRead, totalRead;
+	int readCount, charsRead;
 
 	*lineptr = malloc(sizeof(char) * bufsz);
 	if (*lineptr == NULL)
 		return (-1);
-	charsRead = 0;
-	signal(SIGINT, SIG_IGN);
-	while ((readCount = read(fd, *lineptr, bufsz)) != 0)
+	while ((readCount = read(fd, *lineptr + charsRead, bufsz)) != -1)
 	{
+		printf("going in \n");
  	 	*lineptr = _realloc(*lineptr, bufsz, 2 * bufsz);
 		if (*lineptr == NULL)
 			return (-1);
 		charsRead += readCount;
 	}
-	_line(*lineptr);
+	if (readCount < bufsz)
+	{
+		printf("not going in\n");
+		printf("[input] %s\n", *lineptr);
+		return (readCount);
+	}
+	/* else we had to allocate more memory */
+	printf("[input outside] %s\n", *lineptr);
 	return (charsRead);
 }
