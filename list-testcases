@@ -8,15 +8,14 @@
 /* TO DO's  */
 
 /* high priority */
-write function, instead of using printf -> write()
-1. exit
-2. help
-3. history
+1. exit -> philip -> in progess
+2. help -> philip -> in progress
+3. history -> in progress
 4. alias
-5. man pafe -> underconstruction
-7. getline
+5. man page -> underconstruction
+7. getline -> done!
 8. strtok
-9. blog post
+9. write function, inplace of printf
 10. file
 
 /* after high priority */
@@ -24,7 +23,7 @@ write function, instead of using printf -> write()
 12. variables
 13. &&, ||
 14. ;
-
+15. blog post
 
 /* Known bugs   */
 1. cntrlD -> fixed
@@ -33,3 +32,4 @@ write function, instead of using printf -> write()
 4. betty checks
 5. refractoring
 6. fix builtin prototypes
+7. change all hard coded values with macros or variables
