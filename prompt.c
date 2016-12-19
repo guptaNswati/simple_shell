@@ -56,6 +56,7 @@ void excute(char **tokens)
 			check_path(tokens);
 		else if (execve(tokens[0], tokens, NULL) == -1)
 			dprintf(STDERR_FILENO, "No such file or directory\n");
+		_free(tokens);
 	}
 	else
 		waitpid(pid, &status, 0);
