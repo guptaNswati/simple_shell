@@ -33,6 +33,7 @@ void remove_mem(void **p, save_mem **head)
 		{
 			hold = tmp;
 			tmp = tmp->next;
+			printf("Rall: %p\n", hold->loc);
 			free(hold->loc);
 			free(hold);
 		}

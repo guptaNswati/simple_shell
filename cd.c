@@ -50,5 +50,48 @@ void ext(char **str)
 
 void hlp(char **str)
 {
-	printf("In help\n");
+	char *arg;
+	int i, trigger;
+	help_struct storage[] = {
+		{"cd", "cd [dir]", cd_data},
+		{"env", "env", env_data},
+		{"exit", "exit", exit_data},
+		{"help", "help [pattern ...]", help_data},
+		{"printenv", "printenv", env_data},
+		{"setenv", "setenv name value", setenv_data},
+		{"unsetenv", "unsetenv name", unsetenv_data},
+		{NULL, NULL, NULL}
+	};
+
+	if (str[1])
+	{
+		for (i = 0, trigger = 1; storage[i].cmd != NULL; i++)
+		{
+			if (_strcmp(str[1], storage[i].cmd) >= 0)
+			{
+				storage[i].func(storage[i].cmd);
+				trigger = 0;
+			}
+		}
+		if (trigger)
+		{
+			printf("simple_shell: help: no help topics match `%s`."
+			       " Try `help`.\n", str[1]);
+		}
+		return;
+	}
+
+	printf(BBLU"\nSimple Shell"RESET
+	       ", version 0.01-release (x86_64-pc-linux-gnu)\n\n"
+	       "These shell commands are defined interally."
+	       "Type `help` to see this list.\n"
+	       "Type `help name` to find out more about the "
+	       "function `name`.\n\n");
+
+	printf("-----\n");
+	for (i = 0; storage[i].cmd; i++)
+	{
+		printf(" %s\n", storage[i].synopsis);
+		printf("-----\n");
+	}
 }
