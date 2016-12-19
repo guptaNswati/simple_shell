@@ -10,6 +10,7 @@ void chng_dr(char **str)
 	setOwd = NULL;
 
 	curnt_dir = getcwd(curnt_dir, 102);
+/*	_ref_mem(curnt_dir, "create");*/
 	newcd = str[1];
 
 	if ((newcd == NULL) || (_strcmp(newcd, "~") == 0) ||
@@ -21,23 +22,23 @@ void chng_dr(char **str)
 	if (chdir(newcd) == -1)
 	{
 		printf("%s\n", strerror(errno));
-		free(curnt_dir);
+		_free(curnt_dir);
 		return;
 	}
-	setPwd = malloc (sizeof (char *) * (3 + _strlen(newcd)));
+	setPwd = _malloc (sizeof (char *) * (3 + _strlen(newcd)));
 	if (setPwd == NULL)
 		return;
 	setPwd[0] = "PWD", setPwd[1] = newcd;
 	_setenv(setPwd);
 
-	setOwd = malloc (sizeof (char *) * (3 + _strlen(curnt_dir)));
+	setOwd = _malloc (sizeof (char *) * (3 + _strlen(curnt_dir)));
         if (setOwd == NULL)
                 return;
 	setOwd[0] = "OLDPWD", setOwd[1] = curnt_dir;
 	_setenv(setOwd);
-	free(curnt_dir);
-	free(setPwd);
-	free(setOwd);
+	_free(curnt_dir);
+	_free(setPwd);
+	_free(setOwd);
 }
 
 void ext(char **str)

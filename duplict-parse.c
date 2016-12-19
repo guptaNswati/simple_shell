@@ -17,7 +17,7 @@ strLL *parsePath(char *path, char *delim)
 		{
 			if (path[i] == delim[d])
 			{
-				str = malloc(i - j + 1);
+				str = _malloc(i - j + 1);
 				for (x = 0; x < (i - j); x++)
 				{
 					str[x] = path[j + x];
@@ -25,7 +25,7 @@ strLL *parsePath(char *path, char *delim)
 				j = i + 1;
 			}
 		}
-		newnode = malloc(sizeof(strLL));
+		newnode = _malloc(sizeof(strLL));
 		newnode->str = str;
 		newnode->next = NULL;
 		if (tmp == NULL)
@@ -51,7 +51,7 @@ char **deepDupe(char **args)
 		total += j;
 	}
 
-	storage = malloc(total * i);
+	storage = _malloc(total * i);
 	if (storage == NULL)
 		return (NULL);
 
