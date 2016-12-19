@@ -55,8 +55,10 @@ void excute(char **tokens)
 		if (tokens[0][0] != '/')
 			check_path(tokens);
 		else if (execve(tokens[0], tokens, NULL) == -1)
+		{
+/*			_free(tokens);*/
 			dprintf(STDERR_FILENO, "No such file or directory\n");
-		_free(tokens);
+		}
 	}
 	else
 		waitpid(pid, &status, 0);
@@ -80,13 +82,17 @@ void prompt(void)
 		if (terminator == -1)
 		{
 			printf("\n");
-			_exit(2);
+/*			_exit(2);*/
+			ext(&tmp);
 		}
 /*		_ref_mem(&input, "create");*/
 		addHistory(&head, input);
-		tokens = split_input(input);
-		excute(tokens);
-		_free(tokens);
+		if (input[0] != '\n')
+		{
+			tokens = split_input(input);
+			excute(tokens);
+			_free(tokens);
+		}
 	}
 	_free(input);
 }
