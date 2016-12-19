@@ -14,14 +14,14 @@ int main()
 		while (*tokens)
 		{
 			spce = tokenize(*tokens, ' ');
-			if (spce != NULL)
+/*			if (spce != NULL)
 			{
 				while (*spce)
 				{
-					printf("\n[spce] %s\n", *spce);
+					printf("\n[tokens2] %s\n", *spce);
 					spce++;
 				}
-			}
+				} */
 			printf("\n[tokens] %s\n", *tokens);
 			tokens++;
 		}

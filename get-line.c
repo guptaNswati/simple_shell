@@ -55,7 +55,7 @@ char **tokenize(char *lineptr, char dlimtr)
 ssize_t _getline(char **lineptr, int fd)
 {
  	/* default line length */
-	static const int bufsz = BUFRSIZE;
+	static int bufsz = BUFRSIZE;
 	int readCount, charsRead;
 
 	*lineptr = malloc(sizeof(char) * bufsz);
@@ -64,15 +64,19 @@ ssize_t _getline(char **lineptr, int fd)
 	charsRead = 0;
 	while ((readCount = read(fd, *lineptr + charsRead, bufsz)) != 0)
 	{
-		if (readCount != bufsz)
+		if (readCount == -1)
+			return (-1);
+		/* exit when find a new line */
+		if (*(*lineptr + readCount + charsRead - 1) == '\n')
 		{
-			charsRead += readCount; /* increment the pointer to what is already read */ 
+			charsRead += readCount; /* increment the pointer to what is already read */
 			return (charsRead);
 		}
                 /* else needs more memory */
 		*lineptr = _realloc(*lineptr, bufsz, 2 * bufsz);
 		if (*lineptr == NULL)
 			return (-1);
+		bufsz *= 2;
 		charsRead += readCount; /* increment the pointer to what is already read */
 	}
 	return (readCount);
