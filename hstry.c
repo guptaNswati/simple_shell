@@ -61,17 +61,21 @@ int writeHstorytofile(const char *file, hstory **head)
 	int fd, count, inptLen;
 	char *inpt;
 
-	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC | S_IRUSR | S_IWUSR);
-		if (fd == -1)
-			return (-1);
+	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR);
+	if (fd == -1)
+	{
+		printf("could not open %s in write", file);
+		return (-1);
+	}
 	if (*head)
 	{
 		printf("lets see whats up in write history\n");
 		while (*head)
 		{
-			inptLen = _strlen((*head)->input) + 1;
-			inpt = _strcat2(inpt, "\n");
-			count = write(fd, inpt, inptLen);
+			inptLen = _strlen((*head)->input);
+			/*	inpt = _strcat2(inpt, "\n"); */
+			/*	printf("[inpt] %s\n", inpt); */
+			count = write(fd, (*head)->input, inptLen);
 			if (count == -1 || count != inptLen)
 				return (-1);
 			*head = (*head)->next;
@@ -99,6 +103,7 @@ int readFromFile(const char *file, hstory **head)
 		fd = open(file, O_RDONLY);
 	        if (fd == -1)
 		{
+			printf("could not open in read %s", file);
 			free(input);
 			return (numNodes);
 		}
