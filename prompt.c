@@ -61,7 +61,7 @@ void prompt(void)
  	char *input, **tokens;
 	int terminator, hstryCount;
 	ssize_t bufr;
-	const char *file = ".simple_shell_history";
+	const char *file = "/.simple_shell_history";
 
 /* read from .history file and populate the linkedlist */
 	hstryCount = readFromFile(file, &head);

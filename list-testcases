@@ -33,7 +33,7 @@
 5. refractoring
 6. fix builtin prototypes
 7. change all hard coded values with macros or variables
-8. getline exit condition -> pointed by oliver
+8. getline exit condition -> pointed by oliver -> fixed
 
 /* Done */
 1. README

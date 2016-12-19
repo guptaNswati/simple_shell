@@ -1,15 +1,33 @@
 #include "shell.h"
 
+/* remove empty the spaces from begining of input string */
+char *linep_withoutspaces(char *line)
+{
+	/* no need to null check, as empty string will not be passed  */
+	if (*line == ' ')
+	{
+		line++;
+		return (linep_withoutspaces(line));
+	}
+	return (line);
+}
 char **tokenize(char *lineptr, char dlimtr)
 {
 	int i, j, indx;
 	char *tmp, *line, **tokens;
+
+	/* it can be null if only new line was entered */
+	if (*lineptr == '\0')
+		return (NULL);
 
 	/* limit the size of input to be processed */
 	tokens = malloc(sizeof(char *) * BUFRSIZE);
 	if (tokens == NULL)
 		return (NULL);
 
+/* discard the begining spaces */
+	lineptr = linep_withoutspaces(lineptr);
+/* set tmp to first non space char */
 	tmp = lineptr;
 	i = 0;
 	indx = 0;
@@ -24,11 +42,11 @@ char **tokenize(char *lineptr, char dlimtr)
 				line[j] = *tmp;
 			line[j] = '\0';
 			tokens[indx++] = line;
+
 			/* set temp to begining of new line */
 			tmp = lineptr + 1;
 			i = 0;
 		}
-		/*	tokens = split_input(line); */
 		i++;
 		lineptr++;
 	}
@@ -49,9 +67,6 @@ char **tokenize(char *lineptr, char dlimtr)
 	return (tokens);
 }
 
-
-/* Ref: https://sourcecodebrowser.com/pecomato/0.0.15/gnu-getline_8c_source.html*/
-
 ssize_t _getline(char **lineptr, int fd)
 {
  	/* default line length */
@@ -62,14 +77,16 @@ ssize_t _getline(char **lineptr, int fd)
 	if (*lineptr == NULL)
 		return (-1);
 	charsRead = 0;
-	while ((readCount = read(fd, *lineptr + charsRead, bufsz)) != 0)
+	while ((readCount = read(fd, *lineptr + charsRead, bufsz)) > 0)
 	{
 		if (readCount == -1)
 			return (-1);
 		/* exit when find a new line */
 		if (*(*lineptr + readCount + charsRead - 1) == '\n')
 		{
-			charsRead += readCount; /* increment the pointer to what is already read */
+			/* make new line char null */
+			*(*lineptr + readCount + charsRead - 1) = '\0';
+			charsRead += readCount;
 			return (charsRead);
 		}
                 /* else needs more memory */
@@ -77,7 +94,8 @@ ssize_t _getline(char **lineptr, int fd)
 		if (*lineptr == NULL)
 			return (-1);
 		bufsz *= 2;
-		charsRead += readCount; /* increment the pointer to what is already read */
+		/* increment the pointer to what is already read */
+		charsRead += readCount;
 	}
 	return (readCount);
 }
