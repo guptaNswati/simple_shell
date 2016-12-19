@@ -66,11 +66,11 @@ exit [\fIexitstatus\fR]
 Terminate the shell process. If \fIexitstatus\fR is given, it is used as the exit status of the shell.
 .LP
 .TP
-setenv [\fIname\fR=\fIvalue\fR]
+setenv \fIname\fR \fIvalue\fR
 Add a new environment variable.
 .LP
 .TP
-unsetenv [\fIname\fR]
+unsetenv \fIname\fR
 Remove an environment variable.
 .LP
 .RE
