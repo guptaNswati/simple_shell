@@ -70,7 +70,7 @@ void excute(char **tokens, hstory **head)
 void promptUser()
 {
 	char *input, **tokens;
-	int hstryCount, *hstryPtr;
+	int hstryCount, *hstryPtr, stop;
 	const char *file;
 	static hstory *head = NULL;
 
@@ -82,8 +82,8 @@ void promptUser()
 
 	/* ignore cntrl+C */
 	signal(SIGINT, SIG_IGN);
-	printf("$ ");
-	while (_getline(&input, STDIN_FILENO) != -1)
+	_puts("$ ");
+	while (stop =_getline(&input, STDIN_FILENO) != 0)
 	{
 		addHistory(&head, input, hstryPtr);
 /* add command separator */
@@ -92,7 +92,7 @@ void promptUser()
 		{
 			excute(tokens, &head);
 			_free(tokens);
-			printf("$ ");
+			_puts("$ ");
 		}
 		writeHstorytofile(file, &head);
 	}
