@@ -10,13 +10,14 @@
 /* high priority */
 1. exit -> philip -> in progess
 2. help -> philip -> in progress
-3. history -> in progress
+3. history -> in progress -> done
 4. alias
 5. man page -> underconstruction
 7. getline -> done!
 8. strtok -> done!
-9. write function, inplace of printf
+9. write function, inplace of printf ->
 10. file
+11. testing with test suite
 
 /* after high priority */
 11. comments
@@ -34,6 +35,7 @@
 6. fix builtin prototypes
 7. change all hard coded values with macros or variables
 8. getline exit condition -> pointed by oliver -> fixed
+9. exit -> in valgrind
 
 /* Done */
 1. README
@@ -47,3 +49,5 @@
 9. setenv, unsetenv
 10. cd
 11. command separator
+12. history
+13. help

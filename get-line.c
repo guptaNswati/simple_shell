@@ -84,7 +84,7 @@ ssize_t _getline(char **lineptr, int fd)
 		/* exit when find a new line */
 		if (*(*lineptr + readCount + charsRead - 1) == '\n')
 		{
-			/* make new line char null */
+			/* make new line char, null */
 			*(*lineptr + readCount + charsRead - 1) = '\0';
 			charsRead += readCount;
 			return (charsRead);

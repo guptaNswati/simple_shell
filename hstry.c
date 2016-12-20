@@ -54,6 +54,7 @@ hstory *popHead(hstory **head, int *nodeCount)
 
 int readFromFile(const char *file, hstory **head, int *nodeCount)
 {
+	printf("in read\n");
 	int fd, numNodes;
 	char *input, *tokn, **tokns;
 	ssize_t count;
@@ -68,6 +69,7 @@ int readFromFile(const char *file, hstory **head, int *nodeCount)
 		if (input == NULL)
 			return (-1);
 		fd = open(file, O_RDONLY);
+		printf("[file]%s\n", file);
 	        if (fd == -1)
 		{
 			printf("could not open in read %s", file);
@@ -98,9 +100,11 @@ int readFromFile(const char *file, hstory **head, int *nodeCount)
 
 int writeHstorytofile(const char *file, hstory **head)
 {
+	printf("in write\n");
 	int fd, count, inptLen;
 
 	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR);
+	printf("[file]%s\n", file);
 	if (fd == -1)
 	{
 		printf("could not open %s in write", file);

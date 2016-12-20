@@ -22,7 +22,8 @@ void promptUser()
 			free(tokens);
 			printf("$ ");
 		}
+		/* need to read history before exit */
+		writeHstorytofile(file, &head);
 	}
-	writeHstorytofile(file, &head);
 	free(input);
 }
