@@ -1,13 +1,15 @@
 #include "shell.h"
 
 /**
- * _puts - print a buffer.
+ * _puts - print a buffer to stdout.
  * @buffer: buffer passed
- * @size: number of bytes to print
  */
-void _puts(char *buffer, int size)
+void _puts(char *buffer)
 {
-	write(1, buffer, size);
+	int size;
+
+	size = _strlen(buffer);
+	write(STDOUT_FILENO, buffer, size);
 }
 
 /**
