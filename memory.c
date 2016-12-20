@@ -2,7 +2,7 @@
 
 void add_mem(void **p, save_mem **head)
 {
-	save_mem *newnode;
+	save_mem *newnode, *tmp;
 
 	/*create node */
 	newnode = malloc(sizeof(save_mem));
@@ -18,6 +18,28 @@ void add_mem(void **p, save_mem **head)
 		/* prepend to LL, FIFO */
 		newnode->next = *head;
 		*head = newnode;
+	}
+}
+
+void remove_child_mem(void **p, save_mem **head)
+{
+	save_mem *tmp, *hold;
+
+	tmp = *head;
+	while (tmp)
+	{
+		hold = tmp;
+		tmp = tmp->next;
+		free(hold->loc);
+		free(hold);
+
+		if (*p == tmp->loc)
+		{
+			*head = tmp->next;
+			free(tmp->loc);
+			free(tmp);
+			break;
+		}
 	}
 }
 
@@ -66,6 +88,8 @@ void _ref_mem(void *p, char *action)
 
 	if (_strcmp(action, "create") == 0)
 		add_mem(&p, &head);
+	else if (_strcmp(action, "remove child") == 0)
+		remove_child_mem(&p, &head);
 	else if (_strcmp(action, "remove") == 0)
 		remove_mem(&p, &head);
 }

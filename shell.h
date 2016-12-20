@@ -70,6 +70,7 @@ char **deepDupe(char **args);
 char *_strcat(char *str1, char *str2, char formatter);
 
 void add_mem(void **p, save_mem **head);
+void remove_child_mem(void **p, save_mem **head);
 void remove_mem(void **p, save_mem **head);
 void _ref_mem(void *p, char *action);
 void *_malloc(unsigned int size);
@@ -96,7 +97,7 @@ void hstry(hstory *head);
 
 char **split_input(char *input);
 int find_builtins(char **tokens);
-void check_path(char **tokens);
+void check_path(char **tokens, char **p);
 void excute(char **tokens);
 void prompt(void);
 

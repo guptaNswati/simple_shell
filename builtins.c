@@ -26,7 +26,7 @@ int find_builtins(char **tokens)
 	return (-1);
 }
 
-void check_path(char **tokens)
+void check_path(char **tokens, char **p)
 {
 	char *path, *tokn, *concat;
 
@@ -38,10 +38,13 @@ void check_path(char **tokens)
 		if (concat)
 		{
 			if (execve(concat, tokens, NULL) != -1)
+			{
 				break;
+			}
 			tokn = strtok(NULL, ":");
 		}
 	}
 	dprintf(STDERR_FILENO, "No such command found\n");
+	_ref_mem(p, "remove child");
 	_exit(1);
 }
