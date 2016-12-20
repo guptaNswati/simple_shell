@@ -1,28 +1,5 @@
 #include "shell.h"
 
-char **split_input(char *input)
-{
-	int i;
-	char **tokens, *tokn;
-
-	tokens = _malloc(1024 * sizeof(char *));
- 	if (tokens == NULL)
-	{
-		dprintf(STDERR_FILENO, "Allocation Error\n");
-		ext(&input);  /* TEST */
-	}
-	tokn = strtok(input, " \n");
-	i = 0;
-	while (tokn != NULL)
-	{
-		tokens[i] = tokn;
-		i++;
-		tokn = strtok(NULL, " \n");
-	}
-	tokens[i] = NULL;
-	return (tokens);
-}
-
 void excute(char **tokens, hstory **head)
 {
 	pid_t pid, wpid;
@@ -70,20 +47,19 @@ void excute(char **tokens, hstory **head)
 void promptUser()
 {
 	char *input, **tokens;
-	int hstryCount, *hstryPtr, stop;
+	int hstryCount, *hstryPtr;
 	const char *file;
 	static hstory *head = NULL;
 
 	hstryPtr = &hstryCount;
 	file = _strcat(_getenv("HOME"), "simple_shell/.simple_shell_history", '/');
-	printf("[file] %s\n", file);
 	/* read history from file */
 	readFromFile(file, &head, hstryPtr);
 
 	/* ignore cntrl+C */
 	signal(SIGINT, SIG_IGN);
 	_puts("$ ");
-	while (stop =_getline(&input, STDIN_FILENO) != 0)
+	while (_getline(&input, STDIN_FILENO) != 0)
 	{
 		addHistory(&head, input, hstryPtr);
 /* add command separator */
@@ -92,11 +68,10 @@ void promptUser()
 		{
 			excute(tokens, &head);
 			_free(tokens);
-			_puts("$ ");
 		}
+		_puts("$ ");
 		writeHstorytofile(file, &head);
 	}
 	/* need to read history before exit */
-	_free(input);
 	ext(NULL);
 }
