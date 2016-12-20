@@ -68,6 +68,7 @@ char *_strcpy(char *strng, int i);
 int _strcmp(char *s1, char *s2);
 char **deepDupe(char **args);
 char *_strcat(char *str1, char *str2, char formatter);
+int _atoi(char *s);
 
 void add_mem(void **p, save_mem **head);
 void remove_child_mem(void **p, save_mem **head);
