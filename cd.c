@@ -50,7 +50,6 @@ void ext(char **str)
 
 void hlp(char **str)
 {
-	char *arg;
 	int i, trigger;
 	help_struct storage[] = {
 		{"cd", "cd [dir]", cd_data},
