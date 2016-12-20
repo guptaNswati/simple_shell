@@ -26,10 +26,12 @@ hstory *addHistory(hstory **head, char *input)
 	{
 		temp = *head;
 		while (temp->next != NULL)
+		{
 			temp = temp->next;
+		}
 		temp->next = new;
 	}
-	return (new);
+	return (*head);
 }
 
 hstory *popHead(hstory **head)
@@ -43,17 +45,22 @@ hstory *popHead(hstory **head)
 	return (*head);
 
 }
+
 void printHistory(hstory **head)
 {
 	int i;
+	hstory *start;
 
 	i = 0;
+	start = *head;
 	while (*head)
 	{
 		printf("[%d] %s \n", i, (*head)->input);
 		*head = (*head)->next;
 		i++;
 	}
+	/* return the head after iterating */
+	*head = start;
 }
 
 int writeHstorytofile(const char *file, hstory **head)
@@ -67,22 +74,24 @@ int writeHstorytofile(const char *file, hstory **head)
 		printf("could not open %s in write", file);
 		return (-1);
 	}
-	if (*head)
+	if (*head != NULL)
 	{
-		printf("lets see whats up in write history\n");
 		while (*head)
 		{
 			inptLen = _strlen((*head)->input);
-			/*	inpt = _strcat2(inpt, "\n"); */
-			/*	printf("[inpt] %s\n", inpt); */
-			count = write(fd, (*head)->input, inptLen);
+			count = write(fd, (*head)->input, _strlen((*head)->input));
 			if (count == -1 || count != inptLen)
 				return (-1);
+			count = write(fd, "\n", 1);
+			if (count == -1)
+                                return (-1);
 			*head = (*head)->next;
 		}
+		close(fd);
+		return (0);
 	}
 	close(fd);
-	return (0);
+	return (-1);
 }
 
 int readFromFile(const char *file, hstory **head)
@@ -99,25 +108,24 @@ int readFromFile(const char *file, hstory **head)
 		filsiz = st.st_size;
 		input = malloc(sizeof(char) * filsiz);
 		if (input == NULL)
-			return (numNodes);
+			return (-1);
 		fd = open(file, O_RDONLY);
 	        if (fd == -1)
 		{
 			printf("could not open in read %s", file);
 			free(input);
-			return (numNodes);
+			return (-1);
 		}
 		count = read(fd, input, filsiz);
 		if (count == -1 || count != filsiz)
 		{
 			close(fd);
 			free(input);
-			return (numNodes);
+			return (-1);
 		}
 		tokn = strtok(input, "\n");
-		while (tokn != NULL)
+		while (tokn)
 		{
-			printf("input: %s\n", tokn);
 			addHistory(head, tokn);
 			numNodes++;
 			tokn = strtok(NULL, "\n");
