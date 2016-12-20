@@ -5,14 +5,14 @@ hstory *addHistory(hstory **head, char *input, int *nodeCount)
 	hstory *new, *temp;
 	int limit;
 
-	new = malloc(sizeof(hstory));
+	new = _malloc(sizeof(hstory));
 	if (new == NULL)
 		return (NULL);
 
 	new->input = _strcpy(input, _strlen(input));
 	if (new->input == NULL)
 	{
-		free(new);
+		_free(new);
 		return (NULL);
 	}
 	new->next = NULL;

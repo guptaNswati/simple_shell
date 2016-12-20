@@ -1,0 +1,115 @@
+.TH man 1 "22 December 2016" "0.01" "simple_shell man page"
+.SH NAME
+.B simple_shell
+- a simple command-line interpreter (shell)
+.SH SYNOPSIS
+\fB./simple_shell\fR
+
+\fB[NOTE]:\fR To start using, please compile following the \fICOMPILE\fR section.
+
+.SH COMPILE
+$ gcc -Wall -Werror -Wextra -pedantic *.c ./tests/prompt-main.c -o simple_shell
+
+.SH DESCRIPTION
+\fBsimple_shell\fR is a simple implementation of a command-line interpreter for the system. 
+
+The shell is a command that reads lines from either a file or the terminal, interprets them, and generally executes other commands. It incorporates many features to aid interactive use.
+
+.B Search and Execution
+.br
+.RS 3
+There are two types of commands: builtin commands and normal programs. 
+.P
+Shell builtins are executed internally to the shell. Otherwise, if the command name doesn't match a function or builtin, the command is searched for as a normal program in the file system (as described in the next section). When a normal program is exectued, the shell runs the program, passing the arguments and the environment to the program. 
+.RE
+
+.B Path Search
+.br
+.RS 3
+When locating a command, the shell first looks for a builtin command by that name. If a builtin command is not found, one of two things happen:
+.P
+.TP
+1.
+Command names containing a slash are simply executed without performing any searches.
+.LP
+.TP
+2.
+The shell searches each entry in the PATH environment variable in turn for the command. The value of the PATH variable should be a series of entries separated by colons. Each entry consists of a directory name. The current directory may be indicated implicitly by an empty directory name, or explicitly by a single period.
+.LP
+.RE
+
+.B Command Exit Status
+.br
+.RS 3
+Each command has an exit status that can influence the behavior of other shell commands. The paradigm is that a command exits with zero for normal or success, and non-zero for failure, error, or a false indication. The man page for each command should indicate the various exit codes and what they mean.
+.RE
+
+.B Builtins
+.br
+.RS 3
+This section lists the builtin commands which are builtin because they need to perform some operation that can't be performed by a separate process.
+.P
+.TP
+cd [\fIdirectory\fR]
+Switch to the specified directory.
+.LP
+.TP
+env
+Print all environment variables.
+.LP
+.TP
+printenv
+Print all environment variables.
+.LP
+.TP
+exit [\fIexitstatus\fR]
+Terminate the shell process. If \fIexitstatus\fR is given, it is used as the exit status of the shell.
+.LP
+.TP
+setenv \fIname\fR \fIvalue\fR
+Add a new environment variable.
+.LP
+.TP
+unsetenv \fIname\fR
+Remove an environment variable.
+.LP
+.RE
+
+.B Exit Status
+.br
+.RS 3
+Errors that are detected by the shell, such as a syntax error, will cause the shell to exit with a non-zero exit status.
+.RE
+
+.SH FILES
+.RS 3
+.TP
+.B shell.h
+Header file which contains any library includes, structs created, and all funciton prototypes.
+.LP
+.TP
+.B prompt.c
+Main shell file which prints and asks for prompt from User, creates tokens from User input, and runs executable or returns response if no executable found.
+.LP
+.TP
+.B env-get-set-.c
+All functions related to environment variables. Functions include ability to Get, Set, Unset, Print, Check.
+.LP
+.TP
+.B string-funcs.c
+Helper functions that handle strings, include copy, compare, tokenize/parse, and concatenate.
+.LP
+.TP
+.B cd.c
+Shell built-in change directory command.
+.LP
+.TP
+.B duplict-parse.c
+Helper functions for parsing and deep duping.
+.LP
+.RE
+
+.SH AUTHOR
+Swati Gupta <https://github.com/guptaNswati>
+
+Philip Yoo <https://github.com/philipyoo>
