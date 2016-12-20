@@ -6,14 +6,12 @@ char **split_input(char *input)
 {
 	int i;
 	char **tokens, *tokn;
-	char *tmp; /* refactor this */
 
-	tmp = "test";
 	tokens = _malloc(1024 * sizeof(char *));
  	if (tokens == NULL)
 	{
 		dprintf(STDERR_FILENO, "Allocation Error\n");
-		ext(&tmp);
+		ext(&input);  /* TEST */
 	}
 	tokn = strtok(input, " \n");
 	i = 0;
@@ -32,9 +30,7 @@ void excute(char **tokens)
 	pid_t pid, wpid;
 	int status, i;
 	char *path, *tokn, *concat, *p;
-	char *tmp;  /* refactor this */
 
-	tmp = "test";
 	if (tokens[0][0] != '/')
 	{
 		if (_strcmp(tokens[0], "history") == 0)
@@ -53,20 +49,19 @@ void excute(char **tokens)
 	if (pid == -1)
 	{
 		dprintf(STDERR_FILENO, "Forking Error\n");
-		ext(&tmp);
+		ext(NULL);
 	}
 	if (pid == 0)
 	{
 		/* Create a special node at beginning of child.. */
 		/* After child is done, free up all nodes until this node */
 		/* NOTE: because nodes were prepended */
-		p = _malloc(9);
 
 		if (tokens[0][0] != '/')
 			check_path(tokens, p);
 		else if (execve(tokens[0], tokens, NULL) == -1)
 			dprintf(STDERR_FILENO, "No such file or directory\n");
-		_ref_mem(p, "remove child");
+		_ref_mem(&p, "remove child");
 	}
 	else
 		waitpid(pid, &status, 0);
@@ -77,21 +72,16 @@ void prompt(void)
  	char *input, **tokens;
 	int terminator;
 	ssize_t bufr;
-	char *tmp; /* refactor this */
 
-	tmp = "test";
 	terminator = 1;
 	/* ignore cntrl+C */
 	signal(SIGINT, SIG_IGN);
-	while (1)
+
+	printf("$ ");
+	while ((terminator = getline(&input, &bufr, stdin)) != -1)
+/*while (getline(&input, &bufr, stdin) != -1) */
 	{
-		printf("$ ");
-		terminator = getline(&input, &bufr, stdin);
-		if (terminator == -1)
-		{
-			printf("\n");
-			ext(&tmp);
-		}
+		printf("[INPUT] %s\n", input);
 		addHistory(&head, input);
 		if (input[0] != '\n')
 		{
@@ -99,6 +89,7 @@ void prompt(void)
 			excute(tokens);
 		}
 		_free(tokens);
+		printf("$ ");
 	}
-	_free(input);
+	ext(NULL);
 }

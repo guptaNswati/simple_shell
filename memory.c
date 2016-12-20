@@ -34,19 +34,7 @@ void remove_child_mem(void **p, save_mem **head)
 		free(hold);
 
 		if (*p == tmp->loc)
-		{
-			*head = tmp->next;
-			free(tmp->loc);
-			free(tmp);
 			break;
-		}
-	}
-
-	tmp = *head;
-	while (tmp)
-	{
-		printf("tmp: %p\n", tmp);
-		tmp = tmp->next;
 	}
 }
 
