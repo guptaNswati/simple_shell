@@ -36,6 +36,7 @@ void excute(char **tokens)
 		if (_strcmp(tokens[0], "history") == 0)
 		{
 			printHistory(&head);
+			return;
 		}
 
 		if (find_builtins(tokens) == 0)
@@ -70,15 +71,15 @@ void excute(char **tokens)
 void prompt(void)
 {
  	char *input, **tokens;
-	int terminator;
 	ssize_t bufr;
 
-	terminator = 1;
+	bufr = 0;
+	input = NULL;
 	/* ignore cntrl+C */
 	signal(SIGINT, SIG_IGN);
 
 	printf("$ ");
-	while ((terminator = getline(&input, &bufr, stdin)) != -1)
+	while ((getline(&input, &bufr, stdin)) != -1)
 /*while (getline(&input, &bufr, stdin) != -1) */
 	{
 		printf("[INPUT] %s\n", input);
