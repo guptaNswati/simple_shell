@@ -48,6 +48,7 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 	}
 	free(ptr);
 	return (np);
+}
 
 int add_mem(void **p, save_mem **head)
 {

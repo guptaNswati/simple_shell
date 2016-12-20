@@ -23,7 +23,7 @@ char **split_input(char *input)
 	return (tokens);
 }
 
-void excute(char **tokens)
+void excute(char **tokens, hstory **head)
 {
 	pid_t pid, wpid;
 	int status, i;
@@ -33,7 +33,7 @@ void excute(char **tokens)
 	{
 		if (_strcmp(tokens[0], "history") == 0)
 		{
-			printHistory(&head);
+			printHistory(head);
 			return;
 		}
 
@@ -74,9 +74,9 @@ void promptUser()
 	const char *file;
 	static hstory *head = NULL;
 
-	*hstryPtr = &hstryCount;
-	file =  _strcat(_getenv("HOME"), ".simple_shell_history", '/');
-
+	hstryPtr = &hstryCount;
+	file = _strcat(_getenv("HOME"), "simple_shell/.simple_shell_history", '/');
+	printf("[file] %s\n", file);
 	/* read history from file */
 	readFromFile(file, &head, hstryPtr);
 
@@ -90,13 +90,13 @@ void promptUser()
 		tokens = tokenize(input, ' ');
 		if (tokens)
 		{
-			excute(tokens);
+			excute(tokens, &head);
 			_free(tokens);
 			printf("$ ");
 		}
+		writeHstorytofile(file, &head);
 	}
 	/* need to read history before exit */
-	writeHstorytofile(file, &head);
 	_free(input);
 	ext(NULL);
 }

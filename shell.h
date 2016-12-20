@@ -13,8 +13,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-static hstory *head = NULL;
-
 #define HSTRYLIMIT 4096
 #define BUFRSIZE 1024
 
@@ -103,7 +101,7 @@ char **tokenize(char *lineptr, char dlimtr);
 char **split_input(char *input);
 int find_builtins(char **tokens);
 void check_path(char **tokens, char *p);
-void excute(char **tokens);
+void excute(char **tokens, hstory **head);
 void promptUser(void);
 
 
