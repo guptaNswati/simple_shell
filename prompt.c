@@ -52,7 +52,7 @@ void promptUser()
 	static hstory *head = NULL;
 
 	hstryPtr = &hstryCount;
-	file = _strcat(_getenv("HOME"), "simple_shell/.simple_shell_history", '/');
+	file = _strcat(_getenv("HOME"), ".simple_shell_history", '/');
 	/* read history from file */
 	readFromFile(file, &head, hstryPtr);
 
@@ -70,8 +70,8 @@ void promptUser()
 			_free(tokens);
 		}
 		_puts("$ ");
-		writeHstorytofile(file, &head);
 	}
 	/* need to read history before exit */
+	writeHstorytofile(file, &head);
 	ext(NULL);
 }
