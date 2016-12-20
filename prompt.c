@@ -60,13 +60,13 @@ void excute(char **tokens)
 		/* Create a special node at beginning of child.. */
 		/* After child is done, free up all nodes until this node */
 		/* NOTE: because nodes were prepended */
-		p = _malloc(2);
+		p = _malloc(9);
 
 		if (tokens[0][0] != '/')
-			check_path(tokens, &p);
+			check_path(tokens, p);
 		else if (execve(tokens[0], tokens, NULL) == -1)
 			dprintf(STDERR_FILENO, "No such file or directory\n");
-		_ref_mem(&p, "remove child");
+		_ref_mem(p, "remove child");
 	}
 	else
 		waitpid(pid, &status, 0);

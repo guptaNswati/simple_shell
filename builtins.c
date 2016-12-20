@@ -26,7 +26,7 @@ int find_builtins(char **tokens)
 	return (-1);
 }
 
-void check_path(char **tokens, char **p)
+void check_path(char **tokens, char *p)
 {
 	char *path, *tokn, *concat;
 

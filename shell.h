@@ -97,7 +97,7 @@ void hstry(hstory *head);
 
 char **split_input(char *input);
 int find_builtins(char **tokens);
-void check_path(char **tokens, char **p);
+void check_path(char **tokens, char *p);
 void excute(char **tokens);
 void prompt(void);
 

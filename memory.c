@@ -41,6 +41,13 @@ void remove_child_mem(void **p, save_mem **head)
 			break;
 		}
 	}
+
+	tmp = *head;
+	while (tmp)
+	{
+		printf("tmp: %p\n", tmp);
+		tmp = tmp->next;
+	}
 }
 
 void remove_mem(void **p, save_mem **head)
