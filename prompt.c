@@ -73,17 +73,18 @@ void promptUser()
 	int hstryCount, *hstryPtr;
 	const char *file;
 	static hstory *head = NULL;
+	int termin;
 
 	hstryPtr = &hstryCount;
 	file = _strcat(_getenv("HOME"), "simple_shell/.simple_shell_history", '/');
-	printf("[file] %s\n", file);
+/*	printf("[file] %s\n", file);*/
 	/* read history from file */
 	readFromFile(file, &head, hstryPtr);
 
 	/* ignore cntrl+C */
 	signal(SIGINT, SIG_IGN);
-	printf("$ ");
-	while (_getline(&input, STDIN_FILENO) != -1)
+	_puts("$ ");
+	while ((termin = _getline(&input, STDIN_FILENO)) != 0)
 	{
 		addHistory(&head, input, hstryPtr);
 /* add command separator */
@@ -92,11 +93,11 @@ void promptUser()
 		{
 			excute(tokens, &head);
 			_free(tokens);
-			printf("$ ");
 		}
+		_puts("$ ");
+
 		writeHstorytofile(file, &head);
 	}
 	/* need to read history before exit */
-	_free(input);
 	ext(NULL);
 }

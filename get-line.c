@@ -21,7 +21,7 @@ char **tokenize(char *lineptr, char dlimtr)
 		return (NULL);
 
 	/* limit the size of input to be processed */
-	tokens = malloc(sizeof(char *) * BUFRSIZE);
+	tokens = _malloc(sizeof(char *) * BUFRSIZE);
 	if (tokens == NULL)
 		return (NULL);
 
@@ -35,7 +35,7 @@ char **tokenize(char *lineptr, char dlimtr)
 	{
 		if (*lineptr == dlimtr)
 		{
-			line = malloc(sizeof(char) * i + 1);
+			line = _malloc(sizeof(char) * i + 1);
 			if (line == NULL)
 				return (NULL);
 			for (j = 0; j < i; j++, tmp++)
@@ -73,7 +73,7 @@ ssize_t _getline(char **lineptr, int fd)
 	static int bufsz = BUFRSIZE;
 	int readCount, charsRead;
 
-	*lineptr = malloc(sizeof(char) * bufsz);
+	*lineptr = _malloc(sizeof(char) * bufsz);
 	if (*lineptr == NULL)
 		return (-1);
 	charsRead = 0;

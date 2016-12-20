@@ -63,21 +63,21 @@ int readFromFile(const char *file, hstory **head, int *nodeCount)
 	if (stat(file, &st) == 0)
 	{
 		filsiz = st.st_size;
-		input = malloc(sizeof(char) * filsiz);
+		input = _malloc(sizeof(char) * filsiz);
 		if (input == NULL)
 			return (-1);
 		fd = open(file, O_RDONLY);
 	        if (fd == -1)
 		{
 			printf("could not open in read %s", file);
-			free(input);
+			_free(input);
 			return (-1);
 		}
 		count = read(fd, input, filsiz);
 		if (count == -1 || count != filsiz)
 		{
 			close(fd);
-			free(input);
+			_free(input);
 			return (-1);
 		}
 		/*tokn = strtok(input, "\n"); */
