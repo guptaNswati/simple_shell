@@ -13,6 +13,8 @@ int main()
 	hstryCount++;
 	addHistory(&head, "3");
 	hstryCount++;
+	if (hstryCount > 2)
+		popHead(&head);
         addHistory(&head, "4");
 	hstryCount++;
 	printHistory(&head);
