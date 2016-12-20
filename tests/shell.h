@@ -33,6 +33,8 @@ typedef struct hstory{
         struct hstory *next;
 } hstory;
 
+static hstory *head = NULL;
+
 int checkEnv(char *name);
 int _strlen(char *str);
 char *_strcpy(char *strng, int i);
@@ -47,11 +49,11 @@ void printEnv(char **str);
 char *_getenv(char *name);
 void _setenv(char **str);
 void _unsetenv(char **str);
-hstory *addHistory(hstory **head, char *input);
-hstory *popHead(hstory **head);
+hstory *addHistory(hstory **head, char *input, int *nodeCount);
+hstory *popHead(hstory **head, int *nodeCount);
 void printHistory(hstory **head);
 int writeHstorytofile(const char *file, hstory **head);
-int readFromFile(const char *file, hstory **head);
+int readFromFile(const char *file, hstory **head, int *nodeCount);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 ssize_t _getline(char **lineptr, int fd);
 char *linep_withoutspaces(char *line);

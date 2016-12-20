@@ -1,6 +1,6 @@
 #include "shell.h"
 
-hstory *addHistory(hstory **head, char *input)
+hstory *addHistory(hstory **head, char *input, int *nodeCount)
 {
 	hstory *new, *temp;
 	int limit;
@@ -18,36 +18,41 @@ hstory *addHistory(hstory **head, char *input)
 	new->next = NULL;
 
 	if (*head == NULL)
+	{
 		*head = new;
+		*nodeCount += 1;
+	}
 	else
 	{
 		temp = *head;
 		while (temp->next != NULL)
 		{
-			printf("[node in add] %s\n", temp->input);
 			temp = temp->next;
 		}
 		temp->next = new;
+		*nodeCount += 1;
+		if (*nodeCount > 4) /* replace with HSTRYLIMIT*/
+			popHead(head, nodeCount);
 	}
 	return (new);
 }
 
-hstory *popHead(hstory **head)
+hstory *popHead(hstory **head, int *nodeCount)
 {
 	hstory *temp;
 
-	printf("poping head\n");
 	temp = *head;
-	printf("[tmp in pop] %s\n", temp->input);
+	printf("[poping] %s\n", temp->input);
 	*head = (*head)->next;
 	free(temp);
 	temp = NULL;
+	*nodeCount -= 1;
 	return (*head);
 
 }
 
 
-int readFromFile(const char *file, hstory **head)
+int readFromFile(const char *file, hstory **head, int *nodeCount)
 {
 	int fd, numNodes;
 	char *input, *tokn, **tokns;
@@ -82,9 +87,7 @@ int readFromFile(const char *file, hstory **head)
 			return (numNodes);
 		while (*tokns)
 		{
-			printf("[last char in read] %c\n", _strlen(*tokns) - 1);
-			printf("[token in raed] %s\n", *tokns);
-			addHistory(head, *tokns);
+			addHistory(head, *tokns, nodeCount);
 			numNodes++, tokns++;
 /*			tokn = strtok(NULL, "\n"); */
 		}
@@ -108,13 +111,12 @@ int writeHstorytofile(const char *file, hstory **head)
 		while (*head)
 		{
 			inptLen = _strlen((*head)->input);
-			printf("[node from write] %s\n", (*head)->input);
 			count = write(fd, (*head)->input, inptLen);
-			/*	if (count == -1 || count != inptLen)
-				return (-1); */
+			if (count == -1 || count != inptLen)
+				return (-1);
 			count = write(fd, "\n", 1);
-			/*	if (count == -1)
-                                return (-1); */
+			if (count == -1)
+                                return (-1);
 			*head = (*head)->next;
 		}
 		close(fd);

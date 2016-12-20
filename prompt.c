@@ -1,7 +1,5 @@
 #include "shell.h"
 
-static hstory *head = NULL;
-
 char **split_input(char *input)
 {
 	int i;
@@ -42,9 +40,11 @@ void excute(char **tokens)
 		if (tokens[0][0] != '/')
 		{
 			if (_strcmp(tokens[0], "history") == 0)
+			{
 				printHistory(&head);
-			if (find_builtins(tokens) == -1)
-				check_path(tokens);
+			}
+/*			if (find_builtins(tokens) == -1)
+			check_path(tokens); */
 		}
 		else
 		{
@@ -56,29 +56,31 @@ void excute(char **tokens)
 		wait(&status);
 }
 
+/*
 void prompt(void)
 {
  	char *input, **tokens;
 	int terminator, hstryCount;
 	ssize_t bufr;
 	const char *file = "/.simple_shell_history";
+	static hstory *head = NULL;
 
-/* read from .history file and populate the linkedlist */
-	hstryCount = readFromFile(file, &head);
+ read from .history file and populate the linkedlist 
+	hstryCount = readFromFile(file, &head); 
 	input = NULL;
 	bufr = 0;
-	/* ignore cntrl+C */
+	 ignore cntrl+C 
 	signal(SIGINT, SIG_IGN);
 	printf("$ ");
 	while (_getline(&input, STDIN_FILENO) != -1)
-/*	while (getline(&input, &bufr, stdin) != -1) */
+ 	while (getline(&input, &bufr, stdin) != -1) 
 	{
 		printf("[INPUT] %s\n", input);
- 		addHistory(&head, input);
-		hstryCount++;
+			addHistory(&head, input); 
+			hstryCount++;
 		if (hstryCount > HSTRYLIMIT)
-			popHead(&head);
-		tokens = split_input(input);
+		popHead(&head); 
+ 		tokens = split_input(input);
 		excute(tokens);
 		free(tokens);
 		printf("$ ");
@@ -86,3 +88,4 @@ void prompt(void)
 	writeHstorytofile(file, &head);
 	free(input);
 }
+*/
