@@ -45,6 +45,6 @@ void check_path(char **tokens, char *p)
 		}
 	}
 	dprintf(STDERR_FILENO, "No such command found\n");
-	_ref_mem(p, "remove child");
+	_ref_mem(&p, "remove child");
 	_exit(1);
 }
