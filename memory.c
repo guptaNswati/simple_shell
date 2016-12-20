@@ -6,6 +6,8 @@ void add_mem(void **p, save_mem **head)
 
 	/*create node */
 	newnode = malloc(sizeof(save_mem));
+	if (newnode == NULL)
+		return (NULL);
 	newnode->loc = *p;
 
 	if (!*head)
