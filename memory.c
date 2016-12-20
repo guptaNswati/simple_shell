@@ -1,8 +1,8 @@
 #include "shell.h"
 
-void add_mem(void **p, save_mem **head)
+int add_mem(void **p, save_mem **head)
 {
-	save_mem *newnode, *tmp;
+	save_mem *newnode;
 
 	/*create node */
 	newnode = malloc(sizeof(save_mem));
@@ -21,9 +21,11 @@ void add_mem(void **p, save_mem **head)
 		newnode->next = *head;
 		*head = newnode;
 	}
+
+	return (1);
 }
 
-void remove_child_mem(void **p, save_mem **head)
+int remove_child_mem(void **p, save_mem **head)
 {
 	save_mem *tmp, *hold;
 
@@ -36,11 +38,13 @@ void remove_child_mem(void **p, save_mem **head)
 		free(hold);
 
 		if (*p == tmp->loc)
-			break;
+			return (1);
 	}
+
+	return (-1);
 }
 
-void remove_mem(void **p, save_mem **head)
+int remove_mem(void **p, save_mem **head)
 {
 	save_mem *tmp, *hold;
 
@@ -56,9 +60,10 @@ void remove_mem(void **p, save_mem **head)
 			free(hold);
 		}
 		*head = NULL;
+		return (1);
 	}
 
-	//remove only *p
+	/* remove only *p */
 	hold = tmp;
 	while (tmp)
 	{
@@ -71,35 +76,39 @@ void remove_mem(void **p, save_mem **head)
 
 			free(tmp->loc);
 			free(tmp);
-			break;
+			return (1);
 		}
 		hold = tmp;
 		tmp = tmp->next;
 	}
+
+	return (-1);
 }
 
-void _ref_mem(void *p, char *action)
+int _ref_mem(void *p, char *action)
 {
 	static save_mem *head = NULL;
-	save_mem *newnode;
 
 	if (_strcmp(action, "create") == 0)
-		add_mem(&p, &head);
+		return (add_mem(&p, &head));
 	else if (_strcmp(action, "remove child") == 0)
-		remove_child_mem(&p, &head);
+		return (remove_child_mem(&p, &head));
 	else if (_strcmp(action, "remove") == 0)
-		remove_mem(&p, &head);
+		return (remove_mem(&p, &head));
 }
 
 void *_malloc(unsigned int size)
 {
 	void *p;
+	int status;
 
 	p = malloc(size);
 	if (p == NULL)
 		return (NULL);
 
-	_ref_mem(p, "create");
+	status = _ref_mem(p, "create");
+	if (status == NULL)
+		return (NULL)
 
 	return (p);
 }
@@ -108,53 +117,3 @@ void _free(void *ptr)
 {
 	_ref_mem(ptr, "remove");
 }
-/*
-void printLL(save_mem **head)
-{
-	save_mem *tmp;
-	int i;
-
-	printf("Start printLL\n");
-
-	i = 1;
-	tmp = *head;
-	while (tmp != NULL)
-	{
-		printf("%d. pointer: %p\n", i, tmp);
-		printf("\t%p\n", tmp->loc);
-		tmp = tmp->next;
-		i++;
-	}
-
-	printf("end of printLL\n//////////\n\n");
-	}*/
-/*
-int main(void)
-{
-	char *a;
-	int i, size;
-
-	size = 2;
-
-	printf("Running main...\n");
-
-
-	a = _malloc(10);
-	a[0] = 'a';
-	printf("%s\n", a);
-	_free(a);
-
-
-	for (i = 0; i < 20; i++)
-	{
-		a = _malloc(size);
-	}
-
-
-	_free(NULL);
-
-	printf("Done running...\n");
-
-	return (0);
-}
-*/

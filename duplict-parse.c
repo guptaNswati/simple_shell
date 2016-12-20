@@ -26,6 +26,8 @@ strLL *parsePath(char *path, char *delim)
 			}
 		}
 		newnode = _malloc(sizeof(strLL));
+		if (newnode == NULL)
+			return (NULL);
 		newnode->str = str;
 		newnode->next = NULL;
 		if (tmp == NULL)

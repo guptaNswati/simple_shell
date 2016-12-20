@@ -70,10 +70,10 @@ char **deepDupe(char **args);
 char *_strcat(char *str1, char *str2, char formatter);
 int _atoi(char *s);
 
-void add_mem(void **p, save_mem **head);
-void remove_child_mem(void **p, save_mem **head);
-void remove_mem(void **p, save_mem **head);
-void _ref_mem(void *p, char *action);
+int add_mem(void **p, save_mem **head);
+int remove_child_mem(void **p, save_mem **head);
+int remove_mem(void **p, save_mem **head);
+int _ref_mem(void *p, char *action);
 void *_malloc(unsigned int size);
 void _free(void *ptr);
 
