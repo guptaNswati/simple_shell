@@ -10,7 +10,7 @@ void chng_dr(char **str)
 	setOwd = NULL;
 
 	curnt_dir = getcwd(curnt_dir, 102);
-/*	_ref_mem(curnt_dir, "create");*/
+	_ref_mem(curnt_dir, "create");
 	newcd = str[1];
 
 	if ((newcd == NULL) || (_strcmp(newcd, "~") == 0) ||
@@ -43,9 +43,26 @@ void chng_dr(char **str)
 
 void ext(char **str)
 {
+	int code;
+
 	printf("In exit\n");
 	_free(NULL);
-	_exit(10);
+
+	if (str == NULL)
+	{
+		/* default exit code 10 */
+		_exit(10);
+	}
+	else
+	{
+		/* exit code given in index 1 of array */
+		code = _atoi(str[0]);  /* change according to how we want this */
+		if (code > 0)
+			_exit(code);
+		else
+			_exit(10);
+	}
+
 }
 
 void hlp(char **str)
