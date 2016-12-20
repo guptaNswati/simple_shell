@@ -7,7 +7,7 @@ int add_mem(void **p, save_mem **head)
 	/*create node */
 	newnode = malloc(sizeof(save_mem));
 	if (newnode == NULL)
-		return (NULL);
+		return (-1);
 	newnode->loc = *p;
 
 	if (!*head)
@@ -41,7 +41,7 @@ int remove_child_mem(void **p, save_mem **head)
 			return (1);
 	}
 
-	return (-1);
+	return (0);
 }
 
 int remove_mem(void **p, save_mem **head)
@@ -82,7 +82,7 @@ int remove_mem(void **p, save_mem **head)
 		tmp = tmp->next;
 	}
 
-	return (-1);
+	return (0);
 }
 
 int _ref_mem(void *p, char *action)
@@ -107,8 +107,8 @@ void *_malloc(unsigned int size)
 		return (NULL);
 
 	status = _ref_mem(p, "create");
-	if (status == NULL)
-		return (NULL)
+	if (status < 0)
+		return (NULL);
 
 	return (p);
 }
