@@ -84,7 +84,6 @@ int remove_child_mem(void **p, save_mem **head)
 	{
 		hold = tmp;
 		tmp = tmp->next;
-		printf("hold->loc in child: %p\n", hold->loc);
 		if (hold->loc != NULL)
 			free(hold->loc);
 		free(hold);

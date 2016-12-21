@@ -34,9 +34,10 @@ char **tokenize(char *lineptr, char dlimtr)
 				return (NULL);
 			for (j = 0; j < i; j++, tmp++)
 				line[j] = *tmp;
+			if (line[j - 1] == dlimtr)
+				j--;
 			line[j] = '\0';
 			tokens[indx++] = line;
-
 			/* set temp to begining of new line */
 			tmp = lineptr + 1;
 			i = 0;

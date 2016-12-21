@@ -42,7 +42,7 @@ void check_path(char **tokens, char *p)
 	char *path, **tokn, *concat;
 
 	path = _getenv("PATH");
-	tokn = tokenize(path, ":");
+	tokn = tokenize(path, ':');
 	while (*tokn)
 	{
 		concat = _strcat(*tokn, tokens[0], '/');
@@ -52,8 +52,8 @@ void check_path(char **tokens, char *p)
 			{
 				break;
 			}
-			tokn++;
 		}
+		tokn++;
 	}
 	_puts("No such command found\n");
 	_ref_mem(&p, "remove child");
