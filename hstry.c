@@ -86,18 +86,10 @@ int readFromFile(char *file, int *nodeCount)
 			_free(input);
 			return (-1);
 		}
-		printf("input: %s\n", input);
 
 		tokns = tokenize(input, '\n');
 		if (tokns == NULL)
 			return (numNodes);
-
-		printf("PRINTING TOKENS:\n");
-		for (i = 0; tokns[i]; i++)
-		{
-			for (j = 0; tokns[i][j]; j++)
-				printf("tokens[%d][%d]: %c\n", i, j, tokns[i][j]);
-		}
 
 		while (*tokns)
 		{
@@ -132,7 +124,8 @@ int writeHstorytofile(char *file)
 			count = write(fd, temp->input, inptLen);
 			if (count == -1 || count != inptLen)
 				return (-1);
-			count = write(fd, "\n", 1);
+			if (temp->input[inptLen - 1] != '\n')
+				count = write(fd, "\n", 1);
 			if (count == -1)
 				return (-1);
 			temp = temp->next;
@@ -163,10 +156,12 @@ void printHistory(char **str)
 	{
 		_puts("[");
 		_puts_num(i);
-		_puts("]");
+		_puts("] ");
 		_puts(start->input);
-		if (start->input[_strlen(start->input) - 2] != '\n')
+
+		if (start->input[_strlen(start->input) - 1] != '\n')
 			_puts("\n");
+
 		start = start->next;
 		i++;
 	}
