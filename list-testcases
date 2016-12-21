@@ -10,12 +10,12 @@
 /* high priority */
 1. exit -> philip -> in progess
 2. help -> philip -> in progress
-3. history -> in progress -> done
-4. alias -> 
+3. history -> in progress -> done!
+4. alias -> in progress -> done!
 5. man page -> underconstruction
 7. getline -> done!
 8. strtok -> done!
-9. write function, inplace of printf ->
+9. write function, inplace of printf -> done
 10. file
 11. testing with test suite
 
@@ -54,3 +54,4 @@
 11. command separator
 12. history
 13. help
+14. alias

@@ -50,6 +50,8 @@ void promptUser(void)
 	int hstryCount, *hstryPtr;
 	char *file;
 	hstory **head;
+	alias *temp;
+	static alias *head = NULL;
 
 	head = getHistoryHead();
 	hstryPtr = &hstryCount;
@@ -63,7 +65,14 @@ void promptUser(void)
 	while (_getline(&input, STDIN_FILENO) != 0)
 	{
 		addHistory(input, hstryPtr);
-
+		/* remove empty spaces from begining */
+		/* add cyclic alias */
+		temp = findAlias(&head, input);
+		if (temp != NULL)
+		{
+			temp = find_aliasToalias(head, temp->value);
+			input = temp->value;
+		}
 		/* alias */
 		/* looking through aliases and call tokenize. */
 /* add command separator */
