@@ -1,6 +1,23 @@
 #include "shell.h"
 
-/* while craeting alias, there should not be any space  */ 
+alias *resetAlias(alias **head, char *key, char *value)
+{
+	alias *start;
+
+	start = *head;
+	while (*head)
+        {
+                if (_strcmp((*head)->key, key) == 0)
+		{
+			(*head)->value = _strcpy(value, _strlen(value));
+			return (*head);
+		}
+                *head = (*head)->next;
+        }
+	*head = start;
+	return (NULL);
+}
+
 
 alias *addAlias(alias **head, char *key, char *value)
 {
@@ -25,7 +42,7 @@ alias *addAlias(alias **head, char *key, char *value)
 		value[valueLen - 1] = '\0';
 		valueLen -= 2;
 	}
-	new->value = _strcpy(value, _strlen(valueLen));
+	new->value = _strcpy(value, valueLen);
 	if (new->value == NULL)
 	{
 		_free(new->key);
@@ -35,14 +52,23 @@ alias *addAlias(alias **head, char *key, char *value)
 	new->next = NULL;
 
 	if (*head == NULL)
-		*head = new;
-	else
 	{
-		temp = *head;
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = new;
+		*head = new;
+		return (new);
 	}
+	/* check if it already exits in the list */
+	temp = resetAlias(head, key, value);
+	if (temp != NULL)
+	{
+		_free(new->key);
+		_free(new->value);
+		_free(new);
+		return (temp);
+	}
+	temp = *head;
+	while (temp->next != NULL)
+		temp = temp->next;
+	temp->next = new;
 	return (new);
 }
 
@@ -72,32 +98,25 @@ void printAlias(alias **head)
 
 alias *findAlias(alias **head, char *key)
 {
+	alias *start;
+
+	start = *head;
 	while (*head)
 	{
 		if (_strcmp((*head)->key, key) == 0)
 			return (*head);
 		*head = (*head)->next;
 	}
+	*head = start;
 	return (NULL);
 }
 
-void resetAlias(alias **head, char *key, char *value)
-{
-	while (*head)
-        {
-                if (_strcmp((*head)->key, key) == 0)
-		{
-			(*head)->value = _strcpy(value, _strlen(value));
-			return;
-		}
-                *head = (*head)->next;
-        }
-}
 
 void whichAlias(char **tokens, alias **head)
 {
 	char **newTokens;
 	alias *temp;
+	int i;
 
 	/* if theres only 1 token, call printAlias, tokens based on space */
 	if (tokens[1] == NULL)
@@ -120,9 +139,16 @@ void whichAlias(char **tokens, alias **head)
 		else
 		{
 			_puts("alias: ");
-			_puts(key);
+			_puts(newTokens[0]);
 			_puts(": not found\n");
 		}
+		return;
+	}
+	/* before craeting new alias check if there is space after key, if there is, it fails*/
+	i = _strlen(newTokens[0]);
+	if (newTokens[0][i - 1] == ' ')
+	{
+		_puts("alias: not found\n");
 		return;
 	}
 	addAlias(head, newTokens[0], newTokens[1]);

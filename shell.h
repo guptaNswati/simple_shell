@@ -94,7 +94,7 @@ void whichAlias(char **tokens, alias **head);
 alias *addAlias(alias **head, char *key, char *value);
 void printAlias(alias **head);
 alias *findAlias(alias **head, char *key);
-void resetAlias(alias **head, char *key, char *value);
+alias *resetAlias(alias **head, char *key, char *value);
 
 void chng_dr(char **str);
 void ext(char **str);
