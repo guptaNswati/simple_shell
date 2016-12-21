@@ -40,6 +40,13 @@ typedef struct in_built
 	void (*func) (char **);
 } in_built;
 
+typedef struct alias
+{
+	char *key;
+	char *value;
+	struct alias *next;
+} alias;
+
 typedef struct hstory
 {
         char *input;
@@ -66,6 +73,9 @@ int _strcmp(char *s1, char *s2);
 char **deepDupe(char **args);
 char *_strcat2(char *s1, char *s2);
 char *_strcat(char *str1, char *str2, char formatter);
+void _puts(char *buffer);
+void _putchar(char c);
+void _puts_num(int n);
 int _atoi(char *s);
 
 int add_mem(void **p, save_mem **head);
@@ -92,17 +102,17 @@ void _unsetenv(char **str);
 hstory *addHistory(char *input, int *nodeCount);
 hstory *popHead(int *nodeCount);
 void printHistory(char **str);
-int writeHstorytofile(const char *file);
-int readFromFile(const char *file, int *nodeCount);
+int writeHstorytofile(char *file);
+int readFromFile(char *file, int *nodeCount);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 ssize_t _getline(char **lineptr, int fd);
 char *linep_withoutspaces(char *line);
 char **tokenize(char *lineptr, char dlimtr);
 char **split_input(char *input);
 int find_builtins(char **tokens);
-hstory **getHistoryHead(void);
 void check_path(char **tokens, char *p);
-void excute(char **tokens, hstory **head);
+void excute(char **tokens);
+hstory **getHistoryHead(void);
 void promptUser(void);
 
 

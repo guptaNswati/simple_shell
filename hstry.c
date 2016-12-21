@@ -53,9 +53,9 @@ hstory *popHead(int *nodeCount)
 }
 
 
-int readFromFile(const char *file, int *nodeCount)
+int readFromFile(char *file, int *nodeCount)
 {
-	int fd, numNodes;
+	int fd, numNodes, i, j;
 	char *input, *tokn, **tokns;
 	ssize_t count;
 	struct stat st;
@@ -86,9 +86,19 @@ int readFromFile(const char *file, int *nodeCount)
 			_free(input);
 			return (-1);
 		}
+		printf("input: %s\n", input);
+
 		tokns = tokenize(input, '\n');
 		if (tokns == NULL)
 			return (numNodes);
+
+		printf("PRINTING TOKENS:\n");
+		for (i = 0; tokns[i]; i++)
+		{
+			for (j = 0; tokns[i][j]; j++)
+				printf("tokens[%d][%d]: %c\n", i, j, tokns[i][j]);
+		}
+
 		while (*tokns)
 		{
 			addHistory(*tokns, nodeCount);
@@ -99,10 +109,10 @@ int readFromFile(const char *file, int *nodeCount)
         return (numNodes);
 }
 
-int writeHstorytofile(const char *file)
+int writeHstorytofile(char *file)
 {
 	int fd, count, inptLen;
-	hstory **head;
+	hstory **head, *temp;
 
 	head = getHistoryHead();
 	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR);
@@ -115,16 +125,17 @@ int writeHstorytofile(const char *file)
 	}
 	if (head != NULL)
 	{
-		while (*head)
+		temp = *head;
+		while (temp)
 		{
-			inptLen = _strlen((*head)->input);
-			count = write(fd, (*head)->input, inptLen);
+			inptLen = _strlen(temp->input);
+			count = write(fd, temp->input, inptLen);
 			if (count == -1 || count != inptLen)
 				return (-1);
 			count = write(fd, "\n", 1);
 			if (count == -1)
-                                return (-1);
-			*head = (*head)->next;
+				return (-1);
+			temp = temp->next;
 		}
 		close(fd);
 		return (0);
@@ -135,7 +146,7 @@ int writeHstorytofile(const char *file)
 
 void printHistory(char **str)
 {
-	int i;
+	int i, j;
 	hstory *start;
 	hstory **head;
 
@@ -148,16 +159,17 @@ void printHistory(char **str)
 
 	i = 0;
 	start = *head;
-	while (*head)
+	while (start)
 	{
 		_puts("[");
-		write(STDOUT_FILENO, &i, 1);
+		_puts_num(i);
 		_puts("]");
-		_puts((*head)->input);
-		_puts("\n");
-		*head = (*head)->next;
+		_puts(start->input);
+		if (start->input[_strlen(start->input) - 2] != '\n')
+			_puts("\n");
+		start = start->next;
 		i++;
 	}
 	/* return the head after iterating */
-	*head = start;
+/*	*head = start;*/
 }
