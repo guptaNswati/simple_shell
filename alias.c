@@ -1,5 +1,7 @@
 #include "shell.h"
 
+static alias *match = NULL;
+
 alias *resetAlias(alias **head, char *key, char *value)
 {
 	alias *start;
@@ -96,6 +98,7 @@ void printAlias(alias **head)
 	*head = start;
 }
 
+
 alias *findAlias(alias **head, char *key)
 {
 	alias *start;
@@ -104,11 +107,26 @@ alias *findAlias(alias **head, char *key)
 	while (*head)
 	{
 		if (_strcmp((*head)->key, key) == 0)
+		{
+			match = *head;
+			printf("[match] [%s] [%s]\n", match->key, match->value);
 			return (*head);
+		}
 		*head = (*head)->next;
 	}
 	*head = start;
 	return (NULL);
+}
+
+alias *find_aliasToalias(alias **head, char *key)
+{
+	alias *temp;
+
+	temp = findAlias(head, key);
+	if (temp == NULL)
+		return (match);
+	/* recursively find the next match */
+	return (find_aliasToalias(head, temp->value));
 }
 
 
