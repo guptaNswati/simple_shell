@@ -37,8 +37,15 @@
 typedef struct in_built
 {
 	char *s;
-	void (*func) (char **);
+	void (*func) (void **);
 } in_built;
+
+typedef struct alias
+{
+	char *key;
+	char *value;
+	struct alias *next;
+} alias;
 
 typedef struct hstory
 {
@@ -82,6 +89,13 @@ void help_data(void);
 void setenv_data(void);
 void unsetenv_data(void);
 
+
+void whichAlias(char **tokens, alias **head);
+alias *addAlias(alias **head, char *key, char *value);
+void printAlias(alias **head);
+alias *findAlias(alias **head, char *key);
+
+
 void chng_dr(char **str);
 void ext(char **str);
 void hlp(char **str);
@@ -99,7 +113,7 @@ ssize_t _getline(char **lineptr, int fd);
 char *linep_withoutspaces(char *line);
 char **tokenize(char *lineptr, char dlimtr);
 char **split_input(char *input);
-int find_builtins(char **tokens);
+int find_builtins(char **tokens, hstory **head);
 void check_path(char **tokens, char *p);
 void excute(char **tokens, hstory **head);
 void promptUser(void);

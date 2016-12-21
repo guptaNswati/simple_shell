@@ -89,6 +89,13 @@ void help_data(void);
 void setenv_data(void);
 void unsetenv_data(void);
 
+
+void whichAlias(char **tokens, alias **head);
+alias *addAlias(alias **head, char *key, char *value);
+void printAlias(alias **head);
+alias *findAlias(alias **head, char *key);
+
+
 void chng_dr(char **str);
 void ext(char **str);
 void hlp(char **str);
