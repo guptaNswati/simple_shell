@@ -13,6 +13,15 @@ void _puts(char *buffer)
 }
 
 /**
+ * _putchar - writes the character c to stdout
+ * @c: The character to print
+ */
+void _putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+/**
  * _atoi - Convert a string to integer.
  * @s: char array string
  * Description: Adjusted to only take valid positive numbers.
@@ -50,4 +59,38 @@ int _atoi(char *s)
 		value *= -1;
 
 	return (value);
+}
+
+void _puts_num(int n)
+{
+	int power;
+	int hold;
+
+	power = 1;
+	if (n < 0)
+	{
+		n *= -1;
+		_putchar('-');
+	}
+	hold = n;
+
+	while (hold > 9)
+	{
+		power *= 10;
+		hold /= 10;
+	}
+
+	while (power > 0)
+	{
+		if (power > 9)
+		{
+			_putchar((n / power % 10) + '0');
+			power /= 10;
+		}
+		if (power == 1)
+		{
+			_putchar(n % 10 + '0');
+			power = 0;
+		}
+	}
 }

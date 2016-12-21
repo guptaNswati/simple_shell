@@ -48,7 +48,7 @@ void promptUser(void)
 {
 	char *input, **tokens;
 	int hstryCount, *hstryPtr;
-	const char *file;
+	char *file;
 	hstory **head;
 	alias *temp;
 	static alias *head = NULL;
@@ -86,6 +86,5 @@ void promptUser(void)
 	}
 
 	/* need to read history before exit */
-	writeHstorytofile(file);
 	ext(NULL);
 }

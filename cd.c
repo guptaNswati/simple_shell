@@ -56,7 +56,7 @@ void ext(char **str)
 {
 	int code;
 	hstory **head;
-	const char *file;
+	char *file;
 
 	printf("In exit\n");
 
