@@ -1,5 +1,10 @@
 #include "shell.h"
 
+/**
+* _strlen - calculates a length of a given string
+* @str: pointer to chars
+* Return: lenght of string
+**/
 int _strlen(char *str)
 {
 	int len;
@@ -9,6 +14,12 @@ int _strlen(char *str)
 	return (len);
 }
 
+/**
+* _strcpy - copies a given string and returns a copy
+* @strng: pointer to chars to be copied
+* @i: number of chars to be copied
+* Return: pointer to copy
+**/
 char *_strcpy(char *strng, int i)
 {
 	int j;
@@ -26,6 +37,12 @@ char *_strcpy(char *strng, int i)
 	return (res);
 }
 
+/**
+* _strcmp - compares two strings
+* @s1: string 1
+* @s2: string 2
+* Return: if both strings are same 0, else -1
+**/
 int _strcmp(char *s1, char *s2)
 {
 	int i;
@@ -39,6 +56,14 @@ int _strcmp(char *s1, char *s2)
 	}
 	return (0);
 }
+
+
+/**
+* _strcat2 - concatenates two strings
+* @str1: string 1
+* @str2: string 2
+* Retrun: pointer to new concatenated string
+**/
 char *_strcat2(char *str1, char *str2)
 {
 	char *new;
@@ -57,6 +82,15 @@ char *_strcat2(char *str1, char *str2)
         return (new);
 
 }
+
+
+/**
+* _strcat - concatenates two strings adding a fomatter in between
+* @str1: string 1
+* @str2: string 2
+* @formatter: char to add in between
+* Return: pointer to new string
+**/
 char *_strcat(char *str1, char *str2, char formatter)
 {
 	char *new;
