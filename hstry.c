@@ -64,7 +64,7 @@ int readFromFile(char *file, int *nodeCount)
 	if (stat(file, &st) == 0)
 	{
 		filsiz = st.st_size;
-		input = _malloc(sizeof(char) * filsiz);
+		input = _malloc(sizeof(char) * filsiz + 1);
 		if (input == NULL)
 			return (-1);
 		fd = open(file, O_RDONLY);
