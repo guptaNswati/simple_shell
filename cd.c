@@ -1,5 +1,11 @@
 #include "shell.h"
 
+/**
+* chng_dr - changes directory and sets pwd and oldwpd
+* @str: pointer to directory to be changed to
+* Return: nothing
+**/
+
 void chng_dr(char **str)
 {
 	char *curnt_dir, *newcd, **setPwd, **setOwd;
@@ -41,6 +47,11 @@ void chng_dr(char **str)
 	_free(setOwd);
 }
 
+/**
+* ext - exits out of the program, with an exit status
+* @str: pointer to string as part of builtins prototype
+* Return: nothing
+**/
 void ext(char **str)
 {
 	int code;
@@ -69,6 +80,11 @@ void ext(char **str)
 
 }
 
+/**
+* hlp - displays list of builtins and how to use them
+* @str: pointer to string as a builtin prototype
+* Return: nothing
+**/
 void hlp(char **str)
 {
 	int i, trigger;
