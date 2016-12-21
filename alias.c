@@ -2,6 +2,14 @@
 
 static alias *match = NULL;
 
+/**
+* resetAlias - resets an alias to given values, if found in the list
+* @head: pointer to head of the alias list
+* @key: key to look for
+* @value: value to set to key
+* Return: a pointer to found alias or null
+**/
+
 alias *resetAlias(alias **head, char *key, char *value)
 {
 	alias *start;
@@ -19,7 +27,6 @@ alias *resetAlias(alias **head, char *key, char *value)
 	*head = start;
 	return (NULL);
 }
-
 
 alias *addAlias(alias **head, char *key, char *value)
 {
