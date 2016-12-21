@@ -44,7 +44,7 @@ hstory *popHead(int *nodeCount)
 	head = getHistoryHead();
 	temp = *head;
 	*head = (*head)->next;
-	free(temp);
+	_free(temp);
 	temp = NULL;
 	*nodeCount -= 1;
 	return (*head);
