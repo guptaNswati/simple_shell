@@ -28,10 +28,8 @@ void excute(char **tokens)
 
 		if (tokens[0][0] != '/')
 			check_path(tokens, p);
-
 		else if (execve(tokens[0], tokens, NULL) == -1)
 			dprintf(STDERR_FILENO, "No such file or directory\n");
- 		_ref_mem(&p, "remove child");
 	}
 	else
 		waitpid(pid, &status, 0);
