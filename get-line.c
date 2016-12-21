@@ -62,12 +62,7 @@ char **tokenize(char *lineptr, char dlimtr)
 		dprintf(STDERR_FILENO, "Killed\n");
 		return (NULL);
 	}
-	printf("*tmp: %c\n", *tmp);
-	if (*tmp != dlimtr)
-	{
-		printf("INSIDE:::\n");
-		tokens[indx++] = tmp;
-	}
+	tokens[indx++] = tmp;
 	tokens[indx] = NULL;
 	return (tokens);
 }
