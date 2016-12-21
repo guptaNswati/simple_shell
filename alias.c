@@ -1,5 +1,6 @@
 #include "shell.h"
 
+/* for tracking the last found alias match */
 static alias *match = NULL;
 
 /**
@@ -9,7 +10,6 @@ static alias *match = NULL;
 * @value: value to set to key
 * Return: a pointer to found alias or null
 **/
-
 alias *resetAlias(alias **head, char *key, char *value)
 {
 	alias *start;
@@ -28,6 +28,13 @@ alias *resetAlias(alias **head, char *key, char *value)
 	return (NULL);
 }
 
+/**
+ * addAlias - either add an alias to given value or adds new
+ * @head: pointer to head of the alias list
+ * @key: key to look for
+ * @value: value to set to key
+ * Return: a pointer to new alias
+ **/
 alias *addAlias(alias **head, char *key, char *value)
 {
 	alias *new, *temp;
@@ -81,6 +88,11 @@ alias *addAlias(alias **head, char *key, char *value)
 	return (new);
 }
 
+/**
+ * printAlias - prints an alias list
+ * @head: pointer to head of the alias list
+ * Return: nothing
+ **/
 void printAlias(alias **head)
 {
 	int i;
@@ -105,7 +117,12 @@ void printAlias(alias **head)
 	*head = start;
 }
 
-
+/**
+ * findAlias - finds an alias to given key, if found in the list
+ * @head: pointer to head of the alias list
+ * @key: key to look for
+ * Return: a pointer to found alias or null
+ **/
 alias *findAlias(alias **head, char *key)
 {
 	alias *start;
@@ -125,6 +142,12 @@ alias *findAlias(alias **head, char *key)
 	return (NULL);
 }
 
+/**
+ * find_aliasToalias - checks recursively for an alais to an alias to an alias
+ * @head: pointer to head of the alias list
+ * @key: key to look for
+ * Return: a pointer to found alias
+ **/
 alias *find_aliasToalias(alias **head, char *key)
 {
 	alias *temp;
@@ -132,49 +155,12 @@ alias *find_aliasToalias(alias **head, char *key)
 	temp = findAlias(head, key);
 	if (temp == NULL)
 		return (match);
+	/* check if its pointing to itself */
+	if (_strcmp(temp->key, temp->value) == 0)
+	{
+		match = temp;
+		return (temp);
+	}
 	/* recursively find the next match */
 	return (find_aliasToalias(head, temp->value));
-}
-
-
-void whichAlias(char **tokens, alias **head)
-{
-	char **newTokens;
-	alias *temp;
-	int i;
-
-	/* if theres only 1 token, call printAlias, tokens based on space */
-	if (tokens[1] == NULL)
-	{
-		printAlias(head);
-		return;
-	}
-	newTokens = tokenize(tokens[1], '=');
-	if (newTokens[1] == NULL)
-	{
-		temp = findAlias(head, newTokens[0]);
-		if (temp != NULL)
-		{
-			_puts("alias ");
-			_puts(temp->key);
-			_puts("='");
-			_puts(temp->value);
-			_puts("'");
-		}
-		else
-		{
-			_puts("alias: ");
-			_puts(newTokens[0]);
-			_puts(": not found\n");
-		}
-		return;
-	}
-	/* before craeting new alias check if there is space after key, if there is, it fails*/
-	i = _strlen(newTokens[0]);
-	if (newTokens[0][i - 1] == ' ')
-	{
-		_puts("alias: not found\n");
-		return;
-	}
-	addAlias(head, newTokens[0], newTokens[1]);
 }
