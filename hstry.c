@@ -1,10 +1,11 @@
 #include "shell.h"
 
-hstory *addHistory(hstory **head, char *input, int *nodeCount)
+hstory *addHistory(char *input, int *nodeCount)
 {
-	hstory *new, *temp;
+	hstory *new, *temp, **head;
 	int limit;
 
+	head = getHistoryHead();
 	new = _malloc(sizeof(hstory));
 	if (new == NULL)
 		return (NULL);
@@ -31,16 +32,17 @@ hstory *addHistory(hstory **head, char *input, int *nodeCount)
 		}
 		temp->next = new;
 		*nodeCount += 1;
-		if (*nodeCount > 4) /* replace with HSTRYLIMIT*/
-			popHead(head, nodeCount);
+		if (*nodeCount > 10) /* replace with HSTRYLIMIT*/
+			popHead(nodeCount);
 	}
 	return (new);
 }
 
-hstory *popHead(hstory **head, int *nodeCount)
+hstory *popHead(int *nodeCount)
 {
-	hstory *temp;
+	hstory *temp, **head;
 
+	head = getHistoryHead();
 	temp = *head;
 	*head = (*head)->next;
 	free(temp);
@@ -51,14 +53,16 @@ hstory *popHead(hstory **head, int *nodeCount)
 }
 
 
-int readFromFile(const char *file, hstory **head, int *nodeCount)
+int readFromFile(const char *file, int *nodeCount)
 {
 	int fd, numNodes;
 	char *input, *tokn, **tokns;
 	ssize_t count;
 	struct stat st;
 	off_t filsiz;
+	hstory **head;
 
+	head = getHistoryHead();
 	numNodes = 0;
 	if (stat(file, &st) == 0)
 	{
@@ -86,7 +90,7 @@ int readFromFile(const char *file, hstory **head, int *nodeCount)
 			return (numNodes);
 		while (*tokns)
 		{
-			addHistory(head, *tokns, nodeCount);
+			addHistory(*tokns, nodeCount);
 			numNodes++, tokns++;
 /*			tokn = strtok(NULL, "\n"); */
 		}
@@ -95,10 +99,12 @@ int readFromFile(const char *file, hstory **head, int *nodeCount)
         return (numNodes);
 }
 
-int writeHstorytofile(const char *file, hstory **head)
+int writeHstorytofile(const char *file)
 {
 	int fd, count, inptLen;
+	hstory **head;
 
+	head = getHistoryHead();
 	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR);
 	if (fd == -1)
 	{
@@ -125,12 +131,13 @@ int writeHstorytofile(const char *file, hstory **head)
 	return (-1);
 }
 
-void printHistory(hstory **head)
+void printHistory(char **str)
 {
 	int i;
 	hstory *start;
+	hstory **head;
 
-
+	head = getHistoryHead();
 	if (head == NULL)
 	{
 		printf("No history\n");

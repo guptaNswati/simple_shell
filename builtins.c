@@ -8,6 +8,7 @@ int find_builtins(char **tokens)
 			     {"env", printEnv},
 			     {"exit", ext},
 			     {"help", hlp},
+			     {"history", printHistory},
 			     {"printenv", printEnv},
 			     {"setenv", _setenv},
 			     {"unsetenv", _unsetenv},
