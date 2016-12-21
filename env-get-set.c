@@ -19,6 +19,7 @@ int checkEnv(char *name)
 void printEnv(char **tokens)
 {
 	int i;
+	UNUSED(tokens);
 
 	for (i = 0; environ[i]; i++)
 		printf("%s\n", environ[i]);
