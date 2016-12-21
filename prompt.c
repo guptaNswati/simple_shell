@@ -2,9 +2,9 @@
 
 void excute(char **tokens)
 {
-	pid_t pid, wpid;
-	int status, i;
-	char *path, *tokn, *concat, *p;
+	pid_t pid;
+	int status;
+	char *p;
 
 	if (tokens[0][0] != '/')
 	{
