@@ -49,9 +49,7 @@ void check_path(char **tokens, char *p)
 		if (concat)
 		{
 			if (execve(concat, tokens, NULL) != -1)
-			{
 				break;
-			}
 		}
 		tokn++;
 	}

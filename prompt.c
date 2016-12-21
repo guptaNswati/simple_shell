@@ -73,7 +73,7 @@ char *linep_withoutspaces(char *line)
 **/
 void promptUser(void)
 {
-	char *input, **tokens;
+	char *input, **tokens, **cmds;
 	int hstryCount, *hstryPtr;
 	char *file;
 	alias *temp;
@@ -92,27 +92,28 @@ void promptUser(void)
 		addHistory(input, hstryPtr);
 		/* discard the begining spaces */
 		input = linep_withoutspaces(input);
-		/* add cyclic alias */
-/*
-		temp = findAlias(&head, input);
-		if (temp != NULL)
+		/* command separator */
+		cmds = tokenize(input, ';');
+		if (cmds)
 		{
-			temp = find_aliasToalias(head, temp->value);
-			input = temp->value;
-		}
-*/
-		/* alias */
-		/* looking through aliases and call tokenize. */
-/* add command separator */
-		tokens = tokenize(input, ' ');
-		if (tokens)
-		{
-			excute(tokens);
-			_free(tokens);
+			/* add cyclic alias */
+			temp = findAlias(&head, cmds);
+			/* check if an alias is not pointing to itself */
+			if (temp != NULL && (_strcmp(temp->key, temp->value) != 0))
+			{
+				temp = find_aliasToalias(head, temp->value);
+				cmds = temp->value;
+			}
+			tokens = tokenize(cmds, ' ');
+			if (tokens)
+			{
+				excute(tokens);
+				_free(tokens);
+			}
+			_free(cmds);
 		}
 		_puts("$ ");
 	}
-
 	/* need to read history before exit */
 	ext(NULL);
 }
