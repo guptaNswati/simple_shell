@@ -145,6 +145,8 @@ int _ref_mem(void *p, char *action)
 		return (remove_child_mem(&p, &head));
 	else if (_strcmp(action, "remove") == 0)
 		return (remove_mem(&p, &head));
+
+	return (-1);
 }
 
 void *_malloc(unsigned int size)
