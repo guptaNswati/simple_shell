@@ -1,5 +1,23 @@
 #include "shell.h"
 
+/**
+* getHistoryHead - intializes static head to struct hstry
+* for passing to functions
+* Return: address of hstrory head
+**/
+hstory **getHistoryHead(void)
+{
+	static hstory *head = NULL;
+
+	return (&head);
+}
+
+/**
+* excute - forks a parent process and wait for child process
+* to complete executing its child process
+* @tokens: pointer to user input
+* Return: nothing
+**/
 void excute(char **tokens)
 {
 	pid_t pid, wpid;
@@ -37,13 +55,10 @@ void excute(char **tokens)
 		waitpid(pid, &status, 0);
 }
 
-hstory **getHistoryHead(void)
-{
-	static hstory *head = NULL;
-
-	return (&head);
-}
-
+/**
+* promptUser - prompts user and recieves and input
+* Return: nothing and exits when user enters cntrlD
+**/
 void promptUser(void)
 {
 	char *input, **tokens;
