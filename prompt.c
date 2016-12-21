@@ -14,7 +14,6 @@ void excute(char **tokens)
 			return;
 		}
 	}
-
 	pid = fork();
 	if (pid == -1)
 	{
@@ -78,5 +77,6 @@ void promptUser(void)
 	}
 
 	/* need to read history before exit */
+	writeHstorytofile(file);
 	ext(NULL);
 }

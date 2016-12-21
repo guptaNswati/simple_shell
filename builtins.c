@@ -10,11 +10,11 @@ int find_builtins(char **tokens)
 			     {"help", hlp},
 			     {"history", printHistory},
 			     {"printenv", printEnv},
-			     {"setenv", _setenv},
+			   {"setenv", _setenv},
 			     {"unsetenv", _unsetenv},
 	};
 
-	for (i = 0; i < 8; i++)
+	for (i = 0; i < 9; i++)
 	{
 		if (_strcmp(tokens[0], list[i].s) == 0)
 		{

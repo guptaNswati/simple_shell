@@ -11,7 +11,7 @@
 1. exit -> philip -> in progess
 2. help -> philip -> in progress
 3. history -> in progress -> done
-4. alias
+4. alias -> 
 5. man page -> underconstruction
 7. getline -> done!
 8. strtok -> done!
@@ -22,7 +22,7 @@
 /* after high priority */
 11. comments
 12. variables
-13. &&, ||
+13. &&, || -> after getting input tokenize on basis of special symbols, then send it to tokenizer
 14. ; -> done (calling before processing space)
 15. blog post
 

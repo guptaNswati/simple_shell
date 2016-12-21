@@ -40,6 +40,13 @@ typedef struct in_built
 	void (*func) (char **);
 } in_built;
 
+typedef struct alias
+{
+	char *key;
+	char *value;
+	struct alias *next;
+} alias;
+
 typedef struct hstory
 {
         char *input;
