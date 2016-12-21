@@ -5,7 +5,6 @@
 * @str: pointer to directory to be changed to
 * Return: nothing
 **/
-
 void chng_dr(char **str)
 {
 	char *curnt_dir, *newcd, **setPwd, **setOwd;
@@ -27,7 +26,8 @@ void chng_dr(char **str)
 
 	if (chdir(newcd) == -1)
 	{
-		printf("%s\n", strerror(errno));
+		_puts(strerror(errno));
+		_puts("\n");
 		_free(curnt_dir);
 		return;
 	}

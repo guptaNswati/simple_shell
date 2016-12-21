@@ -133,7 +133,6 @@ alias *findAlias(alias **head, char *key)
 		if (_strcmp((*head)->key, key) == 0)
 		{
 			match = *head;
-			printf("[match] [%s] [%s]\n", match->key, match->value);
 			return (*head);
 		}
 		*head = (*head)->next;

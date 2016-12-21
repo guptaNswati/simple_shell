@@ -1,5 +1,12 @@
 #include "shell.h"
 
+/**
+* addHistory - adds user input to history linked list and
+* pops head if list is bigger than HSTRYLIMIT
+* @input: user input
+* @nodeCount: pointer to history count
+* Return: pointer to newly added history node
+**/
 hstory *addHistory(char *input, int *nodeCount)
 {
 	hstory *new, *temp, **head;
@@ -32,12 +39,17 @@ hstory *addHistory(char *input, int *nodeCount)
 		}
 		temp->next = new;
 		*nodeCount += 1;
-		if (*nodeCount > 10) /* replace with HSTRYLIMIT*/
+		if (*nodeCount > HSTRYLIMIT) /* replace with HSTRYLIMIT*/
 			popHead(nodeCount);
 	}
 	return (new);
 }
 
+/**
+* popHead - removes head of the history list and subtract node count
+* @nodeCount: pointer to history count
+* Return: pointer to new head
+**/
 hstory *popHead(int *nodeCount)
 {
 	hstory *temp, **head;
@@ -52,7 +64,12 @@ hstory *popHead(int *nodeCount)
 
 }
 
-
+/**
+* readFromFile - reads history from file and populate the linkedlist
+* @file: pointer to name of file
+* @nodeCount: pointer to history count
+* Return: number of added added to list or -1 on error
+**/
 int readFromFile(char *file, int *nodeCount)
 {
 	int fd, numNodes, i, j;
@@ -101,6 +118,11 @@ int readFromFile(char *file, int *nodeCount)
         return (numNodes);
 }
 
+/**
+* writeHstorytofile - writes history to histro file from history list
+* @file: pointer to file name
+* Return: 0 on success, -1 on error
+**/
 int writeHstorytofile(char *file)
 {
 	int fd, count, inptLen;
@@ -137,6 +159,11 @@ int writeHstorytofile(char *file)
 	return (-1);
 }
 
+/**
+* printHistory - prints history list
+* @str: pointer to input as part of builtin prototype
+* Return: nothing
+**/
 void printHistory(char **str)
 {
 	int i, j;
