@@ -15,6 +15,7 @@
 
 #define HSTRYLIMIT 4096
 #define BUFRSIZE 1024
+#define UNUSED(x) (void)(x)
 
 #define RESET "\033[0m"
 #define BLK "\033[30m"
