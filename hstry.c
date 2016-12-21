@@ -10,7 +10,6 @@
 hstory *addHistory(char *input, int *nodeCount)
 {
 	hstory *new, *temp, **head;
-	int limit;
 
 	head = getHistoryHead();
 	new = _malloc(sizeof(hstory));
@@ -57,7 +56,7 @@ hstory *popHead(int *nodeCount)
 	head = getHistoryHead();
 	temp = *head;
 	*head = (*head)->next;
-	free(temp);
+	_free(temp);
 	temp = NULL;
 	*nodeCount -= 1;
 	return (*head);
@@ -72,19 +71,17 @@ hstory *popHead(int *nodeCount)
 **/
 int readFromFile(char *file, int *nodeCount)
 {
-	int fd, numNodes, i, j;
-	char *input, *tokn, **tokns;
+	int fd, numNodes;
+	char *input, **tokns;
 	ssize_t count;
 	struct stat st;
 	off_t filsiz;
-	hstory **head;
 
-	head = getHistoryHead();
 	numNodes = 0;
 	if (stat(file, &st) == 0)
 	{
 		filsiz = st.st_size;
-		input = _malloc(sizeof(char) * filsiz);
+		input = _malloc(sizeof(char) * filsiz + 1);
 		if (input == NULL)
 			return (-1);
 		fd = open(file, O_RDONLY);
@@ -166,9 +163,9 @@ int writeHstorytofile(char *file)
 **/
 void printHistory(char **str)
 {
-	int i, j;
-	hstory *start;
-	hstory **head;
+	int i;
+	hstory *start, **head;
+	UNUSED(str);
 
 	head = getHistoryHead();
 	if (head == NULL)

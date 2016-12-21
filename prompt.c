@@ -20,9 +20,9 @@ hstory **getHistoryHead(void)
 **/
 void excute(char **tokens)
 {
-	pid_t pid, wpid;
-	int status, i;
-	char *path, *tokn, *concat, *p;
+	pid_t pid;
+	int status;
+	char *p;
 
 	if (tokens[0][0] != '/')
 	{
@@ -46,10 +46,8 @@ void excute(char **tokens)
 
 		if (tokens[0][0] != '/')
 			check_path(tokens, p);
-
 		else if (execve(tokens[0], tokens, NULL) == -1)
 			dprintf(STDERR_FILENO, "No such file or directory\n");
- 		_ref_mem(&p, "remove child");
 	}
 	else
 		waitpid(pid, &status, 0);
