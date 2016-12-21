@@ -99,7 +99,7 @@ void _unsetenv(char **tokens)
                 return;
 	for (i = 0; dupeenv[i]; i++)
 	{
-		token = tokenize(dupeenv[i], "=");
+		token = tokenize(dupeenv[i], '=');
 		/* delete variable name from environment */
 		if (_strcmp(token[0], tokens[1]) == 0)
 		{
