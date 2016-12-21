@@ -1,6 +1,6 @@
 #include "shell.h"
 
-int find_builtins(char **tokens)
+int find_builtins(char **tokens, hstory **head)
 {
 	int i;
 	in_built list[] = {{"alias", },
@@ -8,18 +8,19 @@ int find_builtins(char **tokens)
 			     {"env", printEnv},
 			     {"exit", ext},
 			     {"help", hlp},
+			   {"history", printHistory(head)},
 			     {"printenv", printEnv},
-			     {"setenv", _setenv},
+			   {"setenv", _setenv(tokens)},
 			     {"unsetenv", _unsetenv},
 	};
 
-	for (i = 0; i < 8; i++)
+	for (i = 0; i < 9; i++)
 	{
 		if (_strcmp(tokens[0], list[i].s) == 0)
 		{
-			if (_strcmp(list[i].s, "setenv") == 0)
+			/*if (_strcmp(list[i].s, "setenv") == 0)
 				tokens++;
-			list[i].func(tokens);
+				list[i].func(tokens); */
 			return (0);
 		}
 	}

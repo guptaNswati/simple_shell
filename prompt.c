@@ -8,19 +8,12 @@ void excute(char **tokens, hstory **head)
 
 	if (tokens[0][0] != '/')
 	{
-		if (_strcmp(tokens[0], "history") == 0)
-		{
-			printHistory(head);
-			return;
-		}
-
-		if (find_builtins(tokens) == 0)
+		if (find_builtins(tokens, head) == 0)
 		{
 			_free(tokens);
 			return;
 		}
 	}
-
 	pid = fork();
 	if (pid == -1)
 	{

@@ -69,7 +69,9 @@ int readFromFile(const char *file, hstory **head, int *nodeCount)
 		fd = open(file, O_RDONLY);
 	        if (fd == -1)
 		{
-			printf("could not open in read %s", file);
+			_puts("could not open to read ");
+			_puts(file);
+			_puts("\n");
 			_free(input);
 			return (-1);
 		}
@@ -80,7 +82,6 @@ int readFromFile(const char *file, hstory **head, int *nodeCount)
 			_free(input);
 			return (-1);
 		}
-		/*tokn = strtok(input, "\n"); */
 		tokns = tokenize(input, '\n');
 		if (tokns == NULL)
 			return (numNodes);
@@ -88,7 +89,6 @@ int readFromFile(const char *file, hstory **head, int *nodeCount)
 		{
 			addHistory(head, *tokns, nodeCount);
 			numNodes++, tokns++;
-/*			tokn = strtok(NULL, "\n"); */
 		}
 	}
         close(fd);
@@ -102,7 +102,9 @@ int writeHstorytofile(const char *file, hstory **head)
 	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR);
 	if (fd == -1)
 	{
-		printf("could not open %s in write", file);
+		_puts("could not open to write ");
+		_puts(file);
+		_puts("\n");
 		return (-1);
 	}
 	if (head != NULL)
@@ -125,15 +127,15 @@ int writeHstorytofile(const char *file, hstory **head)
 	return (-1);
 }
 
-void printHistory(hstory **head)
+void printHistory(void **head)
 {
 	int i;
 	hstory *start;
 
-
+	(hstory **)head;
 	if (head == NULL)
 	{
-		printf("No history\n");
+		_puts("No history\n");
 		return;
 	}
 
@@ -141,7 +143,11 @@ void printHistory(hstory **head)
 	start = *head;
 	while (*head)
 	{
-		printf("[%d] %s \n", i, (*head)->input);
+		_puts("[");
+		write(STDOUT_FILENO, &n, 1);
+		_puts("]");
+		_puts((*head)->input);
+		_puts("\n");
 		*head = (*head)->next;
 		i++;
 	}

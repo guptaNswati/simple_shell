@@ -1,6 +1,6 @@
 #include "shell.h"
 
-void chng_dr(char **str)
+void chng_dr(void **str)
 {
 	char *curnt_dir, *newcd, **setPwd, **setOwd;
 
@@ -9,6 +9,7 @@ void chng_dr(char **str)
 	setPwd = NULL;
 	setOwd = NULL;
 
+	(char **)str;
 	curnt_dir = getcwd(curnt_dir, 102);
 	_ref_mem(curnt_dir, "create");
 	newcd = str[1];
