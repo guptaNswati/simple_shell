@@ -22,6 +22,7 @@ int checkEnv(char *name)
 	return (i);
 }
 
+
 /**
 * _getenv - finds an environmental variable
 * @name: pointer to variable name
@@ -121,6 +122,7 @@ void printEnv(char **tokens)
 {
 	int i;
 
+	UNUSED(tokens);
 	for (i = 0; environ[i]; i++)
 	{
 		_puts(environ[i]);

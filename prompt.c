@@ -49,11 +49,9 @@ void promptUser(void)
 	char *input, **tokens;
 	int hstryCount, *hstryPtr;
 	char *file;
-	hstory **head;
 	alias *temp;
 	static alias *head = NULL;
 
-	head = getHistoryHead();
 	hstryPtr = &hstryCount;
 	file = _strcat(_getenv("HOME"), ".simple_shell_history", '/');
 	/* read history from file */
@@ -67,12 +65,14 @@ void promptUser(void)
 		addHistory(input, hstryPtr);
 		/* remove empty spaces from begining */
 		/* add cyclic alias */
+/*
 		temp = findAlias(&head, input);
 		if (temp != NULL)
 		{
 			temp = find_aliasToalias(head, temp->value);
 			input = temp->value;
 		}
+*/
 		/* alias */
 		/* looking through aliases and call tokenize. */
 /* add command separator */

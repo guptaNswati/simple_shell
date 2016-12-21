@@ -55,12 +55,10 @@ void chng_dr(char **str)
 void ext(char **str)
 {
 	int code;
-	hstory **head;
 	char *file;
 
 	printf("In exit\n");
 
-	head = getHistoryHead();
 	file = _strcat(_getenv("HOME"), ".simple_shell_history", '/');
 	writeHstorytofile(file);
 	_free(NULL);
