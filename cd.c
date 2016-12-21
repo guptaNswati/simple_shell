@@ -1,6 +1,6 @@
 #include "shell.h"
 
-void chng_dr(void **str)
+void chng_dr(char **str)
 {
 	char *curnt_dir, *newcd, **setPwd, **setOwd;
 
@@ -45,8 +45,14 @@ void chng_dr(void **str)
 void ext(char **str)
 {
 	int code;
+	hstory **head;
+	const char *file;
 
 	printf("In exit\n");
+
+	head = getHistoryHead();
+	file = _strcat(_getenv("HOME"), ".simple_shell_history", '/');
+	writeHstorytofile(file);
 	_free(NULL);
 
 	if (str == NULL)

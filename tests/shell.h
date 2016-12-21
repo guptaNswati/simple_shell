@@ -37,7 +37,7 @@
 typedef struct in_built
 {
 	char *s;
-	void (*func) (void **);
+	void (*func) (char **);
 } in_built;
 
 typedef struct alias
@@ -94,7 +94,7 @@ void whichAlias(char **tokens, alias **head);
 alias *addAlias(alias **head, char *key, char *value);
 void printAlias(alias **head);
 alias *findAlias(alias **head, char *key);
-
+void resetAlias(alias **head, char *key, char *value);
 
 void chng_dr(char **str);
 void ext(char **str);
@@ -103,19 +103,20 @@ void printEnv(char **str);
 char *_getenv(char *name);
 void _setenv(char **str);
 void _unsetenv(char **str);
-hstory *addHistory(hstory **head, char *input, int *nodeCount);
-hstory *popHead(hstory **head, int *nodeCount);
-void printHistory(hstory **head);
-int writeHstorytofile(const char *file, hstory **head);
-int readFromFile(const char *file, hstory **head, int *nodeCount);
+hstory *addHistory(char *input, int *nodeCount);
+hstory *popHead(int *nodeCount);
+void printHistory(char **str);
+int writeHstorytofile(const char *file);
+int readFromFile(const char *file, int *nodeCount);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 ssize_t _getline(char **lineptr, int fd);
 char *linep_withoutspaces(char *line);
 char **tokenize(char *lineptr, char dlimtr);
 char **split_input(char *input);
-int find_builtins(char **tokens, hstory **head);
+int find_builtins(char **tokens);
 void check_path(char **tokens, char *p);
-void excute(char **tokens, hstory **head);
+void excute(char **tokens);
+hstory **getHistoryHead(void);
 void promptUser(void);
 
 

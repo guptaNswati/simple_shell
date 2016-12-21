@@ -1,6 +1,6 @@
 #include "shell.h"
 
-void excute(char **tokens, hstory **head)
+void excute(char **tokens)
 {
 	pid_t pid, wpid;
 	int status, i;
@@ -8,7 +8,7 @@ void excute(char **tokens, hstory **head)
 
 	if (tokens[0][0] != '/')
 	{
-		if (find_builtins(tokens, head) == 0)
+		if (find_builtins(tokens) == 0)
 		{
 			_free(tokens);
 			return;
@@ -37,34 +37,46 @@ void excute(char **tokens, hstory **head)
 		waitpid(pid, &status, 0);
 }
 
-void promptUser()
+hstory **getHistoryHead(void)
+{
+	static hstory *head = NULL;
+
+	return (&head);
+}
+
+void promptUser(void)
 {
 	char *input, **tokens;
 	int hstryCount, *hstryPtr;
 	const char *file;
-	static hstory *head = NULL;
+	hstory **head;
 
+	head = getHistoryHead();
 	hstryPtr = &hstryCount;
 	file = _strcat(_getenv("HOME"), ".simple_shell_history", '/');
 	/* read history from file */
-	readFromFile(file, &head, hstryPtr);
+	readFromFile(file, hstryPtr);
 
 	/* ignore cntrl+C */
 	signal(SIGINT, SIG_IGN);
 	_puts("$ ");
 	while (_getline(&input, STDIN_FILENO) != 0)
 	{
-		addHistory(&head, input, hstryPtr);
+		addHistory(input, hstryPtr);
+
+		/* alias */
+		/* looking through aliases and call tokenize. */
 /* add command separator */
 		tokens = tokenize(input, ' ');
 		if (tokens)
 		{
-			excute(tokens, &head);
+			excute(tokens);
 			_free(tokens);
 		}
 		_puts("$ ");
 	}
+
 	/* need to read history before exit */
-	writeHstorytofile(file, &head);
+	writeHstorytofile(file);
 	ext(NULL);
 }

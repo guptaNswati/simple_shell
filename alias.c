@@ -81,7 +81,7 @@ alias *findAlias(alias **head, char *key)
 	return (NULL);
 }
 
-void *resetAlias(alias **head, char *key, char *value)
+void resetAlias(alias **head, char *key, char *value)
 {
 	while (*head)
         {
