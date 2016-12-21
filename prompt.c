@@ -27,15 +27,12 @@ void excute(char **tokens)
 	if (tokens[0][0] != '/')
 	{
 		if (find_builtins(tokens) == 0)
-		{
-			_free(tokens);
 			return;
-		}
 	}
 	pid = fork();
 	if (pid == -1)
 	{
- 		dprintf(STDERR_FILENO, "Forking Error\n");
+ 		_puts("Forking Error\n");
 		ext(NULL);
 	}
 	if (pid == 0)
@@ -43,14 +40,31 @@ void excute(char **tokens)
 		/* Create a special node at beginning of child.. */
 		/* After child is done, free up all nodes until this node */
 		/* NOTE: because nodes were prepended */
-
 		if (tokens[0][0] != '/')
 			check_path(tokens, p);
 		else if (execve(tokens[0], tokens, NULL) == -1)
-			dprintf(STDERR_FILENO, "No such file or directory\n");
+			_puts("No such file or directory\n");
 	}
 	else
 		waitpid(pid, &status, 0);
+}
+
+
+/**
+* linep_withoutspaces - remove empty the spaces from begining of
+* input string recursively
+* @line: input string
+* Return: pointer to first non space char
+**/
+char *linep_withoutspaces(char *line)
+{
+	/* no need to null check, as empty string will not be passed  */
+	if (*line == ' ')
+	{
+		line++;
+		return (linep_withoutspaces(line));
+	}
+	return (line);
 }
 
 /**
@@ -76,7 +90,8 @@ void promptUser(void)
 	while (_getline(&input, STDIN_FILENO) != 0)
 	{
 		addHistory(input, hstryPtr);
-		/* remove empty spaces from begining */
+		/* discard the begining spaces */
+		input = linep_withoutspaces(input);
 		/* add cyclic alias */
 /*
 		temp = findAlias(&head, input);

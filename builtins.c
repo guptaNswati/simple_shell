@@ -17,9 +17,10 @@ int find_builtins(char **tokens)
 			     {"printenv", printEnv},
 			     {"setenv", _setenv},
 			     {"unsetenv", _unsetenv},
+			     {NULL, NULL, NULL}
 	};
 
-	for (i = 0; i < 9; i++)
+	for (i = 0; list[i].s != NULL; i++)
 	{
 		if (_strcmp(tokens[0], list[i].s) == 0)
 		{

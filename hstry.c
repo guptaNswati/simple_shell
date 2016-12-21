@@ -189,6 +189,4 @@ void printHistory(char **str)
 		start = start->next;
 		i++;
 	}
-	/* return the head after iterating */
-/*	*head = start;*/
 }

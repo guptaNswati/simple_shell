@@ -1,16 +1,11 @@
 #include "shell.h"
 
-/* remove empty the spaces from begining of input string */
-char *linep_withoutspaces(char *line)
-{
-	/* no need to null check, as empty string will not be passed  */
-	if (*line == ' ')
-	{
-		line++;
-		return (linep_withoutspaces(line));
-	}
-	return (line);
-}
+/**
+* tokenize - tokenizes a string of limited length based on given delimiter
+* @lineptr: string to be tokenized
+* @dlimtr: delimietr to tokenize the string
+* Return: pointer to tokens
+**/
 char **tokenize(char *lineptr, char dlimtr)
 {
 	int i, j, indx;
@@ -25,15 +20,14 @@ char **tokenize(char *lineptr, char dlimtr)
 	if (tokens == NULL)
 		return (NULL);
 
-/* discard the begining spaces */
-	lineptr = linep_withoutspaces(lineptr);
-/* set tmp to first non space char */
+/* set tmp to first char */
 	tmp = lineptr;
 	i = 0;
 	indx = 0;
 	while (*lineptr && indx < BUFRSIZE)
 	{
-		if (*lineptr == dlimtr)
+		/* discard any empty spaces inbetween or in the end */
+		if (*lineptr == dlimtr && *lineptr + 1 != dlimtr)
 		{
 			line = _malloc(sizeof(char) * i + 1);
 			if (line == NULL)
@@ -59,7 +53,7 @@ char **tokenize(char *lineptr, char dlimtr)
 	/* theres more to be read, discard it and return null */
 	if (*lineptr != '\0')
 	{
-		dprintf(STDERR_FILENO, "Killed\n");
+		_puts("Killed\n");
 		return (NULL);
 	}
 	tokens[indx++] = tmp;
@@ -67,6 +61,12 @@ char **tokenize(char *lineptr, char dlimtr)
 	return (tokens);
 }
 
+/**
+* _getline - reads user input and stores in memory
+* @lineptr: pointer to input
+* @fd: file descriptor for where to read from
+* Return: number of chars read or -1
+**/
 ssize_t _getline(char **lineptr, int fd)
 {
  	/* default line length */
