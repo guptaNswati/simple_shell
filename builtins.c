@@ -8,7 +8,7 @@
 int find_builtins(char **tokens)
 {
 	int i;
-	in_built list[] = {{"alias", },
+	in_built list[] = {{"alias", whichAlias},
 			     {"cd", chng_dr},
 			     {"env", printEnv},
 			     {"exit", ext},

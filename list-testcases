@@ -18,6 +18,9 @@
 9. write function, inplace of printf -> done
 10. file
 11. testing with test suite
+12. Fix valgrind issues
+13. Make sure project compiles with all flags
+14. Edit README and man page to update new builtins -> philip
 
 /* after high priority */
 11. comments
