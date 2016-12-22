@@ -97,6 +97,15 @@ typedef struct save_mem
 	struct save_mem *next;
 } save_mem;
 
+hstory **getHistoryHead(void);
+alias **getAliasHead(void);
+ssize_t _getline(char **lineptr, int fd);
+char *linep_withoutspaces(char *line);
+char **tokenize(char *lineptr, char dlimtr);
+int find_builtins(char **tokens);
+void check_path(char **tokens, char *p);
+void excute(char **tokens);
+void promptUser(void);
 
 int _strlen(char *str);
 char *_strcpy(char *strng, int i);
@@ -146,17 +155,5 @@ hstory *popHead(int *nodeCount);
 int readFromFile(char *file, int *nodeCount);
 int writeHstorytofile(char *file);
 void printHistory(char **str);
-
-hstory **getHistoryHead(void);
-alias **getAliasHead(void);
-ssize_t _getline(char **lineptr, int fd);
-char *linep_withoutspaces(char *line);
-char **tokenize(char *lineptr, char dlimtr);
-int find_builtins(char **tokens);
-void check_path(char **tokens, char *p);
-void excute(char **tokens);
-void promptUser(void);
-
-
 
 #endif
