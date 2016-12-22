@@ -105,11 +105,32 @@ void promptUser(void)
 		addHistory(input, hstryPtr);
 		/* discard the begining spaces */
 		input = linep_withoutspaces(input);
-		/* command separator */
-		cmds = tokenize(input, ';');
-		if (cmds)
+		if (*input != '\0')
 		{
-			while (*cmds)
+			/* command separator */
+			cmds = tokenize(input, ';');
+			if (cmds)
+			{
+				while (*cmds)
+				{
+					/* add cyclic alias */
+					temp = findAlias(a_head, *cmds);
+					/* check if an alias is not pointing to itself */
+					if (temp != NULL && (_strcmp(temp->key, temp->value) != 0))
+					{
+						temp = find_aliasToalias(a_head, temp->value);
+						*cmds = temp->value;
+					}
+					tokens = tokenize(*cmds, ' ');
+					if (tokens)
+					{
+						excute(tokens);
+						_free(tokens);
+					}
+					cmds++;
+				}
+			}
+			else
 			{
 				/* add cyclic alias */
 				temp = findAlias(a_head, *cmds);
@@ -125,27 +146,9 @@ void promptUser(void)
 					excute(tokens);
 					_free(tokens);
 				}
-				cmds++;
 			}
-		}
-		else
-		{
-			/* add cyclic alias */
-			temp = findAlias(a_head, *cmds);
-			/* check if an alias is not pointing to itself */
-			if (temp != NULL && (_strcmp(temp->key, temp->value) != 0))
-			{
-				temp = find_aliasToalias(a_head, temp->value);
-				*cmds = temp->value;
-			}
-			tokens = tokenize(*cmds, ' ');
-			if (tokens)
-			{
-				excute(tokens);
-				_free(tokens);
-			}
-		}
-		_free(cmds);
+			_free(cmds);
+		} /* input if block ends */
 		_puts("$ ");
 	}
 	/* need to read history before exit */
