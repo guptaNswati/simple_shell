@@ -56,9 +56,6 @@ void ext(char **str)
 {
 	int code;
 	char *file;
-
-	printf("In exit\n");
-
 	file = _strcat(_getenv("HOME"), ".simple_shell_history", '/');
 	writeHstorytofile(file);
 	_free(NULL);
@@ -70,6 +67,7 @@ void ext(char **str)
 	}
 	else
 	{
+		_puts("Successfully exited!\n");
 		/* exit code given in index 1 of array */
 		code = _atoi(str[0]);  /* change according to how we want this */
 		if (code > 0)
@@ -77,7 +75,6 @@ void ext(char **str)
 		else
 			_exit(10);
 	}
-
 }
 
 /**
