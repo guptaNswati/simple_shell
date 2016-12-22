@@ -54,10 +54,13 @@ void excute(char **tokens)
 		/* NOTE: because nodes were prepended */
 		p = NULL;
 		if (tokens[0][0] != '/')
+		{
 			check_path(tokens, p);
-		else if (execve(tokens[0], tokens, NULL) == -1)
-			_puts("No such file or directory\n");
-	}
+			return;
+		}
+		if (execve(tokens[0], tokens, NULL) == -1)
+			_puts("No such command found\n");
+ 	}
 	else
 		waitpid(pid, &status, 0);
 }
@@ -92,6 +95,10 @@ void promptUser(void)
 	hstory **h_head;
 	alias **a_head, *temp;
 
+	input = NULL;
+	tokens = NULL;
+	cmds = NULL;
+	temp = NULL;
 	h_head = getHistoryHead();
 	a_head = getAliasHead();
 	hstryCount = 0;
