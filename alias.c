@@ -95,7 +95,6 @@ alias *addAlias(alias **head, char *key, char *value)
  **/
 void printAlias(alias **head)
 {
-	int i;
 	alias *start;
 
 	if (*head == NULL)

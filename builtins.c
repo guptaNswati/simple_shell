@@ -17,7 +17,7 @@ int find_builtins(char **tokens)
 			     {"printenv", printEnv},
 			     {"setenv", _setenv},
 			     {"unsetenv", _unsetenv},
-			     {NULL, NULL, NULL}
+			     {NULL, NULL}
 	};
 
 	for (i = 0; list[i].s != NULL; i++)

@@ -6,7 +6,7 @@
 * @head: pointer to head of the alias list
 * Return: nothing
 **/
-void whichAlias(char **tokens,)
+void whichAlias(char **tokens)
 {
 	char **newTokens;
 	alias **a_head, *temp;
