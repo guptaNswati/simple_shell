@@ -52,6 +52,7 @@ void excute(char **tokens)
 		/* Create a special node at beginning of child.. */
 		/* After child is done, free up all nodes until this node */
 		/* NOTE: because nodes were prepended */
+		p = NULL;
 		if (tokens[0][0] != '/')
 			check_path(tokens, p);
 		else if (execve(tokens[0], tokens, NULL) == -1)

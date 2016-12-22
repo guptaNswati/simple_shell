@@ -8,7 +8,7 @@
 **/
 char **tokenize(char *lineptr, char dlimtr)
 {
-	int i, j, indx;
+	int i, j, indx, tmpLen;
 	char *tmp, *line, **tokens;
 
 	/* it can be null if only new line was entered */
@@ -19,30 +19,30 @@ char **tokenize(char *lineptr, char dlimtr)
 	tokens = _malloc(sizeof(char *) * BUFRSIZE);
 	if (tokens == NULL)
 		return (NULL);
-
-/* set tmp to first char */
+/* discard the begining spaces if any */
+	lineptr = linep_withoutspaces(lineptr);
+/* set tmp to first non space char */
 	tmp = lineptr;
 	i = 0;
 	indx = 0;
 	while (*lineptr && indx < BUFRSIZE)
 	{
 		/* discard any empty spaces inbetween or in the end */
-		if (*lineptr == dlimtr && *lineptr + 1 != dlimtr)
+		if (*lineptr == dlimtr && *(lineptr + 1) != dlimtr)
 		{
 			line = _malloc(sizeof(char) * i + 1);
 			if (line == NULL)
 				return (NULL);
 			for (j = 0; j < i; j++, tmp++)
 				line[j] = *tmp;
-			if (line[j - 1] == dlimtr)
-				j--;
 			line[j] = '\0';
 			tokens[indx++] = line;
 			/* set temp to begining of new line */
 			tmp = lineptr + 1;
 			i = 0;
 		}
-		i++;
+		if (*lineptr != dlimtr)
+			i++;
 		lineptr++;
 	}
 	/* could not find the delimiter */
@@ -57,8 +57,20 @@ char **tokenize(char *lineptr, char dlimtr)
 		_puts("Killed\n");
 		return (NULL);
 	}
-	tokens[indx++] = tmp;
-	tokens[indx] = NULL;
+	/* check last empty spaces */
+	for (tmpLen = _strlen(tmp) - 1; tmpLen >= 0; tmpLen--)
+	{
+		if (tmp[tmpLen] != 'o')
+			break;
+		tmp[tmpLen] = '\0';
+	}
+	if (*tmp != '\0')
+	{
+		tokens[indx++] = tmp;
+		tokens[indx] = NULL;
+	}
+	else
+		tokens[indx] = NULL;
 	return (tokens);
 }
 
