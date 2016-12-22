@@ -23,7 +23,6 @@ void chng_dr(char **str)
 		newcd = _getenv("HOME");
 	else if (_strcmp(newcd, "-") == 0)
  		newcd = _getenv("OLDPWD");
-
 	if (chdir(newcd) == -1)
 	{
 		_puts(strerror(errno));
@@ -34,13 +33,12 @@ void chng_dr(char **str)
 	setPwd = _malloc (sizeof (char *) * (3 + _strlen(newcd)));
 	if (setPwd == NULL)
 		return;
-	setPwd[0] = "PWD", setPwd[1] = newcd;
+	setPwd[1] = "PWD", setPwd[2] = newcd;
 	_setenv(setPwd);
-
 	setOwd = _malloc (sizeof (char *) * (3 + _strlen(curnt_dir)));
         if (setOwd == NULL)
                 return;
-	setOwd[0] = "OLDPWD", setOwd[1] = curnt_dir;
+	setOwd[1] = "OLDPWD", setOwd[2] = curnt_dir;
 	_setenv(setOwd);
 	_free(curnt_dir);
 	_free(setPwd);
