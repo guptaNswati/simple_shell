@@ -87,7 +87,7 @@ char *linep_withoutspaces(char *line)
 void promptUser(void)
 {
 	char *input, **tokens, **cmds;
-	int hstryCount, *hstryPtr, status;
+	int hstryCount, *hstryPtr;
 	char *file;
 	hstory **h_head;
 	alias **a_head, *temp;
@@ -104,15 +104,11 @@ void promptUser(void)
 	/* read history from file */
 	readFromFile(file, h_head, hstryPtr);
 
-	status = 1;
 	/* ignore cntrl+C */
 	signal(SIGINT, SIG_IGN);
- 	while (1)
+	_puts("$ ");
+ 	while (_getline(&input, STDIN_FILENO) != 0)
 	{
-		if (status == 0)
-			break;
-		_puts("$ ");
-		status = _getline(&input, STDIN_FILENO);
 		addHistory(h_head, input, hstryPtr);
 		/* discard the begining spaces */
 		input = linep_withoutspaces(input);
@@ -160,6 +156,7 @@ void promptUser(void)
 			}
 			_free(cmds);
 		} /* input if block ends */
+		_puts("$ ");
 	}
 	/* need to read history before exit */
 	ext(NULL);
