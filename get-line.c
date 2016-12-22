@@ -28,7 +28,7 @@ char **tokenize(char *lineptr, char dlimtr)
 	while (*lineptr && indx < BUFRSIZE)
 	{
 		/* discard any empty spaces inbetween or in the end */
-		if (*lineptr == dlimtr && *(lineptr + 1) != dlimtr)
+		if (*lineptr == dlimtr && *(lineptr + 1) != ' ')
 		{
 			line = _malloc(sizeof(char) * i + 1);
 			if (line == NULL)
@@ -41,7 +41,7 @@ char **tokenize(char *lineptr, char dlimtr)
 			tmp = lineptr + 1;
 			i = 0;
 		}
-		if (*lineptr != dlimtr)
+		if (*lineptr != ' ')
 			i++;
 		lineptr++;
 	}
@@ -60,7 +60,7 @@ char **tokenize(char *lineptr, char dlimtr)
 	/* check last empty spaces */
 	for (tmpLen = _strlen(tmp) - 1; tmpLen >= 0; tmpLen--)
 	{
-		if (tmp[tmpLen] != 'o')
+		if (tmp[tmpLen] != ' ')
 			break;
 		tmp[tmpLen] = '\0';
 	}
