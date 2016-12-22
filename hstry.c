@@ -143,7 +143,7 @@ int writeHstorytofile(char *file)
 			count = write(fd, temp->input, inptLen);
 			if (count == -1 || count != inptLen)
 				return (-1);
-			if (temp->input[inptLen - 1] != '\n')
+			if (inptLen > 0 && temp->input[inptLen - 1] != '\n')
 				count = write(fd, "\n", 1);
 			if (count == -1)
 				return (-1);
@@ -163,7 +163,7 @@ int writeHstorytofile(char *file)
 **/
 void printHistory(char **str)
 {
-	int i;
+	int i, len;
 	hstory *start, **head;
 	UNUSED(str);
 
@@ -183,7 +183,8 @@ void printHistory(char **str)
 		_puts("] ");
 		_puts(start->input);
 
-		if (start->input[_strlen(start->input) - 1] != '\n')
+		len = _strlen(start->input);
+		if (len > 0 && start->input[len - 1] != '\n')
 			_puts("\n");
 
 		start = start->next;

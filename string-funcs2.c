@@ -27,7 +27,6 @@ void _putchar(char c)
  * Description: Adjusted to only take valid positive numbers.
  * Return: first integer found in string
  */
-
 int _atoi(char *s)
 {
 	int i;
@@ -61,6 +60,10 @@ int _atoi(char *s)
 	return (value);
 }
 
+/**
+ * _puts_num - convert integer to string
+ * @n: number to convert
+ */
 void _puts_num(int n)
 {
 	int power;
