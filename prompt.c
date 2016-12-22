@@ -89,13 +89,16 @@ void promptUser(void)
 	char *input, **tokens, **cmds;
 	int hstryCount, *hstryPtr, status;
 	char *file;
+	hstory **h_head;
 	alias **a_head, *temp;
 
+	h_head = getHistoryHead();
 	a_head = getAliasHead();
+	hstryCount = 0;
 	hstryPtr = &hstryCount;
 	file = _strcat(_getenv("HOME"), ".simple_shell_history", '/');
 	/* read history from file */
-	readFromFile(file, hstryPtr);
+	readFromFile(file, h_head, hstryPtr);
 
 	status = 1;
 	/* ignore cntrl+C */
@@ -106,7 +109,7 @@ void promptUser(void)
 			break;
 		_puts("$ ");
 		status = _getline(&input, STDIN_FILENO);
-		addHistory(input, hstryPtr);
+		addHistory(h_head, input, hstryPtr);
 		/* discard the begining spaces */
 		input = linep_withoutspaces(input);
 		if (*input != '\0')
