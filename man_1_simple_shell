@@ -78,7 +78,7 @@ history
 List history of recent commands.
 .LP
 .TP
-setenv \fIname\fR \fIvalue\fR
+setenv \fIname\fR=\fIvalue\fR
 Add a new environment variable.
 .LP
 .TP
