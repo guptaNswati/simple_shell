@@ -67,7 +67,7 @@ void _setenv(char **tokens)
 	temp = tokenize(tokens[1], '=');
 	if (temp[1] == NULL)
 	{
-		_puts("Usage: setenv name=value\n");
+		_puts("not found\n");
 		return;
 	}
 	new = _strcat(temp[0], temp[1], '=');
