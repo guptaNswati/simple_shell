@@ -23,7 +23,6 @@ void chng_dr(char **str)
 		newcd = _getenv("HOME");
 	else if (_strcmp(newcd, "-") == 0)
  		newcd = _getenv("OLDPWD");
-
 	if (chdir(newcd) == -1)
 	{
 		_puts(strerror(errno));
@@ -34,13 +33,12 @@ void chng_dr(char **str)
 	setPwd = _malloc (sizeof (char *) * (3 + _strlen(newcd)));
 	if (setPwd == NULL)
 		return;
-	setPwd[0] = "PWD", setPwd[1] = newcd;
+	setPwd[1] = "PWD", setPwd[2] = newcd;
 	_setenv(setPwd);
-
 	setOwd = _malloc (sizeof (char *) * (3 + _strlen(curnt_dir)));
         if (setOwd == NULL)
                 return;
-	setOwd[0] = "OLDPWD", setOwd[1] = curnt_dir;
+	setOwd[1] = "OLDPWD", setOwd[2] = curnt_dir;
 	_setenv(setOwd);
 	_free(curnt_dir);
 	_free(setPwd);
@@ -108,23 +106,26 @@ void hlp(char **str)
 		}
 		if (trigger)
 		{
-			printf("simple_shell: help: no help topics match `%s`."
-			       " Try `help`.\n", str[1]);
+			_puts("simple_shell: help: no help topics match `");
+			_puts(str[1]);
+			_puts("`. Try `help`.\n");
 		}
 		return;
 	}
 
-	printf(BBLU"\nSimple Shell"RESET
-	       ", version 0.01-release (x86_64-pc-linux-gnu)\n\n"
-	       "These shell commands are defined interally."
-	       "Type `help` to see this list.\n"
-	       "Type `help name` to find out more about the "
-	       "function `name`.\n\n");
+	_puts(BBLU"\nSimple Shell"RESET);
+	_puts(", version 0.01-release (x86_64-pc-linux-gnu)\n\n");
+	_puts("These shell commands are defined interally.");
+	_puts("Type `help` to see this list.\n");
+	_puts("Type `help name` to find out more about the ");
+	_puts("function `name`.\n\n");
 
-	printf("-----\n");
+	_puts("-----\n");
 	for (i = 0; storage[i].cmd; i++)
 	{
-		printf(" %s\n", storage[i].synopsis);
-		printf("-----\n");
+		_puts(" ");
+		_puts(storage[i].synopsis);
+		_puts("\n");
+		_puts("-----\n");
 	}
 }
