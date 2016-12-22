@@ -6,22 +6,23 @@
 * @head: pointer to head of the alias list
 * Return: nothing
 **/
-void whichAlias(char **tokens, alias **head)
+void whichAlias(char **tokens,)
 {
 	char **newTokens;
-	alias *temp;
+	alias **a_head, *temp;
 	int i;
 
+	a_head = getAliasHead();
 	/* if theres only 1 token, call printAlias, tokens based on space */
 	if (tokens[1] == NULL)
 	{
-		printAlias(head);
+		printAlias(a_head);
 		return;
 	}
 	newTokens = tokenize(tokens[1], '=');
 	if (newTokens[1] == NULL)
 	{
-		temp = findAlias(head, newTokens[0]);
+		temp = findAlias(a_head, newTokens[0]);
 		if (temp != NULL)
 		{
 			_puts("alias ");
@@ -45,5 +46,5 @@ void whichAlias(char **tokens, alias **head)
 		_puts("alias: not found\n");
 		return;
 	}
-	addAlias(head, newTokens[0], newTokens[1]);
+	addAlias(a_head, newTokens[0], newTokens[1]);
 }

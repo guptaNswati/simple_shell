@@ -13,6 +13,18 @@ hstory **getHistoryHead(void)
 }
 
 /**
+* getAliasHead - intializes static head to struct alias
+* for passing to functions
+* Return: address of alias head
+**/
+alias **getAliasHead(void)
+{
+	static alias *head = NULL;
+
+	return (&head);
+}
+
+/**
 * excute - forks a parent process and wait for child process
 * to complete executing its child process
 * @tokens: pointer to user input
@@ -76,9 +88,9 @@ void promptUser(void)
 	char *input, **tokens, **cmds;
 	int hstryCount, *hstryPtr;
 	char *file;
-	alias *temp;
-	static alias *head = NULL;
+	alias **a_head, *temp;
 
+	a_head = getAliasHead();
 	hstryPtr = &hstryCount;
 	file = _strcat(_getenv("HOME"), ".simple_shell_history", '/');
 	/* read history from file */
@@ -87,7 +99,7 @@ void promptUser(void)
 	/* ignore cntrl+C */
 	signal(SIGINT, SIG_IGN);
 	_puts("$ ");
-	while (_getline(&input, STDIN_FILENO) != 0)
+ 	while (_getline(&input, STDIN_FILENO) != 0)
 	{
 		addHistory(input, hstryPtr);
 		/* discard the begining spaces */
@@ -97,11 +109,11 @@ void promptUser(void)
 		if (cmds)
 		{
 			/* add cyclic alias */
-			temp = findAlias(&head, cmds);
+			temp = findAlias(a_head, cmds);
 			/* check if an alias is not pointing to itself */
 			if (temp != NULL && (_strcmp(temp->key, temp->value) != 0))
 			{
-				temp = find_aliasToalias(head, temp->value);
+				temp = find_aliasToalias(a_head, temp->value);
 				cmds = temp->value;
 			}
 			tokens = tokenize(cmds, ' ');
