@@ -50,6 +50,10 @@ Each command has an exit status that can influence the behavior of other shell c
 This section lists the builtin commands which are builtin because they need to perform some operation that can't be performed by a separate process.
 .P
 .TP
+alias [key] [value]
+List all aliases, list a single alias, or create an alias.
+.LP
+.TP
 cd [\fIdirectory\fR]
 Switch to the specified directory.
 .LP
@@ -64,6 +68,14 @@ Print all environment variables.
 .TP
 exit [\fIexitstatus\fR]
 Terminate the shell process. If \fIexitstatus\fR is given, it is used as the exit status of the shell.
+.LP
+.TP
+help [pattern]
+List all built-in commands if no pattern is given. Else, list any commands that match pattern.
+.LP
+.TP
+history
+List history of recent commands.
 .LP
 .TP
 setenv \fIname\fR \fIvalue\fR
