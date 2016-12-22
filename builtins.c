@@ -46,7 +46,6 @@ void check_path(char **tokens, char *p)
 	while (*tokn)
 	{
 		concat = _strcat(*tokn, tokens[0], '/');
-		printf("concat: %s\n", concat);
 		if (concat)
 		{
 			if (execve(concat, tokens, NULL) != -1)
