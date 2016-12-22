@@ -102,6 +102,7 @@ alias **getAliasHead(void);
 ssize_t _getline(char **lineptr, int fd);
 char *linep_withoutspaces(char *line);
 char **tokenize(char *lineptr, char dlimtr);
+char **parse_path(char *path, char dlimtr);
 int find_builtins(char **tokens);
 void check_path(char **tokens, char *p);
 void excute(char **tokens);

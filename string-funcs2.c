@@ -97,3 +97,38 @@ void _puts_num(int n)
 		}
 	}
 }
+
+
+char **parse_path(char *path, char dlimtr)
+{
+	int i, j, hold, indx;
+	char **paths, *tmp;
+
+	if (*path == '\0')
+		return (NULL);
+
+	paths = _malloc(sizeof(char *) * BUFRSIZE);
+	if (paths == NULL)
+		return (NULL);
+
+	indx = 0;
+	for (i = 0, hold = 0; path[i]; i++)
+	{
+		if (path[i] == dlimtr)
+		{
+			tmp = _malloc(sizeof(char) * (i - hold));
+			if (tmp == NULL)
+				return (NULL);
+			for (j = 0; hold < i; j++, hold++)
+			{
+				if (path[hold] == dlimtr)
+					hold++;
+				tmp[j] = path[hold];
+			}
+			tmp[j++] = '\0';
+
+			paths[indx++] = tmp;
+		}
+	}
+	return (paths);
+}
