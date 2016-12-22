@@ -137,7 +137,7 @@ Functions to handle history built-in and storing history in an external parent d
 .LP
 .TP
 .B help.c
-Functions to handle alias built-in help.
+Functions to handle help built-in.
 .LP
 .TP
 .B duplict-parse.c
