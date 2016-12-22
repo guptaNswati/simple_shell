@@ -56,21 +56,15 @@ char *_getenv(char *name)
 **/
 void _setenv(char **tokens)
 {
-	char *new, **tok, **dupeenv, **temp;
+	char *new, **tok, **dupeenv;
 	int i;
 
-	if (tokens[1] == NULL || tokens[1][0] == '\0')
+	if (tokens[1] == NULL || tokens[2] == NULL)
 	{
-		_puts("Usage: setenv name=value\n");
+		_puts("Usage: setenv name value\n");
                 return;
 	}
-	temp = tokenize(tokens[1], '=');
-	if (temp[1] == NULL)
-	{
-		_puts("not found\n");
-		return;
-	}
-	new = _strcat(temp[0], temp[1], '=');
+	new = _strcat(tokens[1], tokens[2], '=');
 	if (new == NULL)
 	{
 		_puts("Memory Allocation Error\n");
@@ -88,7 +82,7 @@ void _setenv(char **tokens)
 		tok = tokenize(dupeenv[i], '=');
 		if (*tok)
 		{
-			if (_strcmp(tok[0], temp[0]) == 0)
+			if (_strcmp(tok[0], tokens[1]) == 0)
 			{
 				environ[i] = new;
 				/*change value to given value and return 0 */
