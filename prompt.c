@@ -56,7 +56,10 @@ void excute(char **tokens)
 		if (tokens[0][0] != '/')
 			check_path(tokens, p);
 		else if (execve(tokens[0], tokens, NULL) == -1)
-			_puts("No such such command found\n");
+		{
+		  _puts("No such file or directory\n");
+		  ext(NULL);
+	        }
 	}
 	else
 		waitpid(pid, &status, 0);
