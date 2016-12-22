@@ -34,7 +34,10 @@ char *_getenv(char *name)
 
 	dupeenv = deepDupe(environ);
 	if (dupeenv == NULL)
+	{
+		_puts("Memory Allocation Error\n");
 		return (NULL);
+	}
 	while (*dupeenv)
 	{
 		token = tokenize(*dupeenv, '=');
@@ -42,6 +45,7 @@ char *_getenv(char *name)
 			return (token[1]);
  		dupeenv++;
 	}
+	_puts("No such enviornent variable\n");
 	return (NULL);
 }
 
@@ -52,31 +56,48 @@ char *_getenv(char *name)
 **/
 void _setenv(char **tokens)
 {
-	char **token, *new, **dupeenv;
+	char *new, **tok, **dupeenv, **temp;
 	int i;
 
-	i = checkEnv(tokens[1]);
-	if (i == 0)
+	if (tokens[1] == NULL || tokens[1][0] == '\0')
+	{
+		_puts("Usage: setenv name=value\n");
+                return;
+	}
+	temp = tokenize(tokens[1], '=');
+	if (temp[1] == NULL)
+	{
+		_puts("Usage: setenv name=value\n");
 		return;
-	new = _strcat(tokens[1], tokens[2], '=');
+	}
+	new = _strcat(temp[0], temp[1], '=');
 	if (new == NULL)
+	{
+		_puts("Memory Allocation Error\n");
 		return;
+	}
 	i = 0;
 	dupeenv = deepDupe(environ);
 	if (dupeenv == NULL)
+	{
+		_puts("Memory Allocation Error\n");
                 return;
+	}
 	for (i = 0; dupeenv[i]; i++)
 	{
-		token = tokenize(dupeenv[i], '=');
-		if (_strcmp(token[0], tokens[1]) == 0)
+		tok = tokenize(dupeenv[i], '=');
+		if (*tok)
 		{
-			environ[i] = new;
-			/*change value to given value and return 0 */
-			return;
+			if (_strcmp(tok[0], temp[0]) == 0)
+			{
+				environ[i] = new;
+				/*change value to given value and return 0 */
+				return;
+			}
 		}
 	}
-	environ[i] = new;
-	environ[++i] = NULL;
+	environ[i++] = new;
+	environ[i] = NULL;
 }
 
 /**
@@ -92,11 +113,17 @@ void _unsetenv(char **tokens)
 
 	i = checkEnv(tokens[1]);
 	if (i == 0)
+	{
+		_puts("Usage: unsetenv name\n");
 		return;
+	}
 
         dupeenv = deepDupe(environ);
 	if (dupeenv == NULL)
+	{
+		_puts("Memory Allocation Error\n");
                 return;
+	}
 	for (i = 0; dupeenv[i]; i++)
 	{
 		token = tokenize(dupeenv[i], '=');
