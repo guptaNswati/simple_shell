@@ -82,7 +82,7 @@ void history_data(void)
 void setenv_data(void)
 {
 	_puts(BBLU"\nsetenv"RESET);
-	_puts(": setenv name value\n");
+	_puts(": setenv name=value\n");
 	_puts("  Add an environment variable.\n\n");
 	_puts("  Adds the environement variable NAME to the environment. ");
 	_puts("The value of NAME is set to VALUE.\n\n");

@@ -91,7 +91,7 @@ void hlp(char **str)
 		{"help", "help [pattern ...]", help_data},
 		{"history", "history", history_data},
 		{"printenv", "printenv", env_data},
-		{"setenv", "setenv name value", setenv_data},
+		{"setenv", "setenv name=value", setenv_data},
 		{"unsetenv", "unsetenv name", unsetenv_data},
 		{NULL, NULL, NULL}
 	};
@@ -127,7 +127,6 @@ void hlp(char **str)
 	{
 		_puts(" ");
 		_puts(storage[i].synopsis);
-		_puts("\n");
-		_puts("-----\n");
+		_puts("\n-----\n");
 	}
 }
