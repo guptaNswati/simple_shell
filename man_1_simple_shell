@@ -50,6 +50,10 @@ Each command has an exit status that can influence the behavior of other shell c
 This section lists the builtin commands which are builtin because they need to perform some operation that can't be performed by a separate process.
 .P
 .TP
+alias [\fIkey\fR] [\fIvalue\fR]
+List all aliases, list a single alias, or create an alias.
+.LP
+.TP
 cd [\fIdirectory\fR]
 Switch to the specified directory.
 .LP
@@ -64,6 +68,14 @@ Print all environment variables.
 .TP
 exit [\fIexitstatus\fR]
 Terminate the shell process. If \fIexitstatus\fR is given, it is used as the exit status of the shell.
+.LP
+.TP
+help [\fIpattern\fR]
+List all built-in commands if no pattern is given. Else, list any commands that match pattern.
+.LP
+.TP
+history
+List history of recent commands.
 .LP
 .TP
 setenv \fIname\fR \fIvalue\fR
@@ -85,27 +97,51 @@ Errors that are detected by the shell, such as a syntax error, will cause the sh
 .RS 3
 .TP
 .B shell.h
-Header file which contains any library includes, structs created, and all funciton prototypes.
+Header file which contains any library includes, structs, macros/constants, and all function prototypes.
 .LP
 .TP
 .B prompt.c
 Main shell file which prints and asks for prompt from User, creates tokens from User input, and runs executable or returns response if no executable found.
 .LP
 .TP
-.B env-get-set-.c
+.B get-line.c
+Contains a rewrite of function getline and a tokenize function to split apart strings by delimiters.
+.LP
+.TP
+.B env-get-set.c
 All functions related to environment variables. Functions include ability to Get, Set, Unset, Print, Check.
 .LP
 .TP
-.B string-funcs.c
+.B builtins.c
+Functions to handle built-in commands and checking commands via PATH.
+.LP
+.TP
+.B string-funcs.c, string-funcs2.c
 Helper functions that handle strings, include copy, compare, tokenize/parse, and concatenate.
+.LP
+.TP
+.B memory.c
+Functions to handle memory allocation and frees.
 .LP
 .TP
 .B cd.c
 Shell built-in change directory command.
 .LP
 .TP
+.B alias.c, aliasFunc.c
+Functions to handle alias built-in.
+.LP
+.TP
+.B hstry.c
+Functions to handle history built-in and storing history in an external parent directory.
+.LP
+.TP
+.B help.c
+Functions to handle help built-in.
+.LP
+.TP
 .B duplict-parse.c
-Helper functions for parsing and deep duping.
+Helper function for deep duping.
 .LP
 .RE
 
