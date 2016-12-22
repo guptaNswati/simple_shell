@@ -42,7 +42,7 @@ char **tokenize(char *lineptr, char dlimtr)
 			i = 0;
 		}
 		if (*lineptr != ' ')
-			i++;
+			i++; 
 		lineptr++;
 	}
 	/* could not find the delimiter */

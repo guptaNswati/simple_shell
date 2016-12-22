@@ -40,11 +40,15 @@ int find_builtins(char **tokens)
 void check_path(char **tokens, char *p)
 {
 	char *path, **tokn, *concat;
+	int tokLen;
 
 	path = _getenv("PATH");
 	tokn = tokenize(path, ':');
 	while (*tokn)
 	{
+		tokLen = _strlen(*tokn);
+		if (*tokn[tokLen - 1] == ':')
+			tokn[tokLen - 1] = '\0';
 		concat = _strcat(*tokn, tokens[0], '/');
 		if (concat)
 		{
