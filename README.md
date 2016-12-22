@@ -90,9 +90,17 @@ $ ./simple_shell
 
 - `shell.h`: Header file which contains any library includes, structs created, and all function prototypes.
 - `prompt.c`: Main shell file which prints and asks for prompt from User, creates tokens from User input, and runs executable or returns response if no executable found.
+- `get-line.c`: Contains a rewrite of function getline and a tokenize function to split apart strings by delimiters.
 - `env-get-set.c`: All functions related to environment variables. Functions include ability to Get, Set, Unset, Print, Check.
+- `builtins.c`: Functions to handle built-in commands and checking commands via PATH environment variable.
 - `string-funcs.c`: Helper functions that handle strings, include copy, compare, tokenize/parse, and concatenate.
+- `string-funcs2.c`: More helper functions.
+- `memory.c`: Functions to handle memory allocation and frees.
 - `cd.c`: Shell built-in change directory command.
+- `alias.c`: Functions to handle alias built-in command.
+- `aliasFunc.c`: Contains a helper function to handle aliases.
+- `hstry.c`: Functions to handle history built-in and storing history of inputted commands in an external parent directory.
+- `help.c`: Functions to handle help built-in.
 - `duplict-parse.c`: Helper functions for parsing and deep duping.
 
 
