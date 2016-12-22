@@ -84,10 +84,12 @@ void hlp(char **str)
 {
 	int i, trigger;
 	help_struct storage[] = {
+		{"alias", "alias [key] [value]", alias_data},
 		{"cd", "cd [dir]", cd_data},
 		{"env", "env", env_data},
 		{"exit", "exit", exit_data},
 		{"help", "help [pattern ...]", help_data},
+		{"history", "history", history_data},
 		{"printenv", "printenv", env_data},
 		{"setenv", "setenv name value", setenv_data},
 		{"unsetenv", "unsetenv name", unsetenv_data},

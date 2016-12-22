@@ -1,5 +1,22 @@
 #include "shell.h"
 
+void alias_data(void)
+{
+	_puts(BBLU"\nalias"RESET);
+	_puts(": alias [key] [value]\n");
+	_puts("  Users can save commands within Aliases.\n\n");
+	_puts("  Aliases are variables that store a value. Users can ");
+	_puts("view all aliases, view a single alias, or set/reset an ");
+	_puts("alias.\n\n");
+	_puts(RED"  Arguments"RESET);
+	_puts(":\n");
+	_puts("  KEY\tKey is the name used to call the alias. If given ");
+	_puts("without a value, shell will return the key and ");
+	_puts("value of the alias given, if found.\n");
+	_puts("  VALUE\tValue can only be given if a key is given. This ");
+	_puts("allows the User to create or edit an alias with value given.");
+}
+
 void cd_data(void)
 {
 	_puts(BBLU"\ncd"RESET);
@@ -40,7 +57,7 @@ void help_data(void)
 	_puts(" help [pattern ...]\n");
 	_puts("  Display information about builtin commands.\n\n");
 	_puts("  Displays brief summaries of builtin commands. ");
-	_puts("  If PATTERN is specified, gives detailed help on all ");
+	_puts("If PATTERN is specified, gives detailed help on all ");
 	_puts("commands matching PATTERN, otherwise the list of ");
 	_puts("help topics is printed.\n\n");
 	_puts(RED"  Arguments"RESET);
@@ -49,6 +66,17 @@ void help_data(void)
 	_puts("right, looking at each letters that match. ");
 	_puts("If User passes 'p', all help builtin commands ");
 	_puts("starting with 'p' will be printed.\n\n");
+}
+
+void history_data(void)
+{
+	_puts(BBLU"\nhistory:"RESET);
+	_puts(" history\n");
+	_puts("  Displays a list of the last commands ran.\n\n");
+	_puts("  Displays an ordered list of commands ran in the shell. ");
+	_puts("History should be persistent, so commands from previous ");
+	_puts("sessions should be saved and displayed in future sessions. ");
+	_puts("The max amount of commands saved is 4096.\n\n");
 }
 
 void setenv_data(void)

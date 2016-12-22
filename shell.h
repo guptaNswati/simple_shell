@@ -127,10 +127,12 @@ int _ref_mem(void *p, char *action);
 void *_malloc(unsigned int size);
 void _free(void *ptr);
 
+void alias_data(void);
 void cd_data(void);
 void env_data(char *cmd);
 void exit_data(void);
 void help_data(void);
+void history_data(void);
 void setenv_data(void);
 void unsetenv_data(void);
 
