@@ -153,9 +153,9 @@ void _setenv(char **str);
 void _unsetenv(char **str);
 void printEnv(char **str);
 
-hstory *addHistory(char *input, int *nodeCount);
-hstory *popHead(int *nodeCount);
-int readFromFile(char *file, int *nodeCount);
+hstory *addHistory(hstory **head, char *input, int *nodeCount);
+hstory *popHead(hstory **head, int *nodeCount);
+int readFromFile(char *file, hstory **head, int *nodeCount);
 int writeHstorytofile(char *file);
 void printHistory(char **str);
 

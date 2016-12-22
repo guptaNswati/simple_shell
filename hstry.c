@@ -7,11 +7,10 @@
 * @nodeCount: pointer to history count
 * Return: pointer to newly added history node
 **/
-hstory *addHistory(char *input, int *nodeCount)
+hstory *addHistory(hstory **head, char *input, int *nodeCount)
 {
-	hstory *new, *temp, **head;
+	hstory *new, *temp;
 
-	head = getHistoryHead();
 	new = _malloc(sizeof(hstory));
 	if (new == NULL)
 		return (NULL);
@@ -33,13 +32,11 @@ hstory *addHistory(char *input, int *nodeCount)
 	{
 		temp = *head;
 		while (temp->next != NULL)
-		{
 			temp = temp->next;
-		}
 		temp->next = new;
 		*nodeCount += 1;
-		if (*nodeCount > HSTRYLIMIT) /* replace with HSTRYLIMIT*/
-			popHead(nodeCount);
+		if (*nodeCount > HSTRYLIMIT)
+			popHead(head, nodeCount);
 	}
 	return (new);
 }
@@ -49,13 +46,13 @@ hstory *addHistory(char *input, int *nodeCount)
 * @nodeCount: pointer to history count
 * Return: pointer to new head
 **/
-hstory *popHead(int *nodeCount)
+hstory *popHead(hstory **head, int *nodeCount)
 {
-	hstory *temp, **head;
+	hstory *temp;
 
-	head = getHistoryHead();
 	temp = *head;
 	*head = (*head)->next;
+	_free(temp->input);
 	_free(temp);
 	temp = NULL;
 	*nodeCount -= 1;
@@ -69,7 +66,7 @@ hstory *popHead(int *nodeCount)
 * @nodeCount: pointer to history count
 * Return: number of added added to list or -1 on error
 **/
-int readFromFile(char *file, int *nodeCount)
+int readFromFile(char *file, hstory **head, int *nodeCount)
 {
 	int fd, numNodes;
 	char *input, **tokns;
@@ -107,7 +104,7 @@ int readFromFile(char *file, int *nodeCount)
 
 		while (*tokns)
 		{
-			addHistory(*tokns, nodeCount);
+			addHistory(head, *tokns, nodeCount);
 			numNodes++, tokns++;
 		}
 	}

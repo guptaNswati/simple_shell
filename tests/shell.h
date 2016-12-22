@@ -102,6 +102,7 @@ alias **getAliasHead(void);
 ssize_t _getline(char **lineptr, int fd);
 char *linep_withoutspaces(char *line);
 char **tokenize(char *lineptr, char dlimtr);
+char **parse_path(char *path, char dlimtr);
 int find_builtins(char **tokens);
 void check_path(char **tokens, char *p);
 void excute(char **tokens);
@@ -126,10 +127,12 @@ int _ref_mem(void *p, char *action);
 void *_malloc(unsigned int size);
 void _free(void *ptr);
 
+void alias_data(void);
 void cd_data(void);
 void env_data(char *cmd);
 void exit_data(void);
 void help_data(void);
+void history_data(void);
 void setenv_data(void);
 void unsetenv_data(void);
 
@@ -150,9 +153,9 @@ void _setenv(char **str);
 void _unsetenv(char **str);
 void printEnv(char **str);
 
-hstory *addHistory(char *input, int *nodeCount);
-hstory *popHead(int *nodeCount);
-int readFromFile(char *file, int *nodeCount);
+hstory *addHistory(hstory **head, char *input, int *nodeCount);
+hstory *popHead(hstory **head, int *nodeCount);
+int readFromFile(char *file, hstory **head, int *nodeCount);
 int writeHstorytofile(char *file);
 void printHistory(char **str);
 
