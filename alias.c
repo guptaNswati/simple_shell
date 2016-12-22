@@ -15,15 +15,16 @@ alias *resetAlias(alias **head, char *key, char *value)
 	alias *start;
 
 	start = *head;
-	while (start)
+	while (*head)
         {
-                if (_strcmp(start->key, key) == 0)
+                if (_strcmp((*head)->key, key) == 0)
 		{
-			start->value = _strcpy(value, _strlen(value));
-			return (start);
+			(*head)->value = _strcpy(value, _strlen(value));
+			return (*head);
 		}
-                start = start->next;
+                *head = (*head)->next;
         }
+	*head = start;
 	return (NULL);
 }
 
@@ -102,15 +103,17 @@ void printAlias(alias **head)
 		return;
 	}
 	start = *head;
-	while (start)
+	while (*head)
 	{
 		_puts("alias ");
-		_puts(start->key);
+		_puts((*head)->key);
 		_puts("='");
-		_puts(start->value);
+		_puts((*head)->value);
 		_puts("'\n");
-		start = start->next;
+		*head = (*head)->next;
 	}
+	/* return the head after iterating */
+	*head = start;
 }
 
 /**
@@ -124,15 +127,16 @@ alias *findAlias(alias **head, char *key)
 	alias *start;
 
 	start = *head;
-	while (start)
+	while (*head)
 	{
-		if (_strcmp(start->key, key) == 0)
+		if (_strcmp((*head)->key, key) == 0)
 		{
-			match = start;
-			return (start);
+			match = *head;
+			return (*head);
 		}
-		start = start->next;
+		*head = (*head)->next;
 	}
+	*head = start;
 	return (NULL);
 }
 
