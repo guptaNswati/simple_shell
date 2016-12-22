@@ -60,8 +60,8 @@ void ext(char **str)
 
 	if (str == NULL)
 	{
-		/* default exit code 10 */
-		_exit(10);
+		/* default exit code 0 */
+	  _exit(0);
 	}
 	else
 	{
@@ -71,7 +71,7 @@ void ext(char **str)
 		if (code > 0)
 			_exit(code);
 		else
-			_exit(10);
+			_exit(0);
 	}
 }
 
