@@ -133,7 +133,7 @@ void help_data(void);
 void setenv_data(void);
 void unsetenv_data(void);
 
-void whichAlias(char **tokens, alias **head);
+void whichAlias(char **tokens);
 alias *resetAlias(alias **head, char *key, char *value);
 alias *addAlias(alias **head, char *key, char *value);
 void printAlias(alias **head);
