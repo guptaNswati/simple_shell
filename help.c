@@ -1,5 +1,8 @@
 #include "shell.h"
 
+/**
+ * alias_data - print details about alias built-in
+ */
 void alias_data(void)
 {
 	_puts(BBLU"\nalias"RESET);
@@ -15,8 +18,12 @@ void alias_data(void)
 	_puts("value of the alias given, if found.\n");
 	_puts("  VALUE\tValue can only be given if a key is given. This ");
 	_puts("allows the User to create or edit an alias with value given.");
+	return;
 }
 
+/**
+ * cd_data - print details about cd built-in
+ */
 void cd_data(void)
 {
 	_puts(BBLU"\ncd"RESET);
@@ -29,8 +36,12 @@ void cd_data(void)
 	_puts("  -\tchanges to previous directory.\n");
 	_puts("  ..\tchange to parent directory.\n");
 	_puts("  $HOME\tchange to home directory.\n\n");
+	return;
 }
 
+/**
+ * env_data - print details about env/printenv built-ins
+ */
 void env_data(char *cmd)
 {
 	_puts(BBLU"\n");
@@ -40,8 +51,12 @@ void env_data(char *cmd)
 	_puts("\n\tPrint all of the environment.\n\n");
 	_puts("\tPrint the name and value pairs for all ");
 	_puts("environment variables.\n\n");
+	return;
 }
 
+/**
+ * exit_data - print details about exit built-in
+ */
 void exit_data(void)
 {
 	_puts(BBLU"\nexit"RESET);
@@ -49,8 +64,12 @@ void exit_data(void)
 	_puts("\tExit the shell.\n\n");
 	_puts("\tExits the shell with a status of N. If N is omitted, ");
 	_puts("the exit status is that of the last command executed.\n\n");
+	return;
 }
 
+/**
+ * help_data - print details about help built-in
+ */
 void help_data(void)
 {
 	_puts(BBLU"\nhelp:"RESET);
@@ -66,33 +85,5 @@ void help_data(void)
 	_puts("right, looking at each letters that match. ");
 	_puts("If User passes 'p', all help builtin commands ");
 	_puts("starting with 'p' will be printed.\n\n");
-}
-
-void history_data(void)
-{
-	_puts(BBLU"\nhistory:"RESET);
-	_puts(" history\n");
-	_puts("  Displays a list of the last commands ran.\n\n");
-	_puts("  Displays an ordered list of commands ran in the shell. ");
-	_puts("History should be persistent, so commands from previous ");
-	_puts("sessions should be saved and displayed in future sessions. ");
-	_puts("The max amount of commands saved is 4096.\n\n");
-}
-
-void setenv_data(void)
-{
-	_puts(BBLU"\nsetenv"RESET);
-	_puts(": setenv name=value\n");
-	_puts("  Add an environment variable.\n\n");
-	_puts("  Adds the environement variable NAME to the environment. ");
-	_puts("The value of NAME is set to VALUE.\n\n");
-}
-
-void unsetenv_data(void)
-{
-	_puts(BBLU"\nunsetenv"RESET);
-	_puts(": unsetenv name\n");
-	_puts("  Remove an environment variable.\n\n");
-	_puts("  Removes the environment variable NAME from the ");
-	_puts("environment.\n\n");
+	return;
 }
