@@ -98,7 +98,12 @@ void _puts_num(int n)
 	}
 }
 
-
+/**
+ * parse_path - used to parse path variable, but can perform basic tokenization
+ * @path: string passed to parse
+ * @dlimtr: delimiter to split string by
+ * Return: an array of strings
+ */
 char **parse_path(char *path, char dlimtr)
 {
 	int i, j, hold, indx;
